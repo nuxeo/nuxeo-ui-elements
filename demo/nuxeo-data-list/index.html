@@ -22,6 +22,7 @@ Contributors:
   <title>nuxeo-data-table Demo</title>
   <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../../../polymer/polymer.html">
+  <link rel="import" href="../../../iron-icons/iron-icons.html">
   <link rel="import" href="../../../nuxeo-elements/nuxeo-page-provider.html">
   <link rel="import" href="../../nuxeo-data-list/nuxeo-data-list.html">
 
@@ -67,17 +68,17 @@ Contributors:
         border-bottom: 1px solid #ccc;
       }
 
+      .list-item-box {
+        display: flex;
+        flex-direction: row;
+      }
+
       .list-item-title {
 
       }
 
-      .list-item-detail {
-        margin-left: 40px;
-      }
-
       .list-item-property {
         color: gray;
-        margin-right: .2em;
       }
 
       .nxicon {
@@ -88,6 +89,11 @@ Contributors:
         margin-right: 8px;
       }
 
+      .sortable-ghost {
+        opacity: .5;
+        background: #C8EBFB;
+      }
+
   </style>
 </head>
 <body unresolved>
@@ -95,7 +101,7 @@ Contributors:
 
     <div class="content-view">
 
-      <nuxeo-connection url="http://webui.demo.nuxeo.com/nuxeo"
+      <nuxeo-connection url="http://localhost:8080/nuxeo"
         username="Administrator"
         password="Administrator">
       </nuxeo-connection>
@@ -109,23 +115,18 @@ Contributors:
       </nuxeo-page-provider>
 
       <nuxeo-data-list id="dataList"
-        nx-provider="cvProvider"
+        nx-provider="cvProvider" sortable
         selection-enabled>
           <template>
               <div tabindex$="[[tabIndex]]" class$="[[_computedClass(selected)]]">
-                <div class="list-item-box vertical layout">
-                  <div class="list-item-info horizontal layout center">
-                    <div class="vertical layout center">
-                      <img class="nxicon" src="[[_thumbnail(item)]]">
-                    </div>
-                    <span class="list-item-title">[[item.title]]</span>
+                <div class="list-item-box">
+                  <iron-icon icon="icons:unfold-more" class="dragAndDropCtl"></iron-icon>
+                  <div>
+                    <img class="nxicon" src="[[_thumbnail(item)]]">
                   </div>
-                  <div class="list-item-detail">
-                    <div class="layout center">
-                      <span class="list-item-property">
-                        [[item.type]]
-                      </span>
-                    </div>
+                  <div>
+                    <div class="list-item-title">[[item.title]]</div>
+                    <div class="list-item-property">[[item.type]]</div>
                   </div>
                 </div>
               </div>

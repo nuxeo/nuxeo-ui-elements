@@ -18,6 +18,8 @@ Contributors:
 -->
 <link rel="import" href="../polymer/polymer.html">
 
+<link rel="import" href="./sortable-import.html">
+
 <!--
 `nuxeo-page-provider-display-behavior`
 @group Nuxeo UI Elements
@@ -133,6 +135,11 @@ Contributors:
 
         items: {
           type: Array
+        },
+
+        sortable: {
+          type: Boolean,
+          value: false
         }
 
       },
@@ -195,6 +202,22 @@ Contributors:
         this.notifyResize();
         this.$.scrollThreshold.clearTriggers();
         this.loading = false;
+        if (this.sortable) {
+          console.log('Enabling Sorting');
+          if(this._sortable) {
+            this._sortable.destroy()
+          }
+
+          this._sortable = Sortable.create(this.$.list.$.items, {
+            draggable: ".item",
+            handle: '.dragAndDropCtl',
+            animation: 150,
+            onUpdate: function (e) {
+              console.log(e);
+              this.splice("items", $(this.$$("#items")).find(".item").index(e.item), 0, this.splice("items", this.modelForElement(e.item).index, 1)[0]);
+            }.bind(this.$.list)
+          });
+        }
       },
 
       _resetResults: function() {
