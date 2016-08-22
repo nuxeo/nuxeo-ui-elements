@@ -117,8 +117,8 @@ Contributors:
       <nuxeo-data-list id="dataList"
         nx-provider="cvProvider" sortable
         selection-enabled>
-          <template>
-              <div tabindex$="[[tabIndex]]" class$="[[_computedClass(selected)]]">
+          <template id="templ">
+              <div class="item">
                 <div class="list-item-box">
                   <iron-icon icon="icons:unfold-more" class="dragAndDropCtl"></iron-icon>
                   <div>

@@ -71,8 +71,8 @@ Contributors:
       <iron-scroll-threshold id="scrollThreshold"
         lower-threshold="1000" class="loadable"
         on-lower-threshold="_loadMoreData">
-          <iron-list id="list" scroll-target="scrollThreshold" selected-items="{{selectedItems}}">
-          </iron-list>
+          <template is="dom-repeat" id="list" items="[[items]]">
+          </template>
         </div>
       </iron-scroll-threshold>
       <template is="dom-if" if="[[_isEmpty]]">
@@ -80,7 +80,7 @@ Contributors:
       </template>
     </div>
     <paper-spinner-lite active hidden=[[!loading]]></paper-spinner-lite>
-
+    <content></content>
   </template>
   <script>
     (function() {
@@ -104,14 +104,15 @@ Contributors:
             // in the nuxeo-data-grid parent element and not here
             this.$.list.dataHost = this.dataHost;
             // get template from nuxeo-data-grid definition
-            this._template = Polymer.dom(this).querySelector('template');
+            //this._template = Polymer.dom(this).querySelector('template');
             // append template in the <iron-list>
-            Polymer.dom(this.$.list).appendChild(this._template);
+            //Polymer.dom(this.$.list).appendChild(this._template);
             // set binding to items
             // iron-list will look for our template and stamp the items
-            this.$.list.items = [];
+            //this.$.list.items = [];
             this._templateStamped = true;
           }
+          this.$.list.templatize(this.querySelector('#templ'));
         },
 
         _removeFilter: function(e) {

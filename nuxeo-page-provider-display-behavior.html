@@ -190,15 +190,15 @@ Contributors:
           return;
         }
         if (this.nxProvider.page === 1) {
-          this.$.list.items = [];
+          this.items = [];
           this.clearSelection();
         }
         var docs = this.nxProvider.currentPage;
         docs.forEach(function(doc) {
-          this.$.list.push('items', doc);
+          this.push('items', doc);
         }.bind(this));
-        this.size = this.$.list.items.length;
-        this.$.list.notifyResize();
+        this.size = this.items.length;
+        this.notifyResize();
         this.notifyResize();
         this.$.scrollThreshold.clearTriggers();
         this.loading = false;
@@ -208,14 +208,14 @@ Contributors:
             this._sortable.destroy()
           }
 
-          this._sortable = Sortable.create(this.$.list.$.items, {
+          this._sortable = Sortable.create(this.$.scrollThreshold, {
             draggable: ".item",
             handle: '.dragAndDropCtl',
             animation: 150,
             onUpdate: function (e) {
               console.log(e);
-              this.splice("items", $(this.$$("#items")).find(".item").index(e.item), 0, this.splice("items", this.modelForElement(e.item).index, 1)[0]);
-            }.bind(this.$.list)
+              this.splice("items", e.newIndex, 0, this.splice("items", e.oldIndex, 1)[0])
+            }.bind(this)
           });
         }
       },
@@ -229,7 +229,7 @@ Contributors:
         this.$.list.items = [];
         this.size = 0;
         this.nxProvider.isNextPageAvailable = false;
-        this.$.list.notifyResize();
+        this.notifyResize();
         this.notifyResize();
         this.$.scrollThreshold.clearTriggers();
       },
@@ -240,23 +240,23 @@ Contributors:
 
       selectItem: function(item) {
         if (this.selectionEnabled) {
-          this.$.list.selectItem(item);
-          this._updateFlags();
+          //this.selectItem(item);
+          //this._updateFlags();
         }
       },
 
       selectItems: function(items) {
-        if (this.selectionEnabled && items && items.length > 0) {
+/*        if (this.selectionEnabled && items && items.length > 0) {
           items.forEach(function(item) {
             this.selectItem(item);
           }.bind(this.$.list))
           this._updateFlags();
-        }
+        }*/
       },
 
       _updateFlags: function() {
         if (!this.loading) {
-          var selectedItems = this.$.list.selectedItems;
+          var selectedItems = this.selectedItems;
           this._isSelectAllIndeterminate = selectedItems
                                             && selectedItems.length > 0
                                             && selectedItems.length < this.size;
@@ -274,7 +274,7 @@ Contributors:
       },
 
       _isSelected: function(item, selectedItems) {
-        var selected = this.$.list.selectedItems.indexOf(item) > -1;
+        var selected = this.selectedItems.indexOf(item) > -1;
         return selected;
       },
 
@@ -282,9 +282,9 @@ Contributors:
        * Selects all the items in the list.
        */
       selectAll: function() {
-        this.$.list.items.forEach(function(item) {
+        this.items.forEach(function(item) {
           this.selectItem(item);
-        }.bind(this.$.list));
+        }.bind(this));
         this._updateFlags();
       },
 
@@ -292,8 +292,8 @@ Contributors:
        * Clears the current selection state.
        */
       clearSelection: function() {
-        this.$.list.clearSelection();
-        this._updateFlags();
+        /*this.clearSelection();
+        this._updateFlags();*/
       },
 
       _toggleSelectAll: function() {
@@ -305,17 +305,17 @@ Contributors:
       },
 
       _selectionEnabledChanged: function() {
-        this.$.list.selectionEnabled = this.selectionEnabled;
+/*        this.$.list.selectionEnabled = this.selectionEnabled;
         this.$.list.multiSelection = true;
         if (this.selectionEnabled) {
           this.$.list.unlisten.call(this.$.list, this.$.list, 'tap', '_selectionHandler');
           this.$.list.listen.call(this.$.list, this.$.list, 'selected', '_selectionHandler');
-        }
+        }*/
       },
 
       _onItemsChanged: function() {
         this.size = this.items.length;
-        this.$.list.notifyResize();
+        this.notifyResize();
         this.notifyResize();
       },
 
@@ -359,7 +359,7 @@ Contributors:
 
       _onColumnFilterChanged: function(e) {
         if (!this._isPPLoaded()) {
-          this.$.list.notifyResize();
+          this.notifyResize();
           this.notifyResize();
           return;
         }
