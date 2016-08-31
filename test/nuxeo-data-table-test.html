@@ -37,6 +37,13 @@ Contributors:
     <link rel="import" href="../nuxeo-data-table/iron-data-table.html">
   </head>
   <body>
+    <style>
+      nuxeo-data-table {
+        height: 300px;
+      }
+    </style>
+
+
     <test-fixture id="nx">
       <template>
         <nuxeo-connection url="/dummy"></nuxeo-connection>
@@ -449,10 +456,9 @@ Contributors:
            // you do not need the nuxeo-data-table-results-updated event
            // you can use the waitChanged on a property that you know will be changed only when the list is updated
            return waitForEvent(table, 'nuxeo-data-table-results-updated').then(function() {
-             return flush().then(function() {
+             return flush(function() {
                assert.equal(4, table.$.list.items.length); // this passes
-               assert.equal(4, Polymer.dom(table).querySelectorAll('data-table-row').length); // this doesn't
-               // it seems that the iron-list didn't update yet
+               assert.equal(4, Polymer.dom(table).querySelectorAll('nuxeo-data-table-row').length); // this doesn't
              });
            });
         });
