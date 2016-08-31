@@ -28,6 +28,7 @@ Contributors:
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../test-fixture/test-fixture-mocha.js"></script>
+    <script src="test-helpers.js"></script>
 
     <link rel="import" href="../../polymer/polymer.html">
     <link rel="import" href="../../test-fixture/test-fixture.html">
@@ -426,6 +427,15 @@ Contributors:
               '{"entity-type":"user","username":"Administrator"}'
             ]
           );
+          server.respondWith(
+              'GET',
+              '/dummy/api/v1/query/default_search?currentPageIndex=0&ecm_path=%5B%22%2Fdefault-domain%2Fworkspaces%22%5D&pageSize=40&sortBy=&sortOrder=',
+              [
+                200,
+                {'Content-Type': 'application/json'},
+                JSON.stringify(simpleTableResp)
+              ]
+          );
 
           // login
           var nx = fixture('nx');
@@ -434,26 +444,18 @@ Contributors:
         });
 
         test('simpleTable', function() {
-           var table = fixture('simpleTable');
+           var table = fixture('simpleTable')[1];
 
-           return fakeResponse(table, simpleTableResp).then(function() {
-            // check number of rows
-            assert.equal(4, Polymer.dom(distribution.root).querySelectorAll('data-table-row').length);
-          });
+           // you do not need the nuxeo-data-table-results-updated event
+           // you can use the waitChanged on a property that you know will be changed only when the list is updated
+           return waitForEvent(table, 'nuxeo-data-table-results-updated').then(function() {
+             return flush().then(function() {
+               assert.equal(4, table.$.list.items.length); // this passes
+               assert.equal(4, Polymer.dom(table).querySelectorAll('data-table-row').length); // this doesn't
+               // it seems that the iron-list didn't update yet
+             });
+           });
         });
-
-        function fakeResponse(table, json) {
-          server.respondWith(
-              'GET',
-              '/dummy/api/v1/query/default_search?currentPageIndex=0&ecm_path=%5B%22%2Fdefault-domain%2Fworkspaces%22%5D&pageSize=40&sortBy=&sortOrder=',
-              [
-                200,
-                {'Content-Type': 'application/json'},
-                JSON.stringify(json)
-              ]
-          );
-          return new Promise(function() {});
-        }
 
       });
     </script>
