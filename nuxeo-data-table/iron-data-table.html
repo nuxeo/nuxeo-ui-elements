@@ -601,7 +601,46 @@ Example:
           target.fire('selected');
           this._updateFlags();
         }
-      }
+      },
+        
+    _sortDirectionChanged: function(e) {
+        if (!this._isPPLoaded()) {
+            return;
+        }
+        var notFound = true;
+        for (var i = 0; i < this.sortOrder.length; i++) {
+            if (this.sortOrder[i].path === e.detail.path) {
+                if (e.detail.direction) {
+                    this.set('sortOrder.' + i + '.direction', e.detail.direction);
+                } else {
+                    this.splice('sortOrder', i, 1);
+                }
+                notFound = false;
+                break;
+            }
+        }
+        if (notFound) {
+            this.push('sortOrder', {
+                path: e.detail.path,
+                direction: e.detail.direction
+            });
+        }
+
+        // TODO make it simpler
+        var tmpSort = {};
+        if (this.sortOrder && this.sortOrder.length > 0) {
+            this.sortOrder.forEach(function(sortItem) {
+                tmpSort[sortItem.path] = sortItem.direction;
+            });
+        }
+        if (JSON.stringify(this._ppSort) !== JSON.stringify(tmpSort)) {
+            this._ppSort = tmpSort;
+            this.nxProvider.sort = this._ppSort;
+            this._resetResults();
+            this.nxProvider.fetch();
+            this.nxProvider.fetch();
+        }
+    }
     });
   </script>
 </dom-module>
