@@ -103,7 +103,8 @@ Contributors:
         page-size="40"
         aggregations="{{aggregations}}"
         enrichers="thumbnail"
-        params='{"ecm_path": ["/default-domain/workspaces"]}'>
+        params='{"ecm_path": ["/default-domain/workspaces"]}'
+        fetches='{"aggregate": "key"}'>
       </nuxeo-page-provider>
 
       <nuxeo-data-table id="datatable"
