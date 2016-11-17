@@ -1,0 +1,118 @@
+<!--
+(C) Copyright 2015 Nuxeo SA (http://nuxeo.com/) and others.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Contributors:
+  Nelson Silva <nsilva@nuxeo.com>
+-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>nuxeo-filter Demo</title>
+  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../../polymer/polymer.html">
+  <link rel="import" href="../../nuxeo-filter.html">
+  <link rel="import" href="../../../paper-input/paper-input.html">
+  <link rel="import" href="../../../paper-item/paper-item.html">
+  <link rel="import" href="../../../paper-listbox/paper-listbox.html">
+  <link rel="import" href="../../../paper-styles/paper-styles.html">
+  <style is="custom-style">
+    paper-listbox {
+      max-width: 200px;
+      @apply(--shadow-elevation-2dp);
+    }
+  </style>
+</head>
+<body>
+<template is="dom-bind">
+
+  <p>Filter</p>
+
+  <paper-input label="Title" value="{{document.title}}"></paper-input>
+
+  <h4>Type</h4>
+  <paper-listbox selected="{{document.type}}" attr-for-selected="value">
+    <paper-item value="File">File</paper-item>
+    <paper-item value="Folder">Folder</paper-item>
+    <paper-item value="Note">Note</paper-item>
+  </paper-listbox>
+
+  <h4>Facets</h4>
+  <paper-listbox multi selected-values="{{document.facets}}" attr-for-selected="value">
+    <paper-item value="Folderish">Folderish</paper-item>
+    <paper-item value="Commentable">Commentable</paper-item>
+  </paper-listbox>
+
+  <ul>
+    <nuxeo-filter document="[[document]]" facet="Folderish">
+      <template>
+        <li>facet="Folderish"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" facet="Folderish,Commentable">
+      <template>
+        <li>facet="Folderish,Commentable"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" type="Folder">
+      <template>
+        <li>type="Folder"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" type="Folder,File">
+      <template>
+        <li>type="File,Folder"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" type="Folder,File">
+      <template>
+        <li>type="File,Folder"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" facet="Folderish" expression="document.title === 'Title'">
+      <template>
+        <li>facet="Folderish" expression="document.title === 'Title'"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" type="Folder" facet="Folderish" expression="document.title === 'Title'">
+      <template>
+        <li>type="Folder" facet="Folderish" expression="document.title === 'Title'"</li>
+      </template>
+    </nuxeo-filter>
+
+    <nuxeo-filter document="[[document]]" expression="this.isType(document, 'Folder') && this.hasFacet(document, 'Folderish') && document.title === 'Title'">
+      <template>
+        <li>type="Folder" facet="Folderish" expression="document.title === 'Title'"</li>
+      </template>
+    </nuxeo-filter>
+  </ul>
+
+</template>
+<script>
+  var t = document.querySelector('template');
+  t.user = {};
+  t.document = {
+    title: 'Title',
+    type: 'Folder',
+    facets: ['Folderish']
+  };
+</script>
+</body>
+</html>
