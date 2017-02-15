@@ -7,22 +7,6 @@
       }
     </style>
 
-    <paper-dialog id="dialog" with-backdrop on-iron-overlay-opened="patchOverlay" always-on-top modal>
-      <div id="edit-container">
-        <h1>[[i18n('command.add')]]</h1>
-        <div class="paper-content layout horizontal">
-          <form id="form" is="iron-form" action="/">
-            <div id="entry-edit">
-              <content></content>
-            </div>
-            <div class="actions">
-              <paper-button name="close" noink dialog-dismiss>[[i18n('command.close')]]</paper-button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </paper-dialog>
-
     <div>
       <template is="dom-if" if="[[isUpVisible(index)]]">
         <paper-icon-button noink id="upButton" icon="icons:arrow-upward" on-tap="moveUp" ></paper-icon-button>
@@ -33,8 +17,6 @@
         <paper-tooltip for="downButton" position="left">[[i18n('command.moveDownward')]]</paper-tooltip>
       </template>
       <template is="dom-if" if="[[editable]]">
-        <paper-icon-button id="edit-button" icon="editor:mode-edit" on-tap="_editEntry" noink></paper-icon-button>
-        <paper-tooltip for="edit-button" position="left">[[i18n('command.edit')]]</paper-tooltip>
         <paper-icon-button id="delete-button" name="delete" icon="icons:delete" on-tap="_deleteEntry" noink></paper-icon-button>
         <paper-tooltip for="delete-button" position="left">[[i18n('command.remove')]]</paper-tooltip>
       </template>
@@ -76,10 +58,6 @@
         };
 
         beforeBind(data, this);
-      },
-
-      _editEntry: function() {
-        this.$.dialog.toggle();
       },
 
       _deleteEntry: function() {
