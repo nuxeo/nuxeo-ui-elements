@@ -56,6 +56,14 @@ limitations under the License.
         }
       }
 
+      function _setSlotModel(slot, model) {
+        var registry = _getRegistry(slot);
+        registry.slots.forEach(function(c) {
+          c.model = model;
+          c._updateContent();
+        });
+      }
+
       /**
        * Custom element to help build pluggable applications.
        * Slots allow dynamic registration of content which will be stamped in the slot's parent.
@@ -272,6 +280,12 @@ limitations under the License.
         _unregister: function(slots) {
           slots.split(',').forEach(function(slot) {
             _unregisterContent(this, slot);
+          }.bind(this))
+        },
+
+        _setSlotModel: function(model) {
+          this.slot.split(',').forEach(function(slot) {
+            _setSlotModel(slot, model);
           }.bind(this))
         }
       });
