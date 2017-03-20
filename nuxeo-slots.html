@@ -157,6 +157,7 @@ limitations under the License.
         },
 
         _updateContent: function() {
+          this.model.currentUser = this.currentUser;
           this._clearContent();
           this._render();
         },
@@ -194,6 +195,12 @@ limitations under the License.
           this._instances.forEach(function(instance) {
             instance.notifyPath(path, value, true);
           });
+        },
+
+        ready: function() {
+          window.addEventListener('nuxeo-connected', function(e) {
+            this.currentUser = e.detail.user;
+          }.bind(this))
         }
       });
 

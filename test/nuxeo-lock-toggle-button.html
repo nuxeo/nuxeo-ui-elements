@@ -40,7 +40,7 @@ limitations under the License.
 
   <test-fixture id="toggleLock">
     <template is="dom-template">
-       <nuxeo-lock-toggle-button document="[[doc]]"></nuxeo-lock-toggle-button>
+       <nuxeo-lock-toggle-button document="[[doc]]" current-user='{"id": "Administrator", "isAdministrator": true}'></nuxeo-lock-toggle-button>
     </template>
   </test-fixture>
 
@@ -51,7 +51,10 @@ limitations under the License.
         doc = {
           "entity-type": "document",
           "uid": "1",
-          "lockCreated": "2016-02-19T12:47:40.501+01:00"
+          "lockCreated": "2016-02-19T12:47:40.501+01:00",
+          "lockedBy": "Administrator",
+          "facets": [],
+          "type": "File"
         };
         server = sinon.fakeServer.create();
         server.autoRespond = true;
