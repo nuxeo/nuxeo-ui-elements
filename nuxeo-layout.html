@@ -72,12 +72,26 @@ Example:
           type: Object,
           readOnly: true,
           notify: true
-        }
+        },
+
+        /**
+         * Set to true to reload the layout content when the layout becomes visible.
+         **/
+        autoReload: Boolean,
+
+        visible: Boolean
       },
 
       observers: [
-        '_update(model.*)'
+        '_update(model.*)',
+        '_reload(visible, autoReload)'
       ],
+
+      _reload: function(visible, autoReload) {
+        if (visible && autoReload) {
+          this._stamp(this.href);
+        }
+      },
 
       // Trigger the layout validation if it exists.
       validate: function() {
@@ -96,6 +110,7 @@ Example:
         var file = href.split('/').pop(),
             name = file.split('.')[0];
 
+        this.$.container.innerHTML = '';
         this.$.container.hidden = false;
 
         this.importHref(href,
