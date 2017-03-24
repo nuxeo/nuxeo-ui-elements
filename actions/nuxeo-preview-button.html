@@ -100,7 +100,7 @@ Example:
       },
 
       _isAvailable: function(document) {
-        return document && this.document.facets.indexOf('Folderish') === -1;
+        return !this.hasFacet(document, 'Folderish');
       },
 
       _toggleDialog: function() {
