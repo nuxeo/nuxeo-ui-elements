@@ -77,6 +77,10 @@ Example:
                 }
             },
 
+            ready: function() {
+                document.body.appendChild(this.$.tooltip);
+            },
+
             _formatDateTime: function(date, format) {
                 return format === 'relative'  ? this.relativeTime(date) :  this.formatDate(date, format);
             }
