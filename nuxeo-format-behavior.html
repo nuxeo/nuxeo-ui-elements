@@ -75,12 +75,21 @@ limitations under the License.
         if (value.properties && value.properties.label) {
           return value.properties.label;
         } else {
-          var label = 'label_' + ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+          var label = 'label_' + this._languageCode();
           return value.properties[label] || value.properties['label_en']
         }
       } else {
         return value;
       }
+    },
+
+    relativeTime: function(datetime) {
+      moment.locale(this._languageCode());
+      return moment().to(datetime) ;
+    },
+
+    _languageCode: function (){
+      return ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
     }
 
   }];

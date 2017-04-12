@@ -1,0 +1,58 @@
+<link rel="import" href="../nuxeo-i18n-behavior.html">
+
+<dom-module id="nuxeo-date">
+    <template>
+        <style>
+            :host {
+
+            }
+            .datetime {
+                @apply(--nuxeo-date-text);
+            }
+        </style>
+
+        <span id="datetime" class="datetime">[[_formatDateTime(datetime, format)]]</span>
+        <paper-tooltip id="tooltip" for="datetime">[[_formatDateTime(datetime, tooltipFormat)]]</paper-tooltip>
+
+    </template>
+
+    <script>
+        Polymer({
+            is: 'nuxeo-date',
+
+            behaviors: [Nuxeo.I18nBehavior, Nuxeo.FormatBehavior],
+
+            properties:{
+
+                /*
+                 * A string with the date and time to be shown
+                 */
+                datetime: {
+                    type: String
+                },
+
+                /*
+                 * The format of datetime output text representation. Options are "relative" or the
+                 * [moment Format](http://momentjs.com/docs/#/displaying/format/).
+                 */
+                format: {
+                    type: String,
+                    value: "MMMM D, YYYY"
+                },
+
+                /*
+                 * The format of datetime output text tooltip. Options are "relative" or the
+                 * [moment Format](http://momentjs.com/docs/#/displaying/format/).
+                 */
+                tooltipFormat: {
+                    type: String,
+                    value: "MMMM D, YYYY HH:mm"
+                }
+            },
+
+            _formatDateTime: function(date, format) {
+                return format === 'relative'  ? this.relativeTime(date) :  this.formatDate(date, format);
+            }
+        });
+    </script>
+</dom-module>
