@@ -16,7 +16,7 @@ limitations under the License.
 -->
 
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../paper-tooltip/polymer.html">
+<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
 <link rel="import" href="../nuxeo-format-behavior.html">
 
@@ -35,12 +35,8 @@ Example:
 -->
 <dom-module id="nuxeo-date">
     <template>
-        <style>
-        </style>
-
-        <span id="datetime" class="datetime">[[_formatDateTime(datetime, format)]]</span>
-        <paper-tooltip id="tooltip" for="datetime">[[_formatDateTime(datetime, tooltipFormat)]]</paper-tooltip>
-
+        <span id="datetime">[[formatDate(datetime, format)]]</span>
+        <paper-tooltip id="tooltip" for="datetime">[[formatDate(datetime, tooltipFormat)]]</paper-tooltip>
     </template>
 
     <script>
@@ -79,10 +75,6 @@ Example:
 
             ready: function() {
                 document.body.appendChild(this.$.tooltip);
-            },
-
-            _formatDateTime: function(date, format) {
-                return format === 'relative'  ? this.relativeTime(date) :  this.formatDate(date, format);
             }
         });
     </script>

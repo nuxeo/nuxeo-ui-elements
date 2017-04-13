@@ -43,8 +43,13 @@ limitations under the License.
 
     /**
      * Formats a date as a string. Default format is 'MMM D, YYYY'.
+     * Use format "relative" to show date relative to current time
      */
     formatDate: function(date, fmt) {
+        if (fmt && fmt === "relative"){
+            moment.locale(this._languageCode());
+            return moment().to(date) ;
+        }
       return moment(date).format(fmt || 'MMMM D, YYYY');
     },
 
@@ -81,11 +86,6 @@ limitations under the License.
       } else {
         return value;
       }
-    },
-
-    relativeTime: function(datetime) {
-      moment.locale(this._languageCode());
-      return moment().to(datetime) ;
     },
 
     _languageCode: function (){
