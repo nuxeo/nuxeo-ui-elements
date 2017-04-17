@@ -96,23 +96,23 @@ Example:
          * Input document.
          */
         document: {
-            type: Object,
-            observer: '_documentChanged'
+          type: Object,
+          observer: '_documentChanged'
         },
 
         processes: {
-            type: Array
+          type: Array
         },
 
         selectedProcess: {
-            type: String
+          type: String
         },
 
         /* Running workflows on the document */
-          workflows: {
-              type: Object,
-              observer: '_workflowsChanged'
-          },
+        workflows: {
+          type: Object,
+          observer: '_workflowsChanged'
+        },
 
         /**
          * Icon to use (iconset_name:icon_name).
@@ -124,36 +124,33 @@ Example:
       },
 
       _isAvailable: function(document) {
-          this.processes = this.document.contextParameters.runnableWorkflows;
-          this.workflows = this.document.contextParameters.runningWorkflows;
-          this.hasWorkflowRunning = this.workflows && this.workflows.length > 0;
-          return document  && !this.hasWorkflowRunning && this.processes &&  this.processes.length > 0 ;
+        this.processes = this.document.contextParameters.runnableWorkflows;
+        this.workflows = this.document.contextParameters.runningWorkflows;
+        this.hasWorkflowRunning = this.workflows && this.workflows.length > 0;
+        return document && !this.hasWorkflowRunning && this.processes &&  this.processes.length > 0 ;
       },
 
       _toggleDialog: function() {
         this.$.dialog.toggle();
       },
 
-      _startWorkflow : function(){
+      _startWorkflow : function() {
         this.workflows = this.$.workflows;
         this.$.workflows.data = {
-            'entity-type': 'workflow',
-            'workflowModelName': this.selectedProcess,
-            'attachedDocumentIds': [this.document.uid]
+          'entity-type': 'workflow',
+          'workflowModelName': this.selectedProcess,
+          'attachedDocumentIds': [this.document.uid]
         };
 
         this.workflows.post().then(function() {
-            this.fire('workflowStarted');
-            this.$.dialog.toggle();
-          }.bind(this),
-          function() {
-            console.log("error");
-          }.bind(this));
+          this.fire('workflowStarted');
+          this.$.dialog.toggle();
+        }.bind(this));
       },
 
-        _workflowsChanged: function() {
-          this.hasWorkflowRunning = this.workflows && this.workflows.length > 0;
-        },
+      _workflowsChanged: function() {
+        this.hasWorkflowRunning = this.workflows && this.workflows.length > 0;
+      },
 
       _documentChanged: function() {
         if (this.document) {
