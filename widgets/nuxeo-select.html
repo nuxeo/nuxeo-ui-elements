@@ -44,17 +44,13 @@ Example:
       }
 
       paper-menu {
-        width: 100%;
-
         --paper-menu-selected-item: {
           font-weight: normal;
         };
-
         --paper-menu-focused-item: {
           font-weight: normal;
           color: var(--paper-input-container-input-color);
         };
-
         --paper-menu-focused-item-after: {
           font-weight: normal;
           color: white;
@@ -74,25 +70,19 @@ Example:
         background: var(--paper-input-container-focus-color);
         color: white !important;
       }
-
     </style>
 
-    <paper-dropdown-menu label="[[label]]" placeholder="[[placeholder]]"
+    <paper-dropdown-menu id="paperDropdownMenu" label="[[label]]" placeholder="[[placeholder]]"
+                         no-label-float$="[[!label]]" always-float-label$="[[!label]]"
                          noink no-animations restore-focus-on-close="false" horizontal-align="left"
-                         on-paper-dropdown-open="_opened"
-                         always-float-label$="[[label]]"
-                         no-label-float$="[[!label]]">
-
+                         on-paper-dropdown-open="_resize">
       <paper-menu id="paperMenu" class="dropdown-content" attr-for-selected="[[attrForSelected]]" selected="{{selected}}">
-
         <template is="dom-if" if="[[options]]">
           <template is="dom-repeat" items="[[options]]" as="item">
             <paper-item option="[[_id(item)]]">[[_label(item)]]</paper-item>
           </template>
         </template>
-
         <content></content>
-
       </paper-menu>
     </paper-dropdown-menu>
 
@@ -102,12 +92,16 @@ Example:
 <script>
   Polymer({
     is: 'nuxeo-select',
+    behaviors: [Polymer.IronResizableBehavior],
     properties: {
 
       /**
        * Label.
        */
-      label: String,
+      label: {
+        type: String,
+        value: null
+      },
 
       /**
        * Placeholder.
@@ -140,7 +134,11 @@ Example:
       }
     },
 
-    _opened: function() {
+    listeners: {
+      'iron-resize': '_resize'
+    },
+
+    _resize: function() {
       this.$.paperMenu.style.width = this.getBoundingClientRect().width + 'px';
     },
 
