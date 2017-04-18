@@ -38,11 +38,6 @@ Example:
         display: block;
       }
 
-      paper-dropdown-menu ::content #dropdown {
-        display: block;
-        margin-top: 38px;
-      }
-
       paper-menu {
         --paper-menu-selected-item: {
           font-weight: normal;
@@ -72,10 +67,21 @@ Example:
       }
     </style>
 
-    <paper-dropdown-menu id="paperDropdownMenu" label="[[label]]" placeholder="[[placeholder]]"
-                         no-label-float$="[[!label]]" always-float-label$="[[!label]]"
-                         noink no-animations restore-focus-on-close="false" horizontal-align="left"
-                         on-paper-dropdown-open="_resize">
+    <paper-dropdown-menu id="paperDropdownMenu"
+                         label="[[label]]"
+                         placeholder="[[placeholder]]"
+                         error-message="[[errorMessage]]"
+                         no-label-float$="[[!label]]"
+                         always-float-label$="[[!label]]"
+                         noink
+                         no-animations
+                         restore-focus-on-close="false"
+                         horizontal-align="left"
+                         on-paper-dropdown-open="_resize"
+                         readonly$="[[readonly]]"
+                         disabled$="[[disabled]]"
+                         required$="[[required]]">
+
       <paper-menu id="paperMenu" class="dropdown-content" attr-for-selected="[[attrForSelected]]" selected="{{selected}}">
         <template is="dom-if" if="[[options]]">
           <template is="dom-repeat" items="[[options]]" as="item">
@@ -111,6 +117,13 @@ Example:
       },
 
       /**
+       * Error message.
+       */
+      errorMessage: {
+        type: String
+      },
+
+      /**
        * Options array to show.
        */
       options: {
@@ -131,6 +144,33 @@ Example:
       attrForSelected: {
         type: String,
         value: 'option'
+      },
+
+      /**
+       * Read only.
+       */
+      readonly:  {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+
+      /**
+       * Disabled.
+       */
+      disabled:  {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
+      },
+
+      /**
+       * Required.
+       */
+      required:  {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true
       }
     },
 
@@ -138,7 +178,14 @@ Example:
       'iron-resize': '_resize'
     },
 
+    close: function() {
+      this.$.paperDropdownMenu.close();
+    },
+
     _resize: function() {
+      var button = this.$.paperDropdownMenu.$$('paper-menu-button');
+      button.noOverlap = true;
+      button.verticalOffset = -8;
       this.$.paperMenu.style.width = this.getBoundingClientRect().width + 'px';
     },
 
