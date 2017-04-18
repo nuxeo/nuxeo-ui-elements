@@ -37,50 +37,121 @@ Example:
       :host {
         display: block;
       }
-      paper-dropdown-menu {
-        width: 100%;
+
+      paper-dropdown-menu ::content #dropdown {
+        display: block;
+        margin-top: 38px;
       }
-      paper-item {
-        cursor: pointer
+
+      paper-menu {
+        --paper-menu-selected-item: {
+          font-weight: normal;
+        };
+        --paper-menu-focused-item: {
+          font-weight: normal;
+          color: var(--paper-input-container-input-color);
+        };
+        --paper-menu-focused-item-after: {
+          font-weight: normal;
+          color: white;
+        }
+      }
+
+      ::content paper-item {
+        font-weight: normal !important;
+        height: 32px;
+        min-height: 32px;
+        padding: 0 12px;
+        cursor: pointer;
+        color: var(--paper-input-container-input-color);
+      }
+
+      ::content paper-item:hover, ::content paper-item[pressed] {
+        background: var(--paper-input-container-focus-color);
+        color: white !important;
       }
     </style>
-    <paper-dropdown-menu noink label="[[label]]" no-animations always-float-label horizontal-align="left">
-      <paper-menu class="dropdown-content" attr-for-selected="option" selected="{{selected}}">
-        <template is="dom-repeat" items="[[options]]" as="item">
-          <paper-item option="[[_id(item)]]">[[_label(item)]]</paper-item>
+
+    <paper-dropdown-menu id="paperDropdownMenu" label="[[label]]" placeholder="[[placeholder]]"
+                         no-label-float$="[[!label]]" always-float-label$="[[!label]]"
+                         noink no-animations restore-focus-on-close="false" horizontal-align="left"
+                         on-paper-dropdown-open="_resize">
+      <paper-menu id="paperMenu" class="dropdown-content" attr-for-selected="[[attrForSelected]]" selected="{{selected}}">
+        <template is="dom-if" if="[[options]]">
+          <template is="dom-repeat" items="[[options]]" as="item">
+            <paper-item option="[[_id(item)]]">[[_label(item)]]</paper-item>
+          </template>
         </template>
+        <content></content>
       </paper-menu>
     </paper-dropdown-menu>
+
   </template>
 </dom-module>
 
 <script>
-  (function() {
-    Polymer({
-      is: 'nuxeo-select',
-      properties: {
-        label: String,
-        options: {
-          type: Array,
-          value: []
-        },
-        selected: {
-          type: String,
-          notify: true
-        }
+  Polymer({
+    is: 'nuxeo-select',
+    behaviors: [Polymer.IronResizableBehavior],
+    properties: {
+
+      /**
+       * Label.
+       */
+      label: {
+        type: String,
+        value: null
       },
 
-      _id: function(item) {
-        if (!this.selected) { // select first item as default selection
-          this.selected = (item && item.id) ? item.id : item;
-        }
-        return (item && item.id) ? item.id : item;
+      /**
+       * Placeholder.
+       */
+      placeholder: {
+        type: String
       },
 
-      _label: function(item) {
-        return (item && item.label) ? item.label : item;
+      /**
+       * Options array to show.
+       */
+      options: {
+        type: Array
+      },
+
+      /**
+       * Gets or sets the selected option.
+       */
+      selected: {
+        type: String,
+        notify: true
+      },
+
+      /**
+       * Attribute value or property of an element for `selected` instead of the default `option` value.
+       */
+      attrForSelected: {
+        type: String,
+        value: 'option'
       }
+    },
 
-    });
-  })();
+    listeners: {
+      'iron-resize': '_resize'
+    },
+
+    _resize: function() {
+      this.$.paperMenu.style.width = this.getBoundingClientRect().width + 'px';
+    },
+
+    _id: function(item) {
+      if (!this.selected) { // select first item as default selection
+        this.selected = (item && item.id) ? item.id : item;
+      }
+      return (item && item.id) ? item.id : item;
+    },
+
+    _label: function(item) {
+      return (item && item.label) ? item.label : item;
+    }
+
+  });
 </script>
