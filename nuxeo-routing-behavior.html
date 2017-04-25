@@ -59,7 +59,7 @@ limitations under the License.
       generateUrl: function() {
         if (this.router) {
           var route = arguments[0];
-          if (route.startsWith('/')) {
+          if (route.indexOf('/') == 0) {
             return this.baseUrl + route;
           }
           if (!this.router[route]) {
