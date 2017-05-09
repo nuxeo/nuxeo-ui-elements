@@ -16,6 +16,7 @@ limitations under the License.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../nuxeo-elements/nuxeo-connection.html">
 <link rel="import" href="nuxeo-filters-behavior.html">
 <script>
   /**
@@ -51,8 +52,7 @@ limitations under the License.
        * The context user
        */
       user: {
-        type: Object,
-        value: {}
+        type: Object
       },
 
       /**
@@ -281,6 +281,25 @@ limitations under the License.
       }
 
       return this._getBinding(prop, dataHost.dataHost);
-    }
+    },
+
+      _addNuxeoConnectionElement: function(model) {
+          var nuxeoConnection = document.createElement('nuxeo-connection');
+          this.user = nuxeoConnection.user;
+      },
+
+      _setNuxeoConnectionListener: function(){
+          window.addEventListener('nuxeo-connected', function (e) {
+              this.user = e.detail.user;
+          }.bind(this));
+      },
+
+      ready: function () {
+          if (!this.user) {
+              //If user is not provided, add nuxeo-connection element and get user from it.
+            this._addNuxeoConnectionElement();
+            this._setNuxeoConnectionListener();
+          }
+      }
   });
 </script>
