@@ -131,6 +131,13 @@ limitations under the License.
         }
       },
 
+      resolveEntry: {
+        type: Function,
+        value: function () {
+          return this._resolveEntry.bind(this);
+        }
+      },
+
       /**
        * Functon called when an entry is selected.
        */
@@ -197,11 +204,11 @@ limitations under the License.
 
     _initSelection: function(element, callback) {
       if (!this.multiple) {
-        return callback(this._resolveEntry(this.value));
+        return callback(this.resolveEntry(this.value));
       }
       return callback(
         this.value.map(function(entry) {
-          return this._resolveEntry(entry);
+          return this.resolveEntry(entry);
         }.bind(this))
       );
     },
