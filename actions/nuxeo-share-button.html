@@ -58,6 +58,9 @@ Example:
                    autofocus
                    readonly>
       </paper-input>
+
+      <nuxeo-slot slot="SHARE_DIALOG" model="[[actionContext]]"></nuxeo-slot>
+
       <div class="buttons">
         <paper-button dialog-dismiss>[[i18n('shareButton.dialog.close')]]</paper-button>
       </div>
@@ -82,7 +85,16 @@ Example:
         icon: {
           type: String,
           value: 'nuxeo:share'
+        },
+
+        actionContext: {
+          type: Object,
+          computed: '_actionContext(document)'
         }
+      },
+
+      _actionContext: function() {
+      return {document: this.document};
       },
 
       _isAvailable: function(document) {
