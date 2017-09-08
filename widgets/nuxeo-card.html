@@ -18,11 +18,26 @@ limitations under the License.
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../paper-card/paper-card.html">
 <link rel="import" href="../../iron-icon/iron-icon.html">
-<link rel="import" href="../../iron-icons/iron-icons.html">
+<link rel="import" href="../../iron-icons/hardware-icons.html">
 <link rel="import" href="../../iron-collapse/iron-collapse.html">
 
 <!--
 An element for a generic card
+
+Example:
+
+    <nuxeo-card label="title">content</nuxeo-card>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property         | Description | Default
+-----------------------|------------------|----------
+`--nuxeo-card`         | Mixin applied to the card | `{}`
+`--nuxeo-card-label`   | Mixin applied to the title label of the card | `{}`
+`--nuxeo-card-content` | Mixin applied to the content of the card | `{}`
+`--nuxeo-link-hover`   | Mixin applied to the title on hover when the card is collapsible  | `{}`
 
 @group Nuxeo UI
 @element nuxeo-card
@@ -31,29 +46,72 @@ An element for a generic card
 <dom-module id="nuxeo-card">
   <template>
     <style>
-      .title {
-        @apply(--layout-horizontal);
+      :host {
+        -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+        -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+        box-sizing: border-box;         /* Opera/IE 8+ */
+      }
+
+      :host[collapsible] #card {
+        padding-bottom: 1px;
+      }
+
+      :host[opened] #card {
+        padding-bottom: 16px;
+      }
+
+      :host[collapsible] h3:hover {
+        cursor: pointer;
+        @apply(--nuxeo-link-hover);
+      }
+
+      #card {
+        display: block;
+        background: white;
+        padding: 16px;
+        box-shadow: 0 3px 5px rgba(0,0,0,0.04);
+        @apply(--nuxeo-card);
+      }
+
+      h3 {
+        @apply(--layout-center);
         @apply(--layout-justified);
+        @apply(--layout-horizontal);
+        margin: 0 0 1em;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: .04em;
         text-transform: uppercase;
+        @apply(--nuxeo-card-label);
+      }
+
+      .card-content {
+        @apply(--nuxeo-card-content);
       }
     </style>
 
-    <paper-card>
+    <div id="card">
       <template is="dom-if" if="[[collapsible]]">
-        <a href="javascript:undefined" class="title" on-tap="_toggleExpand">
-          <span>[[title]]</span>
-          <iron-icon icon="[[_expandIcon(opened)]]" toggle></iron-icon>
-        </a>
-        <iron-collapse id="collapse" opened="{{opened}}">
-          <content></content>
+        <h3 on-tap="_toggle">
+          <span>[[label]]</span>
+          <iron-icon icon="[[_icon(opened)]]" toggle></iron-icon>
+        </h3>
+        <iron-collapse opened="{{opened}}">
+          <div class="card-content">
+            <content></content>
+          </div>
         </iron-collapse>
       </template>
 
       <template is="dom-if" if="[[!collapsible]]">
-        <span class="title">[[title]]</span>
-        <content></content>
+        <template is="dom-if" if="[[label]]">
+          <h3>[[label]]</h3>
+        </template>
+        <div class="card-content">
+          <content></content>
+        </div>
       </template>
-    </paper-card>
+    </div>
   </template>
   <script>
     Polymer({
@@ -63,9 +121,9 @@ An element for a generic card
         /**
          * Title of the card
          */
-        title: String,
+        label: String,
 
-        /*
+        /**
          * If the card is collapsible
          */
         collapsible: {
@@ -73,20 +131,21 @@ An element for a generic card
           value: false
         },
 
-        /*
+        /**
          * If is a collapsible card, if it is opened or not
          */
         opened: {
           type: Boolean,
-          value: false
+          value: false,
+          reflectToAttribute: true
         }
       },
 
-      _toggleExpand: function() {
-        this.$$('#collapse').toggle();
+      _toggle: function() {
+        this.opened = !this.opened;
       },
 
-      _expandIcon: function(opened) {
+      _icon: function(opened) {
         return 'hardware:keyboard-arrow-' + (opened ? 'up' : 'down');
       }
     });
