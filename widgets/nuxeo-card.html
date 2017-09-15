@@ -35,9 +35,6 @@ The following custom properties and mixins are available for styling:
 Custom property         | Description | Default
 -----------------------|------------------|----------
 `--nuxeo-card`         | Mixin applied to the card | `{}`
-`--nuxeo-card-label`   | Mixin applied to the title label of the card | `{}`
-`--nuxeo-card-content` | Mixin applied to the content of the card | `{}`
-`--nuxeo-link-hover`   | Mixin applied to the title on hover when the card is collapsible  | `{}`
 
 @group Nuxeo UI
 @element nuxeo-card
@@ -67,37 +64,31 @@ Custom property         | Description | Default
 
       #card {
         display: block;
-        background: white;
+        background: var(--paper-card-background-color, white);
         padding: 16px;
-        box-shadow: 0 3px 5px rgba(0,0,0,0.04);
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.04);
         @apply(--nuxeo-card);
       }
 
       h3 {
         @apply(--layout-center);
-        @apply(--layout-justified);
         @apply(--layout-horizontal);
         margin: 0 0 1em;
         font-size: 1rem;
         font-weight: 700;
         letter-spacing: .04em;
         text-transform: uppercase;
-        @apply(--nuxeo-card-label);
-      }
-
-      .card-content {
-        @apply(--nuxeo-card-content);
       }
     </style>
 
     <div id="card">
       <template is="dom-if" if="[[collapsible]]">
         <h3 on-tap="_toggle">
-          <span>[[label]]</span>
           <iron-icon icon="[[_icon(opened)]]" toggle></iron-icon>
+          <span>[[label]]</span>
         </h3>
         <iron-collapse opened="{{opened}}">
-          <div class="card-content">
+          <div>
             <content></content>
           </div>
         </iron-collapse>
@@ -107,7 +98,7 @@ Custom property         | Description | Default
         <template is="dom-if" if="[[label]]">
           <h3>[[label]]</h3>
         </template>
-        <div class="card-content">
+        <div>
           <content></content>
         </div>
       </template>
