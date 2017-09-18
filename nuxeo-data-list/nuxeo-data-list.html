@@ -97,7 +97,7 @@ Example:
 
     <div id="container">
 
-      <content select="nuxeo-selection-toolbar"></content>
+      <slot name="nuxeo-selection-toolbar"></slot>
 
       <template is="dom-if" if="[[displayQuickFilters]]">
         <nuxeo-quick-filters quick-filters="{{quickFilters}}" on-quick-filters-changed="_quickFilterChanged">
@@ -121,10 +121,11 @@ Example:
         on-lower-threshold="_loadMoreData">
         <iron-list id="list" items="[[items]]" scroll-target="scrollThreshold" selected-item="{{selectedItem}}"
                              selected-items="{{selectedItems}}" selection-enabled  as="[[as]]">
+          <slot></slot>
         </iron-list>
       </iron-scroll-threshold>
     </div>
-    <paper-spinner-lite active hidden$=[[!loading]]></paper-spinner-lite>
+    <paper-spinner-lite active$=[[loading]]></paper-spinner-lite>
 
   </template>
 
@@ -149,48 +150,35 @@ Example:
       },
 
       ready: function() {
-        if (!this._templateStamped) {
-          // use nuxeo-data-grid parent's datahost in the iron-list
-          // functions used in the template should be declared
-          // in the nuxeo-data-grid parent element and not here
-          this.$.list.dataHost = this.dataHost;
-          // get template from nuxeo-data-grid definition
-          this._template = Polymer.dom(this).querySelector('template');
-          // append template in the <iron-list>
-          Polymer.dom(this.$.list).appendChild(this._template);
-          // set binding to items
-          // iron-list will look for our template and stamp the items
-          this.items = [];
-          this._templateStamped = true;
+        this.items = [];
+        
+        // tmp fix
+        // see https://github.com/PolymerElements/iron-list/issues/236
+        this.$.list._didMoveDown = function() {
+          this._focusPhysicalItem(this._focusedIndex + 1);
+        };
+        // end tmp fix
 
-          // tmp fix
-          // see https://github.com/PolymerElements/iron-list/issues/236
-          this.$.list._didMoveDown = function() {
-            this._focusPhysicalItem(this._focusedIndex + 1);
-          };
-          // end tmp fix
-
-          this.$.list.selectQueuePrevious = function() {
-            this._didMoveUp();
-            this.toggleSelectionForFocusedItem();
-          };
-          this.$.list.selectQueueNext = function() {
-            this._didMoveDown();
-            this.toggleSelectionForFocusedItem();
-          };
-          this.$.list.toggleSelectionForFocusedItem = function() {
-            this.debounce('toggleSelectionForFocusedItem', function() {
-              var model = this._focusedItem._templateInstance;
-              if (model) {
-                this.toggleSelectionForItem(model[this.as]);
-              }
-            }.bind(this), 300);
-          };
-          this.$.list.addOwnKeyBinding('up', 'toggleSelectionForFocusedItem');
-          this.$.list.addOwnKeyBinding('k', 'selectQueuePrevious');
-          this.$.list.addOwnKeyBinding('down', 'toggleSelectionForFocusedItem');
-          this.$.list.addOwnKeyBinding('j', 'selectQueueNext');
-        }
+        this.$.list.selectQueuePrevious = function() {
+          this._didMoveUp();
+          this.toggleSelectionForFocusedItem();
+        };
+        this.$.list.selectQueueNext = function() {
+          this._didMoveDown();
+          this.toggleSelectionForFocusedItem();
+        };
+        this.$.list.toggleSelectionForFocusedItem = function() {
+          this.debounce('toggleSelectionForFocusedItem', function() {
+            var model = this._focusedItem._templateInstance;
+            if (model) {
+              this.toggleSelectionForItem(model[this.as]);
+            }
+          }.bind(this), 300);
+        };
+        //this.$.list.addOwnKeyBinding('up', 'toggleSelectionForFocusedItem');
+        //this.$.list.addOwnKeyBinding('k', 'selectQueuePrevious');
+        //this.$.list.addOwnKeyBinding('down', 'toggleSelectionForFocusedItem');
+        //this.$.list.addOwnKeyBinding('j', 'selectQueueNext');
       },
 
       _removeFilter: function(e) {

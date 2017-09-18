@@ -69,16 +69,16 @@ An element to display page provider results as a grid with infinite scrolling.
     <style is="custom-style">
       .bubbleBoxes.hover {
         border: 2px dashed #aaa;
-        @apply(--nuxeo-drop-zone-hover);
+        @apply --nuxeo-drop-zone-hover;
       }
 
       #container {
-        @apply(--layout-vertical);
-        @apply(--layout-fit);
+        @apply --layout-vertical;
+        @apply --layout-fit;
       }
 
       .grid-ctn {
-        @apply(--layout-flex);
+        @apply --layout-flex;
         flex-flow: row wrap;
         align-items: flex-start;
       }
@@ -87,16 +87,16 @@ An element to display page provider results as a grid with infinite scrolling.
         padding: 0 0 3em;
       }
 
-      ::content .grid-box {
+      .grid-box {
         width: 20%;
         min-width: 15em;
       }
 
-      :host[loading] .loadable {
+      :host([loading]) .loadable {
         opacity: 0.25;
       }
 
-      :host[loading] paper-spinner-lite {
+      :host([loading]) paper-spinner-lite {
         position: absolute;
         top: 45%;
         left: 50%;
@@ -113,38 +113,38 @@ An element to display page provider results as a grid with infinite scrolling.
           flex-flow: column nowrap;
         }
 
-        ::content .grid-box {
+        .grid-box {
           width: 100%;
         }
       }
       /* tablet-small-landscape */
       @media all and (min-width: 601px) and (max-width: 840px) {
-        ::content .grid-box {
+        .grid-box {
           width: 50%;
         }
       }
 
       /* small desktop */
       @media all and (min-width: 841px) and (max-width: 1024px) {
-        ::content .grid-box {
+        .grid-box {
           width: 50%;
         }
       }
 
       @media all and (min-width: 1025px) and (max-width: 1280px) {
-        ::content .grid-box {
+        .grid-box {
           width: 33%;
         }
       }
 
       @media all and (min-width: 1281px) and (max-width: 1600px) {
-        ::content .grid-box {
+        .grid-box {
           width: 25%;
         }
       }
 
       @media all and (min-width: 1601px) {
-        ::content .grid-box {
+        .grid-box {
           width: 20%;
         }
       }
@@ -187,7 +187,7 @@ An element to display page provider results as a grid with infinite scrolling.
 
     <div id="container">
 
-      <content select="nuxeo-selection-toolbar"></content>
+      <slot name="nuxeo-selection-toolbar"></slot>
 
       <template is="dom-if" if="[[displayQuickFilters]]">
         <nuxeo-quick-filters quick-filters="{{quickFilters}}" on-quick-filters-changed="_quickFilterChanged">
@@ -216,7 +216,7 @@ An element to display page provider results as a grid with infinite scrolling.
         <div class="emptyResult">[[_computedEmptyLabel]]</div>
       </template>
     </div>
-    <paper-spinner-lite active hidden$=[[!loading]]></paper-spinner-lite>
+    <paper-spinner-lite active$=[[loading]]></paper-spinner-lite>
 
   </template>
 
