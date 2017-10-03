@@ -68,7 +68,7 @@ Example:
       <paper-tooltip>[[i18n('previewButton.tooltip')]]</paper-tooltip>
     </template>
 
-    <nuxeo-dialog id="dialog" with-backdrop>
+    <nuxeo-dialog id="dialog" on-iron-overlay-closed="_previewClosed" with-backdrop>
       <nuxeo-document-preview document="[[document]]" xpath="[[xpath]]"></nuxeo-document-preview>
     </nuxeo-dialog>
 
@@ -100,7 +100,11 @@ Example:
         icon: {
           type: String,
           value: 'nuxeo:preview'
-        }
+        },
+      },
+
+      _previewClosed: function() {
+        this.$.preview.stop();
       },
 
       _isAvailable: function(document) {
