@@ -158,7 +158,7 @@ limitations under the License.
             var template = node.template;
             if (!node.disabled && template) {
               this.templatize(template);
-              var el = this.stamp(this.model);
+              var el = this.stamp(Object.assign({}, this.model, {context: this.model}));
               this._instances.push(el);
               parent.insertBefore(el.root, this);
             }
@@ -191,6 +191,7 @@ limitations under the License.
           }
           this._instances.forEach(function(instance) {
             instance[prop] = value;
+            instance.context[prop] = value;
           });
         },
 
@@ -203,6 +204,7 @@ limitations under the License.
           }
           this._instances.forEach(function(instance) {
             instance.notifyPath(path, value, true);
+            instance.notifyPath('context.' + path, value, true);
           });
         }
       });
