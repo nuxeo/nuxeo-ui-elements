@@ -66,6 +66,10 @@ limitations under the License.
                            (Nuxeo.RoutingBehavior.useHashbang ? '#!' : '') +
                            this.router[route].apply(this, params);
         }
+      },
+
+      navigateTo: function() {
+        window.location = this.urlFor.apply(this, arguments);
       }
     };
   })();

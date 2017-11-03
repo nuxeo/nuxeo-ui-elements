@@ -95,7 +95,7 @@ Example:
       },
 
       _buildPermalink: function(document) {
-        return document ? location.origin + location.pathname + '#!/doc/' + document.uid : '';
+        return document ? location.origin + location.pathname + '#!/doc/' + document.repository + '/' + document.uid : '';
       }
 
     });
