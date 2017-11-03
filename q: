@@ -1,0 +1,3602 @@
+[33mcommit 922874a680773d95b04c45598f5e65c589eb4d15[m
+Author: Benjamin CORRE <benjamin.corre@keendoo.com>
+Date:   Thu Sep 28 11:54:54 2017 +0200
+
+    Display initials with background color or an avatar
+    
+    add nuxeo-profile-picture component in nuxeo-user-tag
+    
+    [ticket: NXP-20112]
+
+[33mcommit 8428d928ac7632faaee9f468470f95798103cc68[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu Sep 21 16:41:46 2017 +0100
+
+    ELEMENTS-399: renames nuxeo-card  property 'label' to 'heading'
+
+[33mcommit 93c45557658f417d88558d7b28887400d08435b3[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Sep 21 16:04:34 2017 +0200
+
+    ELEMENTS-409: upgrade to es 5.6 + introduce new maxDocSize property
+
+[33mcommit 5242ad4a0fe307ced0f04bec03a4f09e6be9a52f[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri Sep 15 12:24:54 2017 +0100
+
+    ELEMENTS-399: presents nuxeo-card element
+
+[33mcommit cdf816ac39edcd1e8d0525708c83a593f679c1e0[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Sep 13 18:28:32 2017 +0100
+
+    ELEMENTS-402: prevent having no columns selected (at least one column must be selected)
+
+[33mcommit 59ba3185503bc284322d4117f460a9852f1b7c2b[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Sep 13 16:52:47 2017 +0100
+
+    ELEMENTS-394: fix i18n not available in form template
+
+[33mcommit ae8bde2e36b4282290b65f830cbec8f6c0ffdb1b[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Sep 11 16:46:43 2017 +0100
+
+    ELEMENTS-401: fix table settings dialog not closing on FF
+
+[33mcommit a1c52043f96defd3023549450e91b059417ebf61[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Sep 7 15:23:55 2017 +0200
+
+    ELEMENTS-396: init items array if undefined when creating entry
+
+[33mcommit cbcc740a8c0f0e6db483f15aee56ac31d6105654[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Sep 7 15:10:28 2017 +0200
+
+    ELEMENTS-396: use index to retrieve item when available
+
+[33mcommit 02c6dcd9d3b8e560072cab87e2dfab00482aedc3[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu Sep 7 11:33:41 2017 +0100
+
+    ELEMENTS-397: updates add-to-collection dialog id
+
+[33mcommit b704fd5480fe48a076727dbce1373d557f6f427c[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Thu Aug 10 08:11:10 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 751dea3524520fcfbc9619f0b19a8c0863f5b47a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 9 18:08:19 2017 +0200
+
+    ELEMENTS-386: refresh recently created user/group after deletion sync
+
+[33mcommit 5afcfc50bd352915860547fc5cb35c48aa954dc0[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 9 16:54:24 2017 +0200
+
+    NXP-22892: use nuxeo-user/group-tag element when possible + adapt nuxeo-user/group-tag to work with doc model + fix navigation when user/group does not exist anymore
+
+[33mcommit 46d94ef6193515d0f317b162b0c1b04b6f953859[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Aug 9 11:06:57 2017 +0100
+
+    ELEMENTS-384: fix styling issue (when user/group search results were visible)
+
+[33mcommit 11c9bcc81819721d3bc82ebd64405f6a7d49a52b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Aug 8 19:17:19 2017 +0200
+
+    ELEMENTS-385: reset children when permission denied
+
+[33mcommit 8b8eef8e6a3ba11f93318d23863cd16b7534190e[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Aug 8 13:06:03 2017 +0100
+
+    ELEMENTS-384: improve styling on user/group create button
+
+[33mcommit 9bdcb146f5ffb64d33110854e2a756f0771e6bdf[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Aug 7 18:30:20 2017 +0100
+
+    ELEMENTS-383: fix justified result interaction with queue
+
+[33mcommit 422b7c28792b16865022359db494c8fc491c49f3[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Thu Aug 3 08:11:34 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 6c1daa6d6938045092ad01a8c324bc609cfab94e[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Aug 2 11:57:12 2017 +0100
+
+    ELEMENTS-380: fixes tests to use new createAnother button
+
+[33mcommit 32bff2411a15bf152cfa6aa82b7d38615a43e136[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Aug 2 11:10:17 2017 +0100
+
+    ELEMENTS-380: adds "create another" button to user and group creation.
+
+[33mcommit f6f665ab425a4b9b6bcc13ff4df621b0c2fa9107[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Aug 1 17:54:23 2017 +0100
+
+    ELEMENTS-381: adds close button to document preview
+
+[33mcommit 88c066d884040a92ba494c53d9ca15192487428d[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Jul 26 16:59:08 2017 +0100
+
+    ELEMENTS-371: remove typo
+
+[33mcommit a99bfef1bc803f4300e201b7b51fe1f0285ec701[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Jul 26 12:49:43 2017 +0100
+
+    ELEMENTS-371: defines idFunction to avoid suggesting items already selected
+
+[33mcommit 7df98711ed9bdec45af27b20327fb8bd4efff019[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Jul 25 11:05:51 2017 +0100
+
+    ELEMENTS-365: exposes stay-open-on-select property on select2 elements
+
+[33mcommit c6af5ceb93f592a20fa3c0c6cc9820ce0c6e38bf[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jul 24 17:50:32 2017 +0200
+
+    ELEMENTS-377: don't rely on page provider next page but on the page you need
+
+[33mcommit bd48c32ac18b39c64dfc17017034ba41261f0e66[m
+Author: L4ngu0r <stew.roulleau@gmail.com>
+Date:   Fri Jul 21 15:44:32 2017 +0200
+
+    ELEMENTS-376: replace $.nx with prop connection (#46)
+
+[33mcommit 7b11936d30b074d611ed1591148f5946602f40ee[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jul 20 16:04:27 2017 +0200
+
+    ELEMENTS-375: change common:size to file:content.length
+
+[33mcommit a4a6e910c5c675bd210d2a9add2abf9a1a4a942f[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Jul 19 18:13:57 2017 +0100
+
+    ELEMENTS-372: turns selectOnTap to false by default
+
+[33mcommit b0b4a811c496934226f4e0cc1d877ec6dca36c3c[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Jul 5 15:47:22 2017 +0100
+
+    ELEMENTS-363: fix user creation without password (invite mode)
+
+[33mcommit fa8b8b7ed460808138178b5272304112e0c99ff6[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 5 10:58:10 2017 +0200
+
+    ELEMENTS-361: fix video viewer demo
+
+[33mcommit 5410f6ad6e8d74fa3d69351d1edddb539ec306f2[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Jul 4 15:32:48 2017 +0100
+
+    ELEMENTS-353: error message style changes (to maintain consistency between select2 and paper-input elements)
+
+[33mcommit 4352084294806b99c512b4b854162b8c561a9f1e[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Jul 4 11:59:30 2017 +0100
+
+    ELEMENTS-359: improve vertical alignment when there aren't enough items to fill the grid
+
+[33mcommit d5061b1d89457ac31ceb8575cce78391687104c5[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Jul 4 11:29:58 2017 +0100
+
+    ELEMENTS-353: change required indicator implementation (fix failing test)
+
+[33mcommit bc1c86a5fc18a88c55246e3053915d33aa778956[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Jul 1 08:11:12 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit f6564fcfde68cf69a493997c9fdb308cde14e46f[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Jun 30 17:20:09 2017 +0100
+
+    ELEMENTS-353: add error message to suggestion (and other form elements)
+
+[33mcommit c2f58cbc3cccdfbbc0df364d2d07596f1f532f5a[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri Jun 30 12:16:56 2017 +0100
+
+    ELEMENTS-360: fixes user label showing up empty
+
+[33mcommit 0b2982cdf0a9570fbb71a23094e04f34b3240ef0[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Jun 29 12:07:25 2017 +0100
+
+    ELEMENTS-359: add missing import
+
+[33mcommit 288ea1603cf0f06dbe441251b3adb6850cae27d3[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Jun 29 12:07:18 2017 +0100
+
+    ELEMENTS-359: fix scroll
+
+[33mcommit 3e6a15423d1b3667e95f6f0c6649980917ac337c[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Jun 29 11:00:15 2017 +0100
+
+    ELEMENTS-359: introduce nuxeo-justified-grid element
+
+[33mcommit 20a3629861f2c97caa2a2e5426957a8a30da9ccc[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jun 28 11:31:30 2017 +0200
+
+    ELEMENTS-358: fix import following upgrade to video.js v5.20
+
+[33mcommit 1bdc7a74d90bd49d317aa30dbd77df5b7c842d58[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Jun 27 16:09:52 2017 +0100
+
+    ELEMENTS-358: adds storyboard to video preview. updates videojs to v5.20
+
+[33mcommit b27fe53bb0ac3c83bc7f8cbc70ccd04da8632b56[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jun 26 15:17:39 2017 +0200
+
+    ELEMENTS-356: fix tests
+
+[33mcommit 68a6e9d9c54c66586a78c1bccb34655c89adac76[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jun 26 15:17:15 2017 +0200
+
+    ELEMENTS-357: bind as selectedItems on inner iron-list
+
+[33mcommit 84beba07f6f20dbe4313cd45f4cefa8769dcec8d[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jun 26 15:16:55 2017 +0200
+
+    ELEMENTS-357: bind as property on inner iron-list
+
+[33mcommit dd8719142b02cfd95bedaf5ca7e092c4a88e39a2[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Jun 24 08:11:21 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 75a9722b8d0523b0b65f571eb053a7b713715635[m
+Author: Solen Guitter <sguitter@nuxeo.com>
+Date:   Mon Jun 19 14:54:39 2017 +0200
+
+    NXP-22493: Homogenize label capitalization
+
+[33mcommit 09a7fa0fcfe22348c144cc6666dcbd4ea96191ac[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Jun 23 13:07:31 2017 +0200
+
+    ELEMENTS-355: fix item change observer when the whole item was edited by table form
+
+[33mcommit 2c6701103aebe1ef31a33bb37088ae1b8e926156[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Jun 17 08:11:09 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 46d26b0e8a0aec8f4f7aa8d9503ee5da72bb593e[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jun 15 10:48:04 2017 +0200
+
+    ELEMENTS-352: bind readonly
+
+[33mcommit 898e01518f28cda65409ca1c9ccf159d36f3bce6[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Jun 9 15:40:29 2017 +0100
+
+    ELEMENTS-351: fix user/group entity resolvers
+
+[33mcommit 28e4e944d7d43b953feb7b6eebadd359819c3cc6[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Jun 6 17:10:13 2017 +0100
+
+    ELEMENTS-350: add focus visibility to row's checkboxes
+
+[33mcommit fad43f691e07845c87c1dd0c1c19724a8fb85b44[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed May 31 20:51:23 2017 +0100
+
+    ELEMENTS-334: remove polymer dev dependencies
+
+[33mcommit 76aff89dbd5228b8ea8414b089e458afb93be75a[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed May 31 19:05:32 2017 +0100
+
+    ELEMENTS-337: fix nuxeo-operation import in nuxeo-document-acl-table
+
+[33mcommit d496d0705c08f73161ec219221a0929a11abb23e[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed May 31 16:25:37 2017 +0100
+
+    ELEMENTS-337: cleanup imports
+
+[33mcommit c970ef166d5704ee11420f83922fa13123990fad[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 31 18:21:11 2017 +0200
+
+    ELEMENTS-298: fix init with empty values + use idProperty for idFunction
+
+[33mcommit 06db5c9de8b57d2ab05d62996bece86c4f8e3762[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 31 12:34:22 2017 +0100
+
+    ELEMENTS-346: update copyright
+
+[33mcommit 6448540903df0c2ddd0ba7810c17b2148f7b6614[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed May 31 11:26:46 2017 +0100
+
+    ELEMENTS-348: replace tap with click to fix document selection on mobile
+
+[33mcommit c8f01abb7653fe83accd65c1ca58911d51581c3f[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed May 31 10:56:58 2017 +0100
+
+    ELEMENTS-347: fix export dialog right padding
+
+[33mcommit 98a13dd59768f9b4a744bdc8b4e446e865188229[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Tue May 30 18:59:37 2017 +0100
+
+    ELEMENTS-344: merge slot contents with no template
+
+[33mcommit eee9eb1b52b51a4a4d0f165827e3358feb2d16cb[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Tue May 30 17:54:35 2017 +0100
+
+    ELEMENTS-325: fix layout not found test
+
+[33mcommit ab9c29ad63b0d5f2e58f04c2290ceff83651b4db[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Thu May 18 18:43:18 2017 +0100
+
+    ELEMENTS-325: hide nuxeo-layout when href is undefined
+
+[33mcommit ccf0d70faca6ddbd49d4bcf45dd3414c83696133[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue May 30 12:44:00 2017 +0200
+
+    ELEMENTS-345: lock iron form dependency
+
+[33mcommit 7de4ed05ec9be5ae8ea1667abfc71877036bba85[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue May 30 12:43:42 2017 +0200
+
+    ELEMENTS-345: hardcode jQuery import for test
+
+[33mcommit ee93286d3af631cd5cece19b25d76166e1cd6533[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 29 19:39:18 2017 +0200
+
+    ELEMENTS-303: make sure to catch up with already loaded page when late registration
+
+[33mcommit e589af7e8f3654e027b40c789516ac225b1af5d0[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri May 26 16:09:36 2017 +0100
+
+    ELEMENTS-342: move url generation logic to ui elements
+
+[33mcommit 6862688ee3aaf3b367b26a08e2a4b00b4a928327[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat May 27 08:11:09 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 9a94bb94f536433e7028d7aaab6415239273be77[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri May 26 12:09:39 2017 +0100
+
+    ELEMENTS-343: hides preview button when document has Collection facet
+
+[33mcommit 87532056831a0b252796b419f1769decb3ecd99f[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu May 25 17:26:22 2017 +0100
+
+    ELEMENTS-342: move navigateTo to web ui
+
+[33mcommit e1221c8260846e026fe8990d0d45d7bebace8bc1[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Thu May 25 17:19:11 2017 +0100
+
+    ELEMENTS-341: enforce consistent indentation
+
+[33mcommit 98a5d5fdc4c141b254f7f40fa8d43982d961ad9d[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu May 25 16:57:20 2017 +0100
+
+    ELEMENTS-340: removes min-width style from nuxeo-dialog
+
+[33mcommit ddd9fc5123247454e8e3bde3fdd4b3f6adcd84d7[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu May 25 11:44:08 2017 +0100
+
+    ELEMENTS-338: update language when a messages file is loaded
+
+[33mcommit f1823e5a9360e2df3f392a3223cef8ea89ba32ea[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu May 25 11:39:50 2017 +0100
+
+    ELEMENTS-335: updates better-dateinput to 2.0.2. Moves polyfill to root
+
+[33mcommit 06e0ce19bf300462097c3b548b800d3938744a9f[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 24 17:27:13 2017 +0100
+
+    ELEMENTS-336: move <script> code blocks inside <dom-module>
+
+[33mcommit 4f4be1446ca782ae215afd0feb941f298fdd95a2[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 24 15:40:12 2017 +0100
+
+    ELEMENTS-336: fix import
+
+[33mcommit b579a3c2d93f133547a4660159bcbfa23131ef13[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 24 15:32:44 2017 +0100
+
+    ELEMENTS-336: fix _resolveDocs function declaration + code indentation
+
+[33mcommit 41ed71d1e1353de277fb8f82f6b7608166d73159[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed May 24 15:29:12 2017 +0100
+
+    ELEMENTS-334: fix polylint npm script
+
+[33mcommit 2a839a745bb1e06c7f9cb897f8680c2a10bbb724[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 24 15:24:02 2017 +0100
+
+    ELEMENTS-336: remove wrapping function and "use strict" from UI elements
+
+[33mcommit d335bb120a7172f85cf55e34a4229a50a5e36eb4[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed May 24 12:57:48 2017 +0100
+
+    ELEMENTS-323: does not show user email when it is equal to the username
+
+[33mcommit ab5a460ff327a62c3f0b0da9c0b8c3173c61bcbf[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 24 13:09:37 2017 +0200
+
+    ELEMENTS-298: better formatter
+
+[33mcommit 8f1e87892a828838fb09c368c3d9a9ed4652e3f7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 24 13:01:19 2017 +0200
+
+    ELEMENTS-298: implement initOperationId for unresolved documents
+
+[33mcommit 0ecbd88bb4012800e6c610a625408b4554abc280[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue May 23 13:21:17 2017 +0100
+
+    Revert "-wip"
+    
+    This reverts commit 5126708931e5354a995d30d150f33b799e67e17a.
+
+[33mcommit 678ca67859f3dca9bd6147b4b0d7a1b59742bea1[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue May 23 11:34:09 2017 +0100
+
+    ELEMENTS-274: fixes date language locale not being set
+
+[33mcommit 5126708931e5354a995d30d150f33b799e67e17a[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri May 19 16:58:28 2017 +0100
+
+    -wip
+
+[33mcommit abee5d7181da74c9926285c418b88b272e721e32[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue May 23 11:05:40 2017 +0100
+
+    ELEMENTS-324: add user validation
+
+[33mcommit d1f38659427d2e0e19d0b245b5c890fd1fe57393[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Tue May 23 10:55:48 2017 +0100
+
+    ELEMENTS-334: update polymer-cli
+
+[33mcommit 46908e59952f7f81192155ae3ac90875fea14f64[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon May 22 12:22:56 2017 +0100
+
+    ELEMENTS-332: force dialog reparent
+
+[33mcommit 6f748f33d529ebde3fbdf78e91069ac355bd160b[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon May 22 12:20:07 2017 +0100
+
+    ELEMENTS-332: add 'reparent' property
+
+[33mcommit 9252a279c20619293b98ffd31afa5168c2a28238[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Mon May 22 09:29:32 2017 +0100
+
+    ELEMENTS-331: clear nuxeo-filter content on detach
+
+[33mcommit 35686ea1931b20d9cc7e44473671dd002a005709[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat May 20 08:11:09 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 3d6277fdfeb90ff434499db192d451e8906a1386[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri May 19 15:39:42 2017 +0100
+
+    ELEMENTS-330: fix displaying of unneeded scrollbar
+
+[33mcommit 6708a5ad153ad30f4102ecb4967dc26c0dc659c9[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri May 19 15:36:31 2017 +0100
+
+    ELEMENTS-328: fix findIndex polyfill
+
+[33mcommit 920c105418d5d987e838889990f18b8d36c425ce[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri May 19 15:36:46 2017 +0100
+
+    ELEMENTS-329: fixes padding of dialog title
+
+[33mcommit 729d4be794b66ca1bddbe3bf34c2972b32aa278b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri May 19 13:50:32 2017 +0200
+
+    ELEMENTS-327: fix notify item changed
+
+[33mcommit 67f738bb651adb097e2d51b02d77b7b4b522a2a7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri May 19 13:05:17 2017 +0200
+
+    ELEMENTS-300: fix typo
+
+[33mcommit 8f61096b1c985d8baefb48991e6571156074b99c[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri May 19 02:10:35 2017 +0200
+
+    ELEMENTS-297: check parent not null in case it
+
+[33mcommit 9100f285ee281191b2a1d32984803083ba1b4176[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu May 18 23:08:40 2017 +0200
+
+    ELEMENTS-294: add nxql search icon
+
+[33mcommit d735e221eee83e86babeded01e98b92830b86e7a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu May 18 23:07:44 2017 +0200
+
+    ELEMENTS-279: clean up
+
+[33mcommit 2e2e6325b9a4804a7c1142c18a946161b08acf2d[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu May 18 15:22:06 2017 +0100
+
+    ELEMENTS-324: prevent prefix being displayed (from prefixed 'user:' and 'group:' fields)
+
+[33mcommit 25b3ceaea0043d32b8f88d244fc1dc107db761a3[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed May 17 15:34:42 2017 +0100
+
+    ELEMENTS-320: allows resolveEntry to be overriden and overrides it on nuxeo-user-suggestion
+
+[33mcommit df5b55246c5bb9d1d062e6451b3b6ef582ece4d2[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 17 11:15:32 2017 +0200
+
+    ELEMENTS-321: init select2 at attached
+
+[33mcommit 9dc22ab3d0d0bf8eb1efd6ad3ce3c0b3bba615f0[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Sun May 14 16:15:13 2017 +0100
+
+    ELEMENTS-229: introduce priority to control slot content override
+
+[33mcommit dd32cc3b53610180d8e9fd0b748e2f711ab6522e[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Sun May 14 15:39:56 2017 +0100
+
+    ELEMENTS-228: allow overriding slot content
+
+[33mcommit 60fa5f70b8de472a1a6d473a903d0235a2a1c8c6[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri May 12 15:16:27 2017 +0100
+
+    ELEMENTS-318: improve document preview
+
+[33mcommit b573e4d47117128770915b568248731b3892bdac[m
+Author: Karin Touchie <ktouchie@nuxeo.com>
+Date:   Fri May 12 13:24:45 2017 +0200
+
+    ELEMENTS-319: Add IDs and name attributes to nuxeo-document-permissions
+
+[33mcommit 324c858c1b0ff4e38b58275ca5606b509ab4ff50[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri May 12 08:11:25 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 4c80987e26688f27a9d084a369ab4dc25bee0e36[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu May 11 18:13:02 2017 +0200
+
+    ELEMENTS-317: add ability to load more children when available
+
+[33mcommit 24ae06f37123f634d922239071f30eea59da84e4[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu May 11 16:53:05 2017 +0100
+
+    ELEMENTS-316: fix inner input style to not appear as readonly
+
+[33mcommit 5eb6d2f3c87c6cc4f5bde9a871c59f7f4afcdaae[m
+Author: Karin Touchie <ktouchie@nuxeo.com>
+Date:   Thu May 11 12:23:43 2017 +0200
+
+    ELEMENTS-315: Add IDs to group-management buttons
+
+[33mcommit 6aae198c629a97487fa6878c864912a69a26792f[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu May 11 10:25:35 2017 +0200
+
+    ELEMENTS-314: fix label key typo
+
+[33mcommit 7a0d9b2f640adf6a2ae044c991abf0f64037ec75[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 10 18:26:17 2017 +0100
+
+    ELEMENTS-313: ddd params property
+
+[33mcommit 4e8ff65de4ed2a894f607bbad4c64b4070a9c99f[m
+Author: Karin Touchie <ktouchie@nuxeo.com>
+Date:   Tue May 9 10:34:36 2017 +0200
+
+    ELEMENTS-308: Add name attributes to User Group Management forms
+
+[33mcommit 51542577be1d1ac88b59ed6ba2161f87ed17adf4[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue May 9 11:44:12 2017 +0200
+
+    ELEMENTS-312: Fix display of user & group creation forms
+
+[33mcommit 7f7d9749e33c5dab1933d031cdce6e97625f30a4[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri May 5 17:57:06 2017 +0100
+
+    ELEMENTS-309: add missing validation attributes in nuxeo-input
+
+[33mcommit 17ae3512aff97d8aefc6b4775a85b95836c6675d[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Fri May 5 16:42:16 2017 +0200
+
+    ELEMENTS-306: Fix disabled field select2
+
+[33mcommit 25dee321d06606fcc3a5bf2dbcf0ab4e62df72af[m
+Author: Karin Touchie <ktouchie@nuxeo.com>
+Date:   Fri May 5 15:40:07 2017 +0200
+
+    ELEMENTS-307: Add name attributes in User Group Management
+
+[33mcommit 2c7be91501a1cdfe67b36d714e52ea85cbadfeac[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri May 5 14:17:48 2017 +0100
+
+    ELEMENTS-284: change options to be null by default
+
+[33mcommit 4110474767de695e143c56070bbbbc2b62a3be00[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Fri May 5 14:10:20 2017 +0200
+
+    ELEMENTS-306: Update select2 fields styling
+
+[33mcommit 522168d57b41209f70b8bb936ad0750d94706015[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri May 5 12:17:06 2017 +0100
+
+    ELEMENTS-284: recompute attrForSelected whenever options is changed
+
+[33mcommit dc6e091a3b964e0bfa80e5039bddaeb8a5a752a4[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri May 5 08:14:02 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit e6dbfb11ef0e5844ef1725b071d6b67782e1b2b9[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu May 4 15:49:22 2017 +0100
+
+    ELEMENTS-293: Deletes unneeded line break
+
+[33mcommit 8259f860c39bd5a8d2534cc974a6e8e98fcf920d[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu May 4 15:48:15 2017 +0100
+
+    ELEMENTS-305: Deletes unneeded line break
+
+[33mcommit 50e0c26790f86c25fe784d80dcb0a3084838a2ea[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu May 4 14:23:40 2017 +0100
+
+    ELEMENTS-305: Uses  column 'field' to store its state instead of title. Fallbacks to index when field is not present
+
+[33mcommit 2cf5f5c93be1a576feb3468d9a0a52508fbaad53[m
+Author: Karin Touchie <ktouchie@nuxeo.com>
+Date:   Wed Apr 26 15:00:48 2017 +0200
+
+    ELEMENTS-299: Correct labels
+
+[33mcommit 45ace895471815cb47fb265b40560df22dd3a258[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu May 4 09:28:27 2017 +0100
+
+    ELEMENTS-293: Forces click when select2 is selected
+
+[33mcommit 4a099eb2c657b32f06da8c4867857c95a5f50230[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed May 3 18:25:07 2017 +0100
+
+    ELEMENTS-304: Replaces on-clicks with on-tap
+
+[33mcommit 0b51700ed8b54ea76132db37e26ce7990a6b88aa[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed May 3 18:00:18 2017 +0100
+
+    ELEMENTS-297: change implementation to allow better dialog selectors in tests
+
+[33mcommit 0d6e52bcb9110c8900d1bde51e73ba9c67b36a04[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed May 3 09:33:29 2017 +0100
+
+    ELEMENTS-252: add navigateTo function to routing behavior
+
+[33mcommit c9382eba6a776c3309f2fe829906c31575a5af94[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue May 2 17:53:19 2017 +0100
+
+    ELEMENTS-297: replace paper-dialog with nuxeo-dialog
+
+[33mcommit 8eb2f6ba46f0143a33ac63ced5d678a5864b7883[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue May 2 17:18:06 2017 +0100
+
+    ELEMENTS-297: improve nuxeo-dialog implementation (use PaperDialogBehavior instead of wrapping paper-dialog)
+
+[33mcommit 2f31c2a48b89673be5b4853494a1d66ca6fc39ee[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue May 2 16:01:05 2017 +0100
+
+    ELEMENTS-302: lowers z-index of nuxeo-date-picker
+
+[33mcommit 2e66f8c1c42de713609060c0e6b17904041f76c4[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Apr 28 12:06:05 2017 +0100
+
+    ELEMENTS-294: update 'clear' icon + fix positions
+
+[33mcommit b5d9ce1dcd8b3d3df86ac42f810870a0c0f37d72[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 18:36:25 2017 +0100
+
+    ELEMENTS-294: increase icons per row
+
+[33mcommit 5eb8a15965790ad9bd5d13afeb1268c3f2a6219c[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 18:35:49 2017 +0100
+
+    ELEMENTS-294: fix 'download' icon position
+
+[33mcommit 451a6f02dc42f322c247ed040823d74f112a90ae[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 18:26:02 2017 +0100
+
+    ELEMENTS-294: replace 'delete' icon
+
+[33mcommit 55b0b71a251ac782d5cd9f9dce8831d3b48d299f[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 17:49:22 2017 +0100
+
+    ELEMENTS-294: change 'clear' icon
+
+[33mcommit a6b918eda5bc3fab9a56a42a95801e173fc20bdd[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 16:54:11 2017 +0100
+
+    ELEMENTS-294: fix typo
+
+[33mcommit 1795202430d60f6d4acac20e8165b2a9aca7f77a[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 16:07:34 2017 +0100
+
+    ELEMENTS-294: fix typo
+
+[33mcommit 10103f3bf65ae6a8666d302eae24225636457403[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 15:55:29 2017 +0100
+
+    ELEMENTS-297: add 'modal' attribute + remove 'title' attribute
+
+[33mcommit 6a6366aa52a3ac786928b29e133f82694a0bad0c[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 15:18:30 2017 +0100
+
+    ELEMENTS-294: apply nuxeo icons
+
+[33mcommit 29b27dd6534ad4287d33555c5c4fe10a8fa8ee44[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 15:15:46 2017 +0100
+
+    ELEMENTS-294: add missing icons placeholders
+
+[33mcommit 20af8a3580a54aaf16bda86d6203ac1ad0781f9d[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu Apr 27 14:43:32 2017 +0100
+
+    ELEMENTS-302: increases nuxeo-date-picker z-index to bring it to the front of other elements
+
+[33mcommit 287ab5a08593d4888b1c659db1c944426bf1ddd0[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Apr 27 16:18:53 2017 +0200
+
+    ELEMENTS-301: fix nuxeo-select2 validation when multiple and required
+
+[33mcommit 362a8c550b812d3d2c37b4ed26e94964538e0ca0[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 13:04:34 2017 +0100
+
+    ELEMENTS-294: add icon
+
+[33mcommit 5cf28407059d82f97e1bad44643de96d73d2dfe9[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 27 11:46:22 2017 +0100
+
+    ELEMENTS-294: renamed icons according to naming convention + remove hardcoded colors
+
+[33mcommit a0f19479fb1750ed0bbf6470317fb863435a4c5c[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Apr 27 11:43:48 2017 +0200
+
+    ELEMENTS-300: fix wrong orderabl binding
+
+[33mcommit dbb4b61ab5427ce9caea56f8dff28eea79ce0fd6[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Apr 26 22:29:14 2017 +0200
+
+    ELEMENTS-300: stop event propagation to allow nested complex table edition + standardized event names
+
+[33mcommit 3eee3ebca1ad175f55ccaaa4074ffdf0603c8587[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Apr 26 13:18:58 2017 +0100
+
+    ELEMENTS-270: Replaces dropdown with nuxeo-select. Adjusts buttons alignment to make it more consistent
+
+[33mcommit 04a04c1c06f2700dc95b5583387ecd09e1c7f3db[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Apr 26 12:45:43 2017 +0100
+
+    ELEMENTS-294: update icon set
+
+[33mcommit d8d35ca7a61f894f3a634532e4d39d71b1b7bb3d[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Apr 24 18:55:25 2017 +0100
+
+    ELEMENTS-297: introduce nuxeo-dialog
+
+[33mcommit 568a503160de678b6d4af36430171b5d4001fb38[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Apr 24 02:00:39 2017 +0200
+
+    ELEMENTS-296: unify the use of items prop across table, list and grid
+
+[33mcommit d432999d08038f1ed37c82730f2f50eac9ecb0ba[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Sun Apr 23 16:13:10 2017 +0200
+
+    ELEMENTS-295: add loading property and set it true while loading children
+
+[33mcommit 77803ba2e9fa3495a0a6980949434d0248ac80f1[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Apr 19 18:49:01 2017 +0100
+
+    ELEMENTS-289: Update users & groups views
+
+[33mcommit e8baa3d6f404bc68a3fde942257e78d67811f083[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Apr 24 12:21:42 2017 +0100
+
+    ELEMENTS-293: revert fire event when nuxeo-select2 is clicked
+
+[33mcommit 817ca4c234fe2761555ac5e44e28c1cd3350a953[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Apr 21 17:55:39 2017 +0100
+
+    ELEMENTS-294: introduce nuxeo-icons (default nuxeo icon set)
+
+[33mcommit 9362ac0de23728d5aaf5ade214108e0304736514[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri Apr 21 14:57:19 2017 +0100
+
+    ELEMENTS-293: Fires event when nuxeo-select2 is clicked
+
+[33mcommit b7944370f3888944c463fc6e5228dc3f89b054f2[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri Apr 21 08:13:36 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 046b2865cdf176eb6315be26ebb2750724ac99cb[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 20 17:06:08 2017 +0100
+
+    ELEMENTS-292: remove ink/ripple effect from checkboxes and radio buttons
+
+[33mcommit fe73d3a3230c545284658bdff6445a10aeb8f1a1[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu Apr 20 14:57:51 2017 +0100
+
+    ELEMENTS-291: rename id of nuxeo-input's inner element
+
+[33mcommit c0ecc3a62e5000098a6e1ee3f2bf2976d5e1fa78[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Apr 19 18:44:04 2017 +0100
+
+    ELEMENTS-283: Update colors variables for empty results
+
+[33mcommit 553db3ec29c9328de730795d65e8941f133f239f[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Apr 19 16:46:58 2017 +0100
+
+    ELEMENTS-291: implement focus method on nuxeo-input
+
+[33mcommit 763b4578810aa6ed1931b8fc6a5f8c138d48dd8c[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Apr 19 11:11:30 2017 +0100
+
+    ELEMENTS-290: Places select2 clear cross on the right side
+
+[33mcommit ea3f85d7972ab65cae2769b04ff47596e2be2a69[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Apr 19 11:09:51 2017 +0100
+
+    ELEMENTS-284: fix wrong width calculation on Chrome on MacOS
+
+[33mcommit ea1eeef850ece4de03af68883457c2c542fc506b[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Wed Apr 19 08:15:10 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 855825ea2e71293d34ab99c1bc336ba682e56650[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Apr 18 18:58:43 2017 +0100
+
+    ELEMENTS-284: add default value for placeholder
+
+[33mcommit b2bc8dffe42ada5c0155b2bd77087d5c77dab360[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Apr 18 17:48:14 2017 +0100
+
+    ELEMENTS-284: change 'attrForSelected' to be null by default
+
+[33mcommit 57c155292cb92a109c5f8aab6bfa2eafe7c3d088[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Apr 18 17:01:08 2017 +0100
+
+    ELEMENTS-284: improve nuxeo-select
+
+[33mcommit a1bba61eb35e94c3d133c9d52be3ae12d7778004[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Apr 18 16:12:37 2017 +0100
+
+    ELEMENTS-272: Adds mixin to hide clear button and adds missing properties
+
+[33mcommit d20ec7343cf4a4582f9fe8c67537b6192fc9bdab[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Apr 18 15:49:45 2017 +0100
+
+    ELEMENTS-288: Cleans permissions dialog. Replaces old inputs with nuxeo/paper ones. Removes unnecessary code.
+    ELEMENTS-286: Replaces date with nuxeo-date-picker
+
+[33mcommit 0e9b1325a7232d256aebac0a7733128b357d5ced[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Apr 18 15:40:20 2017 +0100
+
+    ELEMENTS-272: cleans date picker if value is null.
+
+[33mcommit 83bdae608196ba861b181a091cabd927f334dfd6[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Apr 18 14:21:59 2017 +0100
+
+    ELEMENTS-288: Update dialog styling
+
+[33mcommit dfc02143ad6855ac3e3e215fa19390240705ee9f[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Apr 18 14:21:21 2017 +0100
+
+    ELEMENTS-287: Update permissions styles
+
+[33mcommit 5b6ad0a86b2ff5630c6b521fae2255fb0779b545[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Apr 18 13:04:31 2017 +0100
+
+    ELEMENTS-284: change nuxeo-select2 selected item color to match nuxeo-select
+
+[33mcommit 0c3fa02d35310b595c96a92b33016de594a017e0[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Apr 18 12:33:39 2017 +0100
+
+    ELEMENTS-274: Adds disabled property to nuxeo-date-picker
+
+[33mcommit 663e276e068de5964627e1b7316e3bb5d6cb45f8[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Apr 18 12:01:51 2017 +0100
+
+    ELEMENTS-283: Update variable for checkbox
+
+[33mcommit 6159e002ff9aaeac9051f50493961c7f4f4e4c71[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Apr 18 11:16:57 2017 +0100
+
+    ELEMENTS-277: add value notify
+
+[33mcommit fa0f397856e342dd705938de4162d9b88853b259[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Apr 18 08:13:35 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 852be21484ff9855d0749f80583c18e9158e818e[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Apr 18 00:29:03 2017 +0100
+
+    ELEMENTS-283: Update variables & colors
+
+[33mcommit 5f464b97cd934f967eb453050c39a8e6094d934d[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Mon Apr 17 15:40:04 2017 +0100
+
+    ELEMENTS-279: Introduces workflow action button
+
+[33mcommit 69cca7d212ad4d012591afa5942050dc8aa6d63f[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Mon Apr 17 11:52:09 2017 +0100
+
+    ELEMENTS-276: Update font size for table header
+
+[33mcommit 2ef41ccd0abb69ca4e397aa73ebf19dec541f42e[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Mon Apr 17 10:43:27 2017 +0100
+
+    ELEMENTS-274 : Introduces nuxeo-date element
+
+[33mcommit a714c43dcb1c8845a47216dbf73b33c93b666c68[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Fri Apr 14 18:13:37 2017 +0100
+
+    ELEMENTS-283: Update colors & variables
+
+[33mcommit 5ff13dc7924d6a22f1d5979ac75c9ae5d46210f1[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Apr 13 18:19:09 2017 +0100
+
+    ELEMENTS-282: Fix aligments in tree
+
+[33mcommit 3abf8f8add3e4c30b791ca1280419aab9256ad8a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Apr 13 18:49:16 2017 +0200
+
+    ELEMENTS-280: return key if no translation found for field not resolved
+
+[33mcommit d2fcd48b02b07da1518bc84b8227ed949af7d701[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Apr 13 16:58:49 2017 +0100
+
+    ELEMENTS-276: Update font sizes
+
+[33mcommit 43918b7d291f24f1082b37da5fc0f89bfb6c5f54[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Thu Apr 13 16:26:43 2017 +0100
+
+    ELEMENTS-272: hides arrows and clear button on date picker(chrome)
+
+[33mcommit 39851682d97f889a647d31170b647323cdbf116c[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Apr 13 16:07:26 2017 +0100
+
+    ELEMENTS-281: Update space, font is already fixed
+
+[33mcommit 09333fab0c48fb573c48ebaa00078cba5f01a631[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Apr 13 15:55:31 2017 +0100
+
+    ELEMENTS-276: Update font sizes
+
+[33mcommit 99d4520052d9e272224ba552b8c455d3826d9374[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Apr 12 19:29:15 2017 +0100
+
+    ELEMENTS-277: add properties and clean imports
+
+[33mcommit 1e15cad89cf20d580bc5c86062ad238b58aa74ee[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Apr 12 16:29:32 2017 +0100
+
+    ELEMENTS-277: introduce nuxeo-input and nuxeo-textarea elements
+
+[33mcommit 106d1933d752e434c3ce60893fb06c7acf6674d9[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Thu Apr 13 08:13:39 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit be153dfa72fa83fcbef9fbbcad1055d5d45621cd[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Apr 12 16:53:43 2017 +0100
+
+    ELEMENTS-270: revert fix select2 crash on IE11
+
+[33mcommit fb1ab100ccc692b916d89c9962c5721eebd6847d[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Apr 7 18:28:22 2017 +0100
+
+    ELEMENTS-270: fix select2 crash on IE11
+
+[33mcommit 3a2d3b42634b10a83be7a5b2e8602f436e8d8763[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Wed Apr 12 16:09:58 2017 +0100
+
+    ELEMENTS-271: Allows nuxeo-date-picker to receive any  valid value.
+
+[33mcommit baf2d7c8fc21793ad5353bc30951a5365e9916fb[m
+Author: Solen Guitter <sguitter@nuxeo.com>
+Date:   Fri Mar 24 19:08:21 2017 +0100
+
+    NXP-21777: Fix label capitalization
+
+[33mcommit dad9328f6f4bf2dec04c61efaf5b12868f06be83[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Mon Apr 10 08:11:15 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit a7b0d8e5b0cbfd9014a3976ef5282be1d0343bc3[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Apr 8 08:13:16 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit bb55bf8584e9392660faf400ce3c73b8c1d15ee7[m
+Author: Solen Guitter <sguitter@nuxeo.com>
+Date:   Fri Mar 17 16:56:08 2017 +0100
+
+    ELEMENTS-269: Add spanish file
+
+[33mcommit 99f83547def969227954b4f358d238f79949a871[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Apr 7 12:28:15 2017 +0100
+
+    ELEMENTS-268: fix nuxeo-date-picker label on IE11
+
+[33mcommit eda5132cf7fe234ed03087207f1f5fcfd58c7b3d[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 6 15:49:18 2017 +0100
+
+    ELEMENTS-267: fix arrow image showing extra pixels
+
+[33mcommit 24e8f6227670dd858aa0b611393e5e8c4dcfd1d3[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 6 11:52:09 2017 +0100
+
+    ELEMENTS-265: fix console log error on settings changed
+
+[33mcommit 3b7fb3c3c2708efc3e4e8995470f67d8ee17a2d4[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Apr 6 11:50:33 2017 +0100
+
+    ELEMENTS-265: fix columns header align on readonly data table
+
+[33mcommit 82f96bb28dd8cbc3354f7dec9ae7b1f73378b8d4[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Apr 5 15:38:14 2017 +0100
+
+    ELEMENTS-265: add support for tables inside tables
+
+[33mcommit 861f54c92dcbf988fb2af66b1afad1192622353f[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Wed Apr 5 08:11:11 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit a9fd32b837bf9750b12bc163aad613c54336d24b[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Tue Apr 4 13:09:12 2017 +0100
+
+    ELEMENTS-243: forward item instance property in data table form
+
+[33mcommit 65e7a0295e6dcaa96d821d88a45efc2950394509[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Mar 28 13:08:52 2017 +0200
+
+    ELEMENTS-243: make editable table support primitive items
+
+[33mcommit fcf68bb1574845cb34ab9624cfba3804948d8308[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Apr 4 08:11:09 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 7e72a4fed642c15cf600a94e08785eb248794bf8[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Apr 3 17:33:35 2017 +0100
+
+    ELEMENTS-266: add missing String.prototype.endsWith polyfill
+
+[33mcommit a7657b32f2a79cd6ef324198b3c1bb62a0998b04[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri Mar 31 08:11:28 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 3c4d76cd3b42a0f4ae4d8c109cc908f126abdacd[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Mar 30 18:30:56 2017 +0100
+
+    ELEMENTS-246: change user profile to allow changing user's password using the new '/me' endpoint
+
+[33mcommit ca5faa2f27d8ba19f1ff56eeadf405f937be8a50[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Mar 29 19:00:20 2017 +0100
+
+    ELEMENTS-176: remove row selected underline
+
+[33mcommit d1811be05bd38f0d545bb44ed0630ac3e7456681[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Mar 28 13:54:56 2017 +0200
+
+    ELEMENTS-263: Add missing variables for colors
+
+[33mcommit 3e703c99c081fe587a1cdf6590a88a9a7c4e5d83[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Mar 28 12:39:46 2017 +0100
+
+    ELEMENTS-262: Adds xpath property to allow download of document attachments (#19)
+
+[33mcommit 68336eb39b8c3b17fd5eecafe3d3070e295012fd[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Mar 28 08:13:25 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 2f6f6f379cdbe8ab6a57f2ff18e1c9afe6b751f0[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Mar 27 18:57:03 2017 +0100
+
+    ELEMENTS-261: remove empty style
+
+[33mcommit 14b9f9104e39cdfb666beaa10d0bc8813fe142db[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Mar 27 18:51:37 2017 +0100
+
+    ELEMENTS-261: add default styles (moved from nuxeo-web-ui)
+
+[33mcommit 1e05a1e5367abc0df266cac0e892e3043965033d[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Mar 25 08:13:15 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 12c404250a2efa83da01c68d8664d3d61177d933[m
+Author: Ricardo Dias <rdias@nuxeo.com>
+Date:   Fri Mar 24 15:08:07 2017 +0000
+
+    ELEMENTS-260: add missing behavior imports to nuxeo-ui-elements.html.
+
+[33mcommit 66f711c8d80e24b9838e55af5cb58cd191c9890c[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri Mar 24 15:42:16 2017 +0000
+
+    ELEMENTS-259: Adds + sign to non existing tag suggestions
+
+[33mcommit 21082835294c9a5839cb1dbc9c790fd095238bf4[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Fri Mar 24 12:18:31 2017 +0000
+
+    ELEMENTS-257: Hides preview button on folderish documents (#16)
+    
+    ELEMENTS-257: Hides preview button on folderish documents
+
+[33mcommit 72c8dc6df7dc74dcbe9b06a3db89005fba508cc4[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri Mar 24 08:11:29 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 88caf7cd758ee40147635a82e28a17781c217daa[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Mar 21 14:51:14 2017 +0000
+
+    ELEMENTS-256 : fixes truncated text/placeholder on select2 elements
+
+[33mcommit 63c19307cd625927d29a6cc3a8e17cefb94a8043[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Mar 21 11:48:07 2017 +0000
+
+    ELEMENTS-246: fix test
+
+[33mcommit 3cae1d6bab6ac8528ea044fad1898424ebd5cbd1[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Mar 21 08:14:32 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 1bbfe6ec04e485e79476034cfef9e70d28eba448[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Mon Mar 20 20:01:39 2017 +0000
+
+    ELEMENTS-255: fire settings-changed on columns change
+
+[33mcommit 33e1870e1d6f69b5559bd904240a9912e04bf957[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Mar 20 18:36:49 2017 +0000
+
+    ELEMENTS-246: introduce nuxeo-user-profile + replace intput with paper-input elements + cleanup
+
+[33mcommit b5583b5f45d55ff8bd4d1f04f27e075e436bcf9a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Mar 20 15:55:10 2017 +0100
+
+    ELEMENTS-250: display when the doc was locked and when + review lock action filters
+
+[33mcommit 1c2674c627c5da25371bbe81acb9cb9445155660[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Mar 18 08:11:08 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 3af93a8bb06eb4a72ae82afe1699ca4004806401[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Fri Mar 17 13:48:39 2017 +0100
+
+    ELEMENTS-247: Fix font inheritance on inputs
+
+[33mcommit 6bc943ead71107055fbf65e2a4e0b744669081cf[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Mar 14 12:41:37 2017 +0100
+
+    ELEMENTS-245: Update styles to improve selection readability
+
+[33mcommit 340b5d48c6685b42700bb0f14c8d928a0ec3cb5a[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Tue Mar 14 09:37:08 2017 +0000
+
+    ELEMENTS-231 : sets maxRows to the textarea to make it scrollable and avoid buttons to be hidden (#10)
+
+[33mcommit f8bc4dcbe57ef56cc9656c258fc5de4657d51923[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Mar 14 08:11:18 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 4513bc5945a8c0ce7d3a6841cdbe9e99661efb14[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Mar 13 13:39:09 2017 +0100
+
+    ELEMENTS-225: introduce new nuxeo-tag-suggestion element
+
+[33mcommit a6e714549ee6a5e6833c640f915dfcf181c261df[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Mon Mar 13 11:10:06 2017 +0100
+
+    ELEMENTS-244: Update styling
+
+[33mcommit 1b23a1301d9771ed3453e32a5fab6c93379fd4a9[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Mar 10 15:56:21 2017 +0100
+
+    ELEMENTS-239: add jsdoc for prefixed prop
+
+[33mcommit 487d486f735934d902146e00e377b91f03ee15f6[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Mar 9 16:24:49 2017 +0100
+
+    ELEMENTS-239: add prefixed property for user suggestion element
+
+[33mcommit 545d77056f1acc8004c47d715ca3ba257c260e2b[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Mar 8 23:40:25 2017 +0100
+
+    ELEMENTS-237: Fix image and preview height on image viewer
+
+[33mcommit ea6e85a858debff92273a16e4067bfa11373a364[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Mon Mar 6 14:58:47 2017 +0100
+
+    ELEMENTS-234: Update user management view styles
+
+[33mcommit 940349fabf7337eddc2e9c37a3e1328d21e65af2[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Mar 2 15:41:39 2017 +0000
+
+    ELEMENTS-233: fix nuxeo-select2 allowClear not being set correctly + style fixes
+
+[33mcommit f9363a41a103f5d965923c2f4b97231c62650e5e[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Feb 28 08:11:46 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 31c2f092b32c306b9f4677a2e27ec21f922733aa[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Feb 27 17:41:44 2017 +0000
+
+    ELEMENTS-230: fix null user console error
+
+[33mcommit 8b4050807fbeee42f9b4a544f50813ce921dbb6c[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Feb 24 16:28:34 2017 +0000
+
+    ELEMENTS-220: do not stamp layout when href is undefined
+
+[33mcommit 7f35f3e583fa78fcfe56d3fc52deeed7332792a2[m
+Merge: 2f641f0 bcf42b9
+Author: Pedro Nóbrega da Costa <pcosta@nuxeo.com>
+Date:   Fri Feb 24 15:07:03 2017 +0000
+
+    Merge pull request #9 from nuxeo/fix-ELEMENTS-226-user-name-not-displayed-recents-list
+    
+    ELEMENTS-226 user name not displayed in recents list
+
+[33mcommit 2f641f038e92506363d08a6a245f3fa71d85407a[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Wed Feb 22 12:49:59 2017 +0000
+
+    ELEMENTS-220: do not restamp layouts when model changes
+
+[33mcommit bcf42b9db7e8ddc6c733b3b56f5b532a836b5de9[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Mon Feb 20 14:48:14 2017 +0000
+
+    ELEMENTS-226 : fixes function that checks if user has first/last name
+
+[33mcommit 832a0e582c4a51499331935de1fe621f9ebe0c46[m
+Author: Pedro Costa <pcosta@nuxeo.com>
+Date:   Mon Feb 20 14:46:48 2017 +0000
+
+    ELEMENTS-226 : fixes function that checks if user has first/last name
+
+[33mcommit c81bf166739bc0cc6eae2f1864be1e7b9b11a254[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Feb 20 12:45:03 2017 +0000
+
+    ELEMENTS-223: add field property
+
+[33mcommit b3dfcd409ca2da45cea79fce9548959756bed716[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Feb 18 08:12:09 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 4f294ffe483ee93205f2dafda70b05537d802a51[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Feb 17 17:58:31 2017 +0100
+
+    ELEMENTS-168: fix pop up appearance
+
+[33mcommit 14ac962cb34cae90d9b27ea3e4db14eafac6f241[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Feb 17 09:39:53 2017 +0000
+
+    ELEMENTS-168: single edit dialog
+
+[33mcommit 91ca223bf748b0caa15c5e00109e9e3eeaf1da13[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Feb 13 18:22:12 2017 +0100
+
+    ELEMENTS-168: first impl with dialog per row
+
+[33mcommit a41d3d818dd2937e25f8fe398ce223d4dabea0af[m
+Author: Pedro Costa <pcosta@Pedros-MBP.home>
+Date:   Thu Feb 16 12:07:39 2017 +0000
+
+    ELEMENTS-224: observes items.splices instead of items. Adds conditional to assingment to avoid 'not defined' exception
+
+[33mcommit 624841ca44364f022dea80e629a6c2e339875309[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Feb 10 15:20:06 2017 +0000
+
+    ELEMENTS-220: introduce nuxeo-layout
+
+[33mcommit 8e795a0fa3128ced8328c6b3b3880f74be2b7d3b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Feb 1 18:41:32 2017 +0100
+
+    ELEMENTS-216: fix accept file attribute
+
+[33mcommit cafee0711170df30393499a5590a734926365661[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jan 31 19:05:56 2017 +0100
+
+    ELEMENTS-218: use enricher on doc not children
+
+[33mcommit 25f69eefc2728454a93c830406c401c54200f546[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jan 30 22:37:23 2017 +0100
+
+    ELEMENTS-218: add enricher property
+
+[33mcommit 6df67c9bc8c27696cda38cb12e77525d01350492[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Mon Jan 30 18:50:08 2017 +0000
+
+    ELEMENTS-217: fix license
+
+[33mcommit 975cc4825ee73d72554455cc735bf45957980dc6[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Jan 27 16:36:31 2017 +0000
+
+    ELEMENTS-215: fix subsequent stamps of nuxeo-filter
+
+[33mcommit e09fd5defd8996cf3ca4c9f67dc9c14e016ea6d8[m
+Author: benjaminLouradour <benjamin.louradour@gmail.com>
+Date:   Tue Jan 24 10:26:01 2017 +0100
+
+    Fix sort array
+    
+    Array.prototype.sort method should return a positive or negative number : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    
+    With your implementation it doesn't work on IE for instance.
+
+[33mcommit 3d05e3c9d0b86ae57430b693df70826118ade045[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jan 23 14:41:21 2017 +0100
+
+    ELEMENTS-199: add required logic to suggestion widget + add visual styles when invalid
+
+[33mcommit 75ac0a75c8d043301cfa836dbec32d2aa6f1c73f[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Jan 21 08:12:57 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit d41e7188ecab7f38f3a5545d8562199b968ef998[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Jan 20 17:06:29 2017 +0100
+
+    ELEMENTS-199: add required logic for date-picker validation
+
+[33mcommit a67f4aff9a9a5efa92421c30d58f0564590e3417[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri Jan 20 08:12:54 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 50a768c3f46240e769fa9385007a21632db28811[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Jan 19 16:51:26 2017 +0000
+
+    ELEMENTS-214: remove workaround (invalid responses are now handled in nuxeo-resource)
+
+[33mcommit 039ce22acd905bb12e22d9ef8be4fe1cdc53a575[m
+Author: Solen Guitter <sguitter@nuxeo.com>
+Date:   Thu Jan 19 13:35:39 2017 +0100
+
+    NXP-21494: Add Swedish language
+
+[33mcommit e5b64c4c2e2a2900f2d1d5b78ac3e25544b70bbe[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Jan 19 11:39:16 2017 +0000
+
+    ELEMENTS-214: fix adding user to Administrators group
+
+[33mcommit 41b7803ec365befd54f03e61a7cfffa617177a48[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Jan 16 19:37:04 2017 +0000
+
+    ELEMENTS-213: revert 'add previewer for Text Notes'
+
+[33mcommit f45561739921a5560541bcae7645e5de60684ace[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Jan 16 18:59:37 2017 +0000
+
+    ELEMENTS-213: add previewer for Text Notes
+
+[33mcommit 2b7e2572064176d8df722e2ed1c2414c9aa054e7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jan 16 12:01:16 2017 +0100
+
+    ELEMENTS-212: fix incorrect comment in css
+
+[33mcommit f7bba8e9ce8e48627d1b973594766b2cf2880147[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Jan 13 12:50:23 2017 +0100
+
+    ELEMENTS-212: add name attribute for test purpose
+
+[33mcommit f81cb5b4736f0494984b000a43989e39f32c7bb2[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Jan 10 08:12:06 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 2b4710809ba9af8236751bdd8fd413cdd815d222[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri Jan 6 08:12:06 2017 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit c1bce79c8e71cb4095e7feba5ab47ff5c642149d[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu Jan 5 18:14:27 2017 +0000
+
+    ELEMENTS-210: add ES6 polyfills to UI Elements
+
+[33mcommit e58a2c88cedc62463dd6033d77422134bc50b8ad[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Mon Dec 26 12:17:33 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit c9ebff0a5a35adc8b09de72dac3374cdda62e326[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Dec 26 12:11:27 2016 +0000
+
+    ELEMENTS-209: add empty messages file for Basque
+
+[33mcommit 89a082c5c36aeb7461cae2fe5f6505da868e4141[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Dec 22 17:08:25 2016 +0100
+
+    ELEMENTS-200: fix agg label
+
+[33mcommit d6051e0eec9f8882d99597e02c69b2bbed30bad0[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Dec 22 12:01:31 2016 +0000
+
+    ELEMENTS-150: fix dialog re-opening after confirm action
+
+[33mcommit 1a915d108082655730c533a68bb572b2b009b4ca[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Thu Dec 22 08:11:16 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit c8d0d4cc4b59222ed1d2355d5d68c397833e8e82[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Dec 21 22:32:38 2016 +0000
+
+    ELEMENTS-150: add headers to retrieve 'lock' properties
+
+[33mcommit 98c5a523cd2e35390c841e59e54c032ebc7c72bf[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Dec 21 22:13:21 2016 +0000
+
+    ELEMENTS-150: add events 'document-locked' and 'document-unlocked'
+
+[33mcommit ca4f7549ee2d452f443c4d6a68ee905874add8c1[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Thu Dec 15 08:11:17 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 5fc0b7b3717cead86ebbcb67bcf4379212f34550[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Dec 14 16:05:26 2016 +0000
+
+    ELEMENTS-150: rename 'nuxeo-document-actions' to 'actions' + add docs to actions elements
+
+[33mcommit 4b6bf17e2f428af85ffc220fbd41dc3fc3c9c11e[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Dec 14 15:06:50 2016 +0000
+
+    ELEMENTS-150: change events names (from camelCase to dash based convention)
+
+[33mcommit 6f7cac3a764092dc7b69c0b7f99706fa5ce8e009[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Dec 14 12:46:12 2016 +0000
+
+    ELEMENTS-150: clean up code and styles
+
+[33mcommit 95016acee0f03a8537803c8cf8fbca357e6fd0b9[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Dec 13 14:55:23 2016 +0000
+
+    ELEMENTS-150: add missing imports
+
+[33mcommit 12cb60f76645e38a1b8a7a118793e37fa04b8bfb[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Wed Dec 14 08:11:15 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit b0ed94be9f7da8e93c22aada9cd4adb6e01dee39[m
+Author: benjaminLouradour <benjamin.louradour@gmail.com>
+Date:   Tue Dec 13 18:00:26 2016 +0100
+
+    ELEMENTS-208: Fix display on IE (#3)
+    
+    I seems that Internet Explorer does not like when a function is missing the " : function " when declared.
+    This would solve the problem.
+
+[33mcommit 26a0e83b463395878e39ace6e5636b8836714907[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Dec 13 14:46:51 2016 +0000
+
+    ELEMENTS-150: move nuxeo-delete-blob-button from nuxeo-web-ui
+
+[33mcommit 3ec13d639406f5d0220b950486cb33a07536ca94[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Dec 13 12:36:54 2016 +0000
+
+    ELEMENTS-150: add 'xpath' property
+
+[33mcommit 5fec9f0a757cc70638cbf88f12cebd265ea4eb8a[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Dec 13 12:32:28 2016 +0000
+
+    ELEMENTS-150: fix test-helpers imports
+
+[33mcommit be4988360394aa05d4b822e0e8d4036c94325670[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Tue Dec 13 08:11:57 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 4825e22aae19c610c8949be4d31ae1f0768e0b71[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Dec 12 20:41:24 2016 +0100
+
+    ELEMENTS-207: fix lint complains
+
+[33mcommit 53eb87ee6063ddf258ff3f60991582b323434f67[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Dec 12 20:17:58 2016 +0100
+
+    ELEMENTS-207: adapt test helper moved to nuxeo-elements
+
+[33mcommit de9c63748ea1da35482e30bed1fca37296d29748[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Dec 12 20:17:27 2016 +0100
+
+    ELEMENTS-207: use nuxeo page provider loading property for nuxeo-data-table/grid/list
+
+[33mcommit 94242af21084e8ba2055d15a80d0aa5abcf979cd[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 19:16:02 2016 +0000
+
+    ELEMENTS-150: add XHRLocaleResolver to globals
+
+[33mcommit a98b6f9a5991936a20c0ee78c765dc652bfabac2[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 18:59:15 2016 +0000
+
+    ELEMENTS-150: fix document actions imports and demo
+
+[33mcommit cd51ba9d0677c3db7bb5dd3a2572d765b38017c0[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 18:58:22 2016 +0000
+
+    ELEMENTS-150: improve filters check conditions
+
+[33mcommit a027b1d45e82e5522be1bee011fa774cbd58e648[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 15:13:17 2016 +0000
+
+    ELEMENTS-150: move document actions tests from nuxeo-web-ui
+
+[33mcommit 01f38590dc7c36f3b685cba953703df08d3f58fd[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 15:12:19 2016 +0000
+
+    ELEMENTS-150: fix missing i18n imports
+
+[33mcommit 43bdb47d9d613c7432edfd1be35c08399db1d200[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 12:33:15 2016 +0000
+
+    ELEMENTS-150: move document actions from nuxeo-web-ui
+
+[33mcommit 4d13a19f30392eb1f910202f607f98c3d6e02e58[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 12 12:32:39 2016 +0000
+
+    ELEMENTS-150: fix labels typo
+
+[33mcommit d9d7c7fb49411956d28468c81b6b18f1b0c9cb8b[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Dec 9 15:07:26 2016 +0000
+
+    ELEMENTS-150: improve widgets demos layout
+
+[33mcommit 39f5324c87d0c540623885ca65a7ce9b8eeabaeb[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Dec 9 14:27:48 2016 +0000
+
+    ELEMENTS-150: introduce nuxeo-tags elements (replaces nuxeo-document-users in nuxeo-web-ui)
+
+[33mcommit f17f5dd800d79d913074b630c832c7975f768a21[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Dec 7 12:39:37 2016 +0000
+
+    ELEMENTS-150: move nuxeo-document-preview from nuxeo-web-ui
+
+[33mcommit e18583b1bdf6e06bb57775f376587dfdbf8a5f41[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Dec 6 11:04:02 2016 +0000
+
+    ELEMENTS-150: add license annotation
+
+[33mcommit 68c882be953854e7c404bfa5792e719e0958b814[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Dec 7 12:46:06 2016 +0100
+
+    ELEMENTS-206: deal with undefined data
+
+[33mcommit 713ad2b301c598621b6adeac2ef5a6847307b5dd[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 5 18:46:32 2016 +0000
+
+    ELEMENTS-150: introduce nuxeo-user-tag and nuxeo-group-tag elements (moved from nuxeo-web-ui)
+
+[33mcommit e1243079d9996b8c274fc4eed8e93392fbf775f3[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 5 18:45:41 2016 +0000
+
+    ELEMENTS-150: add missing import
+
+[33mcommit 08ed314554c15b821fd619395c785ed3712f133e[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 5 18:39:26 2016 +0000
+
+    ELEMENTS-150: add default styles to nuxeo-tag element
+
+[33mcommit 03db1ecfaea82ba9b0fc85c6177104c098d4066c[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Dec 5 17:18:56 2016 +0000
+
+    ELEMENTS-205: move addEventListener in nuxeo-i18n-behavior from attached to created callback
+
+[33mcommit 3da2ba10c65220724dd4d0dd6cfbe0f6671296e4[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 5 12:14:10 2016 +0000
+
+    ELEMENTS-150: fix cards and buttons styles
+
+[33mcommit 2a7c325d9e46b4203355a60e004eea10075a6b2f[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Dec 5 11:58:30 2016 +0000
+
+    ELEMENTS-200: fix i18n label
+
+[33mcommit b8280abefc5e8fc71a7f061cf5f949161235067a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Dec 2 12:56:36 2016 +0100
+
+    ELEMENTS-204: add jquery import for distribution chart
+
+[33mcommit 231e7361756b9efd3138d7df4c9718d850792417[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Dec 2 10:29:56 2016 +0000
+
+    ELEMENTS-203: fix linting in nuxeo-data-table-test
+
+[33mcommit fd6feb2ff49603da38712c8ec7df8a9d7938b474[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Dec 1 17:48:21 2016 +0100
+
+    ELEMENTS-201: use moment to take user time zone into account
+
+[33mcommit 9b46008faf0bfb1decdad37b89c15146c792758b[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Nov 29 16:52:33 2016 +0000
+
+    ELEMENTS-200: remove default value parameter from i18n
+
+[33mcommit 06d6e1c94116dfe4b499435c9278b632d095cb5a[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Tue Nov 29 12:22:57 2016 +0000
+
+    Update version to 0.8.0
+
+[33mcommit 6d4fb2882ee3e4d44cf61abf0280214fb5cd031b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Nov 28 14:50:16 2016 +0100
+
+    "ELEMENTS-198: finally do not force fetch if page provider is auto""
+    
+    This reverts commit 645570684d3144b5bc528b889c5c9495908a4f3a.
+
+[33mcommit 645570684d3144b5bc528b889c5c9495908a4f3a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Nov 25 21:08:22 2016 +0100
+
+    Revert "ELEMENTS-198: do not force fetch if page provider is auto"
+    
+    This reverts commit 870be352b1bc41835c1d531c802b698fc4d44d8d.
+
+[33mcommit a36da66d4a58b2f6e602186ac8ec7c97e6668e57[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Nov 25 21:08:10 2016 +0100
+
+    Revert "ELEMENTS-198: fix test"
+    
+    This reverts commit 42024558564f61b8d2344942f8c1e19e684bc716.
+
+[33mcommit 42024558564f61b8d2344942f8c1e19e684bc716[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Nov 25 21:02:45 2016 +0100
+
+    ELEMENTS-198: fix test
+
+[33mcommit 870be352b1bc41835c1d531c802b698fc4d44d8d[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Nov 25 20:29:14 2016 +0100
+
+    ELEMENTS-198: do not force fetch if page provider is auto
+
+[33mcommit 1f298f8a5086c2f55ebd76a6a821f4d7aa7eac4e[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Nov 25 17:26:31 2016 +0000
+
+    ELEMENTS-194: add docs for 'private' elements
+
+[33mcommit b756895d5ec4689197af693e555646d3060a9372[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Nov 25 16:20:35 2016 +0000
+
+    ELEMENTS-194: update docs and license
+
+[33mcommit f23b12fca2e624eca5f43971844125b4c497d741[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Nov 25 12:08:32 2016 +0000
+
+    ELEMENTS-150: replace deprecated import
+
+[33mcommit 445d4a8a1b8f2fae83cc3ba503194a93cfd3d337[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Nov 25 11:30:47 2016 +0000
+
+    ELEMENTS-150: remove unused shared-styles reference
+
+[33mcommit 5e569f9894b285dec10169615c2ab9320df2295e[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Nov 24 11:53:13 2016 +0100
+
+    ELEMENTS-197: use iron-list 1.3.9
+
+[33mcommit 680dc20a1df98e2f835d897569ecfb5e58a7ce5f[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Nov 23 16:48:25 2016 +0100
+
+    ELEMENTS-197: change webui.demo credentials and fix iron-list
+
+[33mcommit 895cfe21136dca692c6f35786ad0138c974e3fb5[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Nov 23 15:16:39 2016 +0100
+
+    ELEMENTS-193: cleanup
+
+[33mcommit 70b5de2dab88681d0b66db3041ae1074af742b0b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Nov 23 15:12:20 2016 +0100
+
+    ELEMENTS-193: add nuxeo-date-picker
+
+[33mcommit 3249d441031f56c6f157a8e5b0a5952c7c7e6c47[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Nov 23 12:56:40 2016 +0000
+
+    ELEMENTS-195: handle DocumentNotFoundException when updating the parent in nuxeo-path-suggestion
+
+[33mcommit 9f51842ed63ea912257e4718a90ea1dc1db22102[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Wed Nov 23 08:28:07 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 808cac857982e653a40063898b055f2072078038[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Mon Nov 21 17:53:33 2016 +0100
+
+    ELEMENTS-190: Update empty result styles, apply styles for settings popup
+
+[33mcommit 0361e454a5ea13c1e6a22f28509465dae4c1c29e[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Nov 21 09:58:07 2016 +0000
+
+    ELEMENTS-189: add disabled property to nuxeo-path-suggestion
+
+[33mcommit 833eda0086e045a9b836aa97f045eeeb36404c74[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Nov 21 10:29:48 2016 +0000
+
+    ELEMENTS-150: remove hasSchema filter
+
+[33mcommit 1a27294c2f7d1795b8b032e6da31e8e5ed7c7efc[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Thu Nov 17 18:07:56 2016 +0000
+
+    ELEMENTS-188: introduce nuxeo-filter
+
+[33mcommit af984239a33eb4766a7d0cb2b01d8608718ac826[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Sat Nov 19 08:28:07 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 1386f3181ab576b3e28f054e5f9768cf430fb629[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Fri Nov 18 08:28:07 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit c212119ca889f6c0f90a7fabc5338a0452f1e2a2[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Fri Nov 18 00:50:15 2016 +0100
+
+    ELEMENTS-187: Update layouts and styles of user and group dialogs
+
+[33mcommit 8e2a2892eb4c45394295d8d6b2b5f3f7918bb29e[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Nov 17 17:03:43 2016 +0000
+
+    ELEMENTS-150: moved nuxeo-select element from nuxeo-web-ui to nuxeo-ui-elements
+
+[33mcommit abe12628cae13a85e33f8346a5d733fac3ea4e87[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Nov 17 15:19:34 2016 +0000
+
+    ELEMENTS-186: add user's email in suggestion results
+
+[33mcommit 050da4cb6ae604b77be54f2e5c2db4436ecac864[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Nov 17 14:44:42 2016 +0100
+
+    ELEMENTS-185: Update tables styles in nuxeo-data-table, user and groups screens
+
+[33mcommit 711a1704c662d15549f82c908b007bdb6904acc9[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Nov 17 12:18:33 2016 +0100
+
+    ELEMENTS-184: add method to nuxeo-tree to remove nodes by keys
+
+[33mcommit abc6913de82b141541b7b7a02367df98ce39979c[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Thu Nov 17 08:28:08 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit e27d574e89dccc586e955c797eb6beca0f01e48b[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Nov 16 15:01:12 2016 +0000
+
+    ELEMENTS-169: add action button element to execute operations.
+
+[33mcommit 5c8daf2ffe8c54911d0628dc4d78e52b1d01dfc0[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Nov 16 15:53:35 2016 +0100
+
+    ELEMENTS-183: Style quick filters
+
+[33mcommit a2b5f8bc52d45bf0d6d9a1a665faeeae6bb4fcff[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Nov 16 11:45:47 2016 +0000
+
+    ELEMENTS-182: fix create user.
+
+[33mcommit 7b9f20b29bd32a11f726efbaa7ad3cce4f518aec[m
+Author: Jenkins Nuxeo <jenkins@nuxeo.com>
+Date:   Mon Nov 14 17:32:13 2016 +0000
+
+    Automatic update of translations from Crowdin
+
+[33mcommit 6def79a4f5f07b3bf19d54d2e1370cef7b6daad2[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu Nov 10 17:47:41 2016 +0000
+
+    ELEMENTS-165: add empty message files for French, German, Japanese and Portuguese
+
+[33mcommit 930ba7bc57017edba139da3c8a0e8a5e30e5c549[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Nov 11 16:32:24 2016 +0000
+
+    ELEMENTS-150: add formatters for versions and directories.
+
+[33mcommit 07f50e798bc542d3d53a6189474b0e69e8b5934f[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Nov 10 17:44:47 2016 +0000
+
+    ELEMENTS-150: fix missing icons and colors changing in image viewer toolbar.
+
+[33mcommit e68f822b0fbaefef43ad9fb788d974615a20bce8[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Nov 10 13:59:50 2016 +0100
+
+    ELEMENTS-180: Fix input width behavior in select2
+
+[33mcommit 1b8d89a29bdd3c0251c82b3b08f265c890b8a583[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Nov 10 12:34:19 2016 +0000
+
+    ELEMENTS-150: remove duplicated label in nuxeo-user-suggestion.
+
+[33mcommit 812a31f81a0059ea7d1454c89881c8e9aa286f7d[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Nov 10 12:33:53 2016 +0000
+
+    ELEMENTS-150: limit user and group management actions for non-administrators.
+
+[33mcommit 6cc7df5adc17260b0f9ba4ffe742c645ccb8df12[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Nov 10 11:45:29 2016 +0000
+
+    ELEMENTS-150: add label to nuxeo-user-suggestion widget.
+
+[33mcommit 087d83d262d56b2311bc7e8c0c5eedbad3ba8066[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Nov 9 18:52:15 2016 +0000
+
+    ELEMENTS-165: rework labels and add messages.json
+
+[33mcommit 1542a94def43517a7776b8672bcbec861f631d0e[m
+Author: Kevin Leturc <kleturc@nuxeo.com>
+Date:   Tue Nov 8 14:28:57 2016 +0100
+
+    ELEMENTS-179: Add documentation to minify PDF.js
+
+[33mcommit f34f72e91f5dc2b80fd53626e049b0dce369c2c2[m
+Author: Kevin Leturc <kleturc@nuxeo.com>
+Date:   Tue Nov 8 14:20:20 2016 +0100
+
+    ELEMENTS-179: Update PDF.js to 1.5.188
+
+[33mcommit 256352ee524dcb5e9facc45a5b24a7d014a46105[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Nov 8 13:07:10 2016 +0000
+
+    ELEMENTS-150: add 'isMember' filter.
+
+[33mcommit 5f92d95f25183a8a1d1d1f60aca230ba6cfc6dba[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Nov 7 16:54:42 2016 +0000
+
+    ELEMENTS-150: add formatMimeType  + format behavior now includes i18n behavior.
+
+[33mcommit 45a8d46aee59553f67ebc9170104743a3424200a[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Nov 4 17:46:10 2016 +0000
+
+    ELEMENTS-150: add nuxeo-select2-theme (make select2 styles more consistent with paper-input elements).
+
+[33mcommit df145eb22a7c176c26e7c2564dc5d342466d1819[m
+Author: Miguel Nixo <mnixo@nuxeo.com>
+Date:   Fri Nov 4 11:20:37 2016 +0000
+
+    NXP-20838: add isSubscribed filter
+
+[33mcommit 6d81d0e23c019f8efe48ccf751f46e71fef34588[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Nov 3 14:36:28 2016 +0100
+
+    ELEMENTS-150: add isVersion filter
+
+[33mcommit 0679fb7af0e98f8ae649858130ae856555332284[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Nov 2 17:36:04 2016 +0100
+
+    NXP-20855: Update tree nodes aligment
+
+[33mcommit a57648cf523a3d7cc1821f73be0ca9f9ebd4aebf[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Oct 31 15:19:35 2016 +0000
+
+    ELEMENTS-2: fix select2 based widgets to work with entities. rename 'read-only' property to 'readonly'.
+
+[33mcommit a527d27ba95c75beb4adb785efc917034ea86175[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Oct 31 14:55:22 2016 +0000
+
+    ELEMENTS-150: fix function declaration
+
+[33mcommit 67f3b8d546bfd9a406b392eaafff2121b9c24307[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Oct 27 11:14:08 2016 +0200
+
+    ELEMENTS-175: fix listener for quick filters changed
+
+[33mcommit 3d81400a65f1aff91068bea82d0c92f009c899a9[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Oct 26 18:51:36 2016 +0200
+
+    NXP-20855: Update element styles for following changes from app tree
+
+[33mcommit 88d4fa77b7ef99a82dedb2d2d8e0be75a76708fa[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Oct 26 18:20:53 2016 +0200
+
+    ELEMENTS-175: remove useless fired event
+
+[33mcommit 48ea269acbf905711da1dbc3cf871f5cc1a9b10f[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Oct 26 16:12:51 2016 +0100
+
+    ELEMENTS-150: introduce nuxeo-format-behavior and nuxeo-layout-behavior
+
+[33mcommit fe7b2e707d55b07029abc49db1d8452666c3af98[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Oct 26 16:11:49 2016 +0100
+
+    ELEMENTS-150: add hasCollections filter
+
+[33mcommit 67d02172dfa3f3f51aa06925a7608678be920c77[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Oct 26 11:55:53 2016 +0100
+
+    ELEMENTS-150: replace document facet related filters with a generic hasFacet filter
+
+[33mcommit 9ffae557f7fb29fcf813698a629d602c8905da0c[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Oct 25 11:15:11 2016 +0100
+
+    ELEMENTS-150: add nuxeo-filters-behavior (moved from nuxeo-web-ui)
+
+[33mcommit 66137b8fd0a5aabc55aa300c07c189c28166f43c[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Mon Oct 24 14:20:56 2016 +0100
+
+    ELEMENTS-178: fix document distribution chart test
+
+[33mcommit 46e63a59dac04e183866e3f36b7ba8736fee7cf1[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Mon Oct 24 12:14:07 2016 +0100
+
+    ELEMENTS-178: add eslint
+
+[33mcommit 4f2a4d3e2089a9b92a09d92984a5c31e577beef1[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Oct 20 12:48:15 2016 +0200
+
+    ELEMENTS-175: use paper button
+
+[33mcommit 4d006c308ff3bb07999a6c7cd70a598eb4537461[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Oct 19 17:14:10 2016 +0200
+
+    ELEMENTS-175: insert quick filters on top of table, grid, list elements when provided by the page provider
+
+[33mcommit 1846c14d71810a52ebb7b5ca07d0ef6874c9c5d6[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Oct 19 12:10:00 2016 +0200
+
+    ELEMENTS-166: fix empty fetched buckets + fix select2 behavior for init selection
+
+[33mcommit 8a70a0cfc615bfd2e44f2094f5989b23a3708a23[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Oct 18 12:38:03 2016 +0100
+
+    ELEMENTS-174: remove hardcoded page size for user and groups lists
+
+[33mcommit 719e7e6ea76cf37e8a26f7fa18eb8945ec306b7e[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Oct 17 18:59:09 2016 +0100
+
+    ELEMENTS-171: expose empty property in nuxeo-slot
+
+[33mcommit 3b2ee89bb227946372daafdeff3d8341994dd4f2[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Oct 14 16:45:28 2016 +0100
+
+    ELEMENTS-150: use label tag instead of span
+
+[33mcommit 714d419baea3ec3ce79cc40a682843905a5bb2fe[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Thu Oct 13 13:51:45 2016 +0200
+
+    NXP-20681: Apply font variable to data table
+
+[33mcommit d608d82b393f87c7426c4706bdfd9520a4cc2c04[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Oct 12 15:26:56 2016 +0200
+
+    ELEMENTS-139: fire event for row clicked
+
+[33mcommit 23b079a66a679ebc562674c2f757faec23f3e738[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Oct 10 18:05:56 2016 +0200
+
+    ELEMENTS-166: deal with system user
+
+[33mcommit e1beaeae1836f1904d19491f100ecfa87f155f20[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Oct 7 15:55:49 2016 +0100
+
+    ELEMENTS-167: fix viewers to be responsive, and fix image loading flicker issue.
+
+[33mcommit 916a7347d387c3e745b47ae225380e1ce24b77c4[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Oct 7 16:45:51 2016 +0200
+
+    ELEMENTS-166: remove wrong import
+
+[33mcommit 7130b521ade4defa9ecc7319c92652d34297f560[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Oct 7 15:52:56 2016 +0200
+
+    ELEMENTS-166: introduce aggregation behavior + take into account feteched aggregation bucket keys
+
+[33mcommit 9b1dc96b70bb2b78f0c37b7390959473d8b0624f[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Oct 3 15:29:54 2016 +0100
+
+    ELEMENTS-163: update XHRLocaleResolver to default to the reference file
+
+[33mcommit 03ebc3804aacbfbeb2b24f3344530b087a45d46c[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Mon Oct 3 11:47:33 2016 +0100
+
+    ELEMENTS-141: fix nuxeo-data-table-test
+
+[33mcommit a1965cd8adb98e2f51bc919dff83229838041b71[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Sep 30 14:52:40 2016 +0100
+
+    ELEMENTS-163: update XHRLocaleResolver to use the same file naming as crowding tools
+
+[33mcommit 9f7df10b7e5302ba2af16d40f42f1d4fa7b76430[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Sep 28 12:16:12 2016 +0100
+
+    ELEMENTS-101: fix url generation function update in routing behavior
+
+[33mcommit 7b15293c7588471f8a1601fee18a70d8f7053555[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Mon Sep 26 14:25:37 2016 +0100
+
+    ELEMENTS-150: change nuxeo-tree to automatically open root node.
+
+[33mcommit a1114d746306873105a7a5a28006cb2dd0b25a75[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Sep 22 14:08:36 2016 +0100
+
+    ELEMENTS-150: improve nuxeo-tag styling
+
+[33mcommit 41ecf856b3794c0aec1ee13a9ff62e664dbfb868[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Sep 21 18:28:58 2016 +0100
+
+    ELEMENTS-97: add id="createButton" (nuxeo-user-group-management-ftest  depends on it).
+
+[33mcommit 76f0c993ada95b897120c3217b78a342353a5402[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Sep 21 17:54:11 2016 +0100
+
+    ELEMENTS-97: add read only mode to users and groups elements.
+
+[33mcommit 6ba7c88c25f0a3c797f24f0ed7e4f51e0323dc29[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Sep 21 15:18:53 2016 +0100
+
+    NXP-20295: add nuxeo-tag widget
+
+[33mcommit d8bccc5278848248ebd99aa65a03f03b77ce530d[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Sep 20 18:16:36 2016 +0100
+
+    NXP-20089: increment page size of users of a group. improve user and groups tables styles.
+
+[33mcommit 6902a98529bb2a5dc15f3bcfcd032f5b3ede05cf[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Wed Sep 14 12:36:41 2016 +0200
+
+    NXP-20393: moved styles from main.css (from nuxeo-web-ui)
+
+[33mcommit f5e791f235b6ac6e42a07de737ef9f979e4113e4[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Sep 19 14:25:13 2016 +0200
+
+    ELEMENTS-140: add focusOnIndexIfNotVisible convenient method
+
+[33mcommit c130d2bde8d1c3606d4b7837215b20797657485d[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Sep 14 15:13:17 2016 +0200
+
+    ELEMENTS-140: fix empty label when not using a page provider
+
+[33mcommit af47ba257b21c60c1829a7dd91f4cf4db1615abe[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Sep 14 10:18:23 2016 +0200
+
+    NXP-20442: fix translation function update in i18n behavior
+
+[33mcommit 6784e7e8a687e828737ab30333022b91f0cfebcc[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Sep 13 14:31:40 2016 +0200
+
+    ELEMENTS-140: fix selection for grid
+
+[33mcommit 5230f8832f3142a7538245bcd389afcdaa6a4fff[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Sep 13 12:19:09 2016 +0200
+
+    ELEMENTS-141: fire more generic event
+
+[33mcommit b08d795c9ad3896661546f59c3639fe75517cf85[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Sep 13 12:16:32 2016 +0200
+
+    ELEMENTS-140: bind items
+
+[33mcommit 5f46a60d3705859b7b41d8897fc134daa7e149a4[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Sep 12 18:08:11 2016 +0200
+
+    ELEMENTS-140: fix typo
+
+[33mcommit 1cc36a55827abbeba3cd40dd531f472731817381[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Sep 12 15:48:02 2016 +0200
+
+    ELEMENTS-140: add as propery to pp display behavior + add select next/prev to list
+
+[33mcommit 85db04d2118d33d09af01839e40ab2534cb12e35[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Sep 12 14:41:56 2016 +0200
+
+    ELEMENTS-140: add shortkey navigation + expose more iron list attributes
+
+[33mcommit 82b7f17eef678f7d4ea981b756fe2a276e7a3f17[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Fri Sep 9 15:27:30 2016 +0100
+
+    ELEMENTS-150: align to nuxeo-elements#master and fix tests
+
+[33mcommit b973e2180b1ad4043ae05e4743c2f8ed3dac53d4[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Fri Sep 9 17:02:22 2016 +0200
+
+    NXP-20406: Increase space after the end of the list
+
+[33mcommit 58781189ff382bc74ebb98e6a6398f3b475c3452[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Fri Sep 9 12:55:42 2016 +0100
+
+    ELEMENTS-160: update usage to polymer-cli and fix linting
+
+[33mcommit 433e3627ef392da78aaab1829aa2ad478f18a6f8[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Thu Sep 8 19:55:19 2016 +0100
+
+    ELEMENTS-159: introduce nuxeo-slots
+
+[33mcommit 2649dbff7963d315c5a717c5d3e1ab93a3e72b77[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Thu Sep 8 12:43:37 2016 +0100
+
+    ELEMENTS-150: add widgets (moved from nuxeo-elements)
+
+[33mcommit fe902395da7ceb3e149576ff02a528f09364b598[m
+Author: Kevin Leturc <kleturc@nuxeo.com>
+Date:   Tue Aug 30 15:40:33 2016 +0200
+
+    ELEMENTS-153: Update dataviz after ES migration to 2.x
+
+[33mcommit 1cd609788484225ace2a189f73807f23844f36fc[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Sep 2 11:15:26 2016 +0200
+
+    ELEMENTS-149: fix worng iteration var
+
+[33mcommit fffeb1634edf9b65d80d187d74cc3d3a3fbd425a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Sep 2 10:19:02 2016 +0200
+
+    ELEMENTS-149: fire select to notify selected item
+
+[33mcommit 5117ea8321717955e778777ccb6407ed02202c31[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 17 11:23:20 2016 +0200
+
+    ELEMENTS-141: add test for nuxeo-data-table
+
+[33mcommit 9abbf6186066a1e9adde14f82bfdf6da9b1953cd[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Aug 30 17:55:53 2016 +0200
+
+    ELEMENTS-154: Reduce settings icon on data-table, fix table position
+
+[33mcommit 83900c2accd3d3a0a540fd06ead88ab585036696[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Aug 25 11:54:03 2016 +0200
+
+    ELEMENTS-139: use nuxeo prefix to avoid conflict
+
+[33mcommit 2897e05183829428974e711da19e05b7524ad2fd[m
+Author: Pierre-Gildas MILLON <pgmillon@nuxeo.com>
+Date:   Wed Aug 24 16:54:57 2016 +0200
+
+    NXBT-1198: Remove Company name
+
+[33mcommit 62b4f07e68c351f66cb2153d3375b977697c205e[m
+Author: Pierre-Gildas MILLON <pgmillon@nuxeo.com>
+Date:   Wed Aug 24 16:54:42 2016 +0200
+
+    NXBT-1198: Remove Company name
+
+[33mcommit e638d627596c233cfbb10e5f3a0e08c5e48d7225[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 17 11:25:33 2016 +0200
+
+    ELEMENTS-139: fix bower file
+
+[33mcommit 5b039a205ef09219e2e4556a291220bdcf086001[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 17 11:20:26 2016 +0200
+
+    ELEMENTS-140: add demo for new nuxeo-data-list element
+
+[33mcommit 287d5e1aec3600067165269c8f1cfdef96c57a42[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 17 11:19:58 2016 +0200
+
+    ELEMENTS-140: add new nuxeo-data-list element
+
+[33mcommit d60bf51bf9a1b5b950de529aa7804955eb2b8be9[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Aug 17 11:19:23 2016 +0200
+
+    ELEMENTS-140: cleanup
+
+[33mcommit 40455dc06d10830822c65a058e1145c7ef7df25f[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Aug 16 19:43:37 2016 +0200
+
+    ELEMENTS-139: add missing import for table icon
+
+[33mcommit 3d1f86d2dc5dccbcc9c1fc743c7195b5c92f37d7[m
+Author: Adilio Araujo <aaraujo@nuxeo.com>
+Date:   Tue Aug 16 16:00:54 2016 +0100
+
+    ELEMENTS-136: align paper-typeahead on 0.4
+
+[33mcommit 58adb4eb50f475e713b9dc6c7b0558759b6f7988[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Aug 9 15:41:18 2016 +0200
+
+    ELEMENTS-139: cleanup
+
+[33mcommit 860eeb3813f072f8ef3758a7899107181aed7dae[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Aug 8 19:09:56 2016 +0200
+
+    ELEMENTS-139: rebase on iron-data-table v1.0.1
+
+[33mcommit db85c12731e2fd0f69f5b588b0481137fb8d58e7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Aug 8 17:32:02 2016 +0200
+
+    ELEMENTS-139: rename files
+
+[33mcommit ccf500198555a76b607bbc2e64df995728a3c388[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Aug 4 11:03:13 2016 +0100
+
+    ELEMENTS-147: make sure we only have one root node in the tree
+
+[33mcommit 5193a0ce521c1f4b6640d71f9f1b5c1b5335c257[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Jul 28 17:30:24 2016 +0100
+
+    ELEMENTS-74: align nuxeo-elements on master in npm
+
+[33mcommit 7c0bce849694be07460fe080731ef713f5d3f62e[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Jul 28 17:04:23 2016 +0100
+
+    ELEMENTS-74: use repository name for dependencies that are not published in npm
+
+[33mcommit d6bac1e0483b9b0bf7ed882c13201b3e949dfec6[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Jul 22 18:33:32 2016 +0200
+
+    ELEMENTS-143: fix observer signature + fix style issues
+
+[33mcommit 9251ab82e808d401c413f6ac755d4c5532bd491d[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jul 18 17:34:44 2016 +0200
+
+    ELEMENTS-127: display current applying filter on top of the grid
+
+[33mcommit a7bb91c833b0fd22726320758ae7ee1e46272a11[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Jul 13 11:41:08 2016 +0100
+
+    ELEMENTS-137: align copyright headers to Apache License 2.0
+
+[33mcommit d8b908bdf67e83c8664b3a608b4798a081baa185[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 13 12:19:59 2016 +0200
+
+    ELEMENTS-134: use nuxeo/paper-typeahead#0.2.1
+
+[33mcommit 60bb333290c8d32eef79ed5a10672354a7f4143f[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 13 11:36:35 2016 +0200
+
+    ELEMENTS-134: remove useless dependency
+
+[33mcommit f1c744ee9d8def4af90909c0d95c2154b5cc091d[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 12 17:22:52 2016 +0200
+
+    ELEMENTS-134: release 0.2.0
+
+[33mcommit ec2e34554cc04cf724f9a4af45b612c8e274e7ec[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 12 17:22:35 2016 +0200
+
+    ELEMENTS-134: freeze version
+
+[33mcommit 0093d5c561c38ce52b1de887021d68452e9ce4da[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Jul 12 18:12:28 2016 +0100
+
+    ELEMENTS-135: listen for 'tap' event on capture phase and stop propagation
+
+[33mcommit b75966c8c95f0b05c39f08396ea7b22ef864cc47[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 12 13:11:38 2016 +0200
+
+    ELEMENTS-133: fix chart loading appearance
+
+[33mcommit d990f27d0aae4d20153174bdaf452d3694cbd7c8[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Jul 12 11:53:39 2016 +0100
+
+    ELEMENTS-132: fix detach of video viewer
+
+[33mcommit c3e1db2572807a1c36f291c4a8dc12b60f81c8ed[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 12 12:49:05 2016 +0200
+
+    ELEMENTS-130: clean up
+
+[33mcommit 3efa6ff4379fd55fee227eee5501f2759b46165b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 12 12:30:29 2016 +0200
+
+    ELEMENTS-130: fix data-table selection for Firefox
+
+[33mcommit 92e86ce778750f3091477bbcebbdfb29c87da871[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Jul 11 10:53:16 2016 +0100
+
+    ELEMENTS-128: disable shadow root support for video-viewer
+
+[33mcommit 0248fe48d39bb68d82fbfa2200d31216f822f86a[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Jul 11 10:14:29 2016 +0100
+
+    ELEMENTS-128: introduce a `sources` property for nuxeo-video-viewer
+
+[33mcommit fba5d504378995f3378a30eb85105e546b3f6e0e[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Jul 8 09:34:39 2016 +0100
+
+    ELEMENTS-126: add support for i18n in nuxeo-checkbox-aggregation
+
+[33mcommit c88e74b7274969ad040645b49150a44b0fd8e46c[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jul 7 16:46:13 2016 +0100
+
+    NXP-19935: try to fix random not visible first row cell
+
+[33mcommit cb86d1cd109bb7583ba0d7784b28edff9b32f689[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jul 7 15:17:17 2016 +0100
+
+    ELEMENTS-125: do not display empty labels when loading
+
+[33mcommit 800b91b409b44d4f64fd1e8471352b92b1b41b6f[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jul 7 14:20:23 2016 +0100
+
+    ELEMENTS-96: clean up code + force fetch when no auto fetch
+
+[33mcommit abf205fce747d3b466c97f795d76d40ca3b556df[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 6 18:16:21 2016 +0100
+
+    ELEMENTS-125: add ability to define empty label + empty label when filtered in page provider behavior + use it in grid and table
+
+[33mcommit f21f03e11cf5c45786de3fc43df88937c5f67672[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Jul 6 17:48:57 2016 +0100
+
+    ELEMENTS-124: Update styles for tree
+
+[33mcommit a110160fb0fa1e5f0e409d1378cedb45e5e54764[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Jul 6 16:47:45 2016 +0100
+
+    ELEMENTS-123: Improve grid responsiveness with panel open and closed
+
+[33mcommit 78e62de1bf2682c2b8ce133812fa21e58ca1f501[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Wed Jul 6 15:54:51 2016 +0100
+
+    ELEMENTS-120: Remove useless padding in grid listing
+
+[33mcommit ae8030ea039d838690a4c5ae8c0888aa3ab46203[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 6 12:14:30 2016 +0100
+
+    ELEMENTS-122: i18n buttons
+
+[33mcommit 54f7494fadb651a0a1ef2057588402befc1f33c2[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 6 12:12:19 2016 +0100
+
+    ELEMENTS-122: allow to reset settings
+
+[33mcommit a43f551d0190c7abbec7e6355e580405a39ec7d6[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jul 6 11:52:54 2016 +0100
+
+    ELEMENTS-122: clean up two-way binding + make sure columns hidden prop change is detected
+
+[33mcommit 71fd79c2a2620aa6c9a6fe7e67c9a252adac1c6e[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 5 16:30:20 2016 +0100
+
+    ELEMENTS-105: add selectItems method
+
+[33mcommit c5145a9dfecb1466a875dbc12c1f42eb82e1c381[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Jul 5 15:53:39 2016 +0100
+
+    ELEMENTS-121: Make button position depends on its table
+
+[33mcommit 3296a2bcf38282be6e6f20d67087307b3006b97d[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Jul 5 15:49:59 2016 +0100
+
+    ELEMENTS-120: Clean style for data-table
+
+[33mcommit c2795b29b49856ca101595d7ec18f29e2d011d3c[m
+Author: Lise Kemen <lkemen@nuxeo.com>
+Date:   Tue Jul 5 15:49:25 2016 +0100
+
+    ELEMENTS-120: Remove data-grid scrollbar when few items are displayed
+
+[33mcommit 53e9176d08915d2c36bc82801b8cdf2fd03328b7[m
+Author: Nelson Silva <nsilva@nuxeo.com>
+Date:   Tue Jul 5 11:41:01 2016 +0100
+
+    ELEMENTS-119: fix document distribution chart tests
+
+[33mcommit f9fb3e3957abba5bf61e91e6f4d5f1d2b8626049[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jul 5 10:58:13 2016 +0100
+
+    ELEMENTS-96: add ability to give a simple item array and do not use a page provider with nx datatable
+
+[33mcommit df89dbaaa77ba08c57881e214a3c90e18600ad7b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jul 4 16:30:23 2016 +0100
+
+    ELEMENTS-119: restrict to doc type
+
+[33mcommit 03fd4343774705f4121de39877345bfff861763a[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Jul 4 09:53:33 2016 +0100
+
+    ELEMENTS-118: allow translate function to be called outside the i18n behavior
+
+[33mcommit 9c9604dd17c068e923f6a4024ed79b48259c768b[m
+Author: Thomas Roger <throger@gmail.com>
+Date:   Fri Jul 1 11:51:13 2016 +0200
+
+    NXP-19925: fix send notification action
+
+[33mcommit 2927bd5ff29fedee902ef999a5f7ce01f7b8fc03[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jun 27 19:17:04 2016 +0200
+
+    ELEMENTS-107: add get and set for datatable settings
+
+[33mcommit 909a5117da8ff5072399b7215efddcbc084b398a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Sat Jun 25 00:25:41 2016 +0200
+
+    ELEMENTS-105: refactor selection mechanism
+
+[33mcommit 4550065738229daafd9def550d97166c8bda6531[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jun 23 16:02:51 2016 +0200
+
+    ELEMENTS-105: add selection logic to the grid
+
+[33mcommit 1835e55f7a25baf86d94955dee69d783e57bb996[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jun 21 12:29:00 2016 +0200
+
+    ELEMENTS-105: fix data table header filter + simplify impl
+
+[33mcommit 68a2c7851d3af4b7107a6696ad160696111d4a57[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Jun 16 18:12:18 2016 +0200
+
+    ELEMENTS-105: rename behavior + disable temporarly selection on grid
+
+[33mcommit de08f0758d9d3fabc2152a4eb43c8bd177b1cfaa[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jun 15 17:15:59 2016 +0200
+
+    ELEMENTS-105: keep synch table and grid selection
+
+[33mcommit 80309dfd88c7e092159b506ed1676dcd6354c373[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jun 15 14:06:16 2016 +0200
+
+    ELEMENTS-105: introduce new behavior for page provider infinite loading and item selection
+
+[33mcommit 420795fe99c464a7a4e3f20eb247773b1b74e591[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Jun 15 09:57:29 2016 +0100
+
+    ELEMENTS-63: implement i18n behavior that allows custom async label loading
+
+[33mcommit cd661dc55fe8edb9f68ed2ac5fa04a118cf86f01[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue Jun 14 15:32:29 2016 +0200
+
+    ELEMENTS-115: merge nuxeo-document-permissions into nuxeo-ui-elements
+
+[33mcommit a56f5d3586fc77b1e0458866acc3071156cc554c[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon Jun 13 16:47:53 2016 +0200
+
+    ELEMENTS-112: fix test for shadow dom
+
+[33mcommit c2edc241647fd7e3ecb50f9750f65fe387ca3ed0[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Jun 10 19:15:58 2016 +0200
+
+    ELEMENTS-107: fix wrong import
+
+[33mcommit b2f400308674adbbffaf898b3cf00e4c102ae6d3[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Jun 10 18:28:55 2016 +0200
+
+    ELEMENTS-107: add nuxeo-data-table-settings element to choose columns to be displayed
+
+[33mcommit 26869ebb1c037d4081ddf5d08ae7152c9cc99354[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jun 8 11:27:31 2016 +0200
+
+    ELEMENTS-105: start adding selection support on data-grid
+
+[33mcommit 9c94f87ba366d08a3db9e0f5702fdc631931c7d2[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Jun 8 11:22:09 2016 +0200
+
+    ELEMENTS-105: add selection support on data-table
+
+[33mcommit aff6411116dd6749a678a0e5c1328eab355f1604[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Jun 3 11:22:57 2016 +0100
+
+    ELEMENTS-111: update image and video viewers to support Shadow DOM
+
+[33mcommit e18f5e7e33af53172dadf7a2128200a1eaea14d1[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Jun 1 15:00:49 2016 +0100
+
+    ELEMENTS-110: update tests to support both Shadow and Shady DOM
+
+[33mcommit f987ee08f03483bb6018bfae99ffe0a0a4ba0a2b[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Jun 1 14:59:15 2016 +0100
+
+    ELEMENTS-112: update nuxeo-document-distribution-chart to work with Shadow DOM
+
+[33mcommit 13abade11f6adc7736dde3690d6c9cd6c1b3a82c[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Jun 1 14:53:23 2016 +0100
+
+    ELEMENTS-109: update nuxeo-tree to work with Shadow DOM
+
+[33mcommit 91dc4972a51c73b8099ef56d32aa15e71cac62d7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 25 11:17:15 2016 +0200
+
+    Update build status
+
+[33mcommit 45437f05dd391236ca38b7547506016024e2ab00[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 25 10:57:09 2016 +0200
+
+    ELEMENTS-96: add README.md
+
+[33mcommit 516d099f32d5dfcd3661835c1a647aff57988026[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue May 24 14:49:17 2016 +0200
+
+    ELEMENTS-96: add usage doc + cleanup privates attributes
+
+[33mcommit c5bec5c276582c69d7451c248075fc2d4bfb0c68[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu May 19 17:55:49 2016 +0200
+
+    ELEMENTS-103: remove useless legend + fix breadcrumb
+
+[33mcommit 7861bbf9e78ebfa0aa84f5e789a5dc3b3258da27[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu May 19 17:20:57 2016 +0200
+
+    ELEMENTS-103: better selector to avoid init pbm
+
+[33mcommit 53452a2d7897770e2f5b267312df3dc221f1cfa8[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 18 19:10:02 2016 +0200
+
+    ELEMENTS-96: set width to 100% by default for s2 agg
+
+[33mcommit 2fcd83673a91d8f5417821010e4b81be92b9fbce[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed May 18 19:09:39 2016 +0200
+
+    ELEMENTS-96: deal with no auto fetch page provider
+
+[33mcommit 1e726054e1a63b549eb98cf812aa5468edd75b96[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Tue May 17 17:43:21 2016 +0200
+
+    ELEMENTS-96: fix wrong import
+
+[33mcommit 374421a4ee99df0f215156d487fa613f9b9e47f7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 16 21:02:58 2016 +0200
+
+    ELEMENTS-96: cleanup
+
+[33mcommit ab6ca7a2aca1d5643a1d07310816e2d1d315c9f5[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 16 17:41:16 2016 +0200
+
+    ELEMENTS-96: simplify loading detection
+
+[33mcommit 935fac5c66fadd80ad58f2d38485c5d736e4ecd9[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 16 16:05:38 2016 +0200
+
+    ELEMENTS-96: simplify aggregation widget + move checkbox aggregations to nuxeo-ui-element
+
+[33mcommit 8ea11f52fd71e88cbd674c5649ba48621ffeafc7[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 16 15:55:19 2016 +0200
+
+    ELEMENTS-96: add fulltext column filter
+
+[33mcommit f5b410c7833d152a30958c46a3fe6cfba4aebff3[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 16 14:21:45 2016 +0200
+
+    ELEMENTS-96: add sort by on dc:modified for demo
+
+[33mcommit 24e575ccbe9cdf0cbe49226a6ab9e79e900a1d4a[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Mon May 16 12:20:17 2016 +0200
+
+    ELEMENTS-96: format + add abilitity to pass an object as page provider + fix first item loading
+
+[33mcommit 6877ef7392587bd2c7abce91e3370cc908618241[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri May 13 17:53:58 2016 +0200
+
+    ELEMENTS-96: add a nuxeo data table element + demo
+
+[33mcommit 664e732866ad4b36836e9de76d66fe5924a1c475[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon May 16 10:48:42 2016 +0100
+
+    ELEMENTS-100: add web-components keyword and main property
+
+[33mcommit 4a5946499a7d0b34d9d0725ca9c836088ebb4af2[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue May 10 10:45:14 2016 +0100
+
+    ELEMENTS-101: make sure urlFor is executed when router changes
+
+[33mcommit 97de17d42a22ed0ac8fbe9cccf963e633d0663fb[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed May 4 17:30:41 2016 +0100
+
+    ELEMENTS-101: introduce nuxeo-routing-behavior
+
+[33mcommit 79da0cdc63764df855bafa8810f626bc0381ca43[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu May 5 14:36:27 2016 +0100
+
+    ELEMENTS-75: display nuxeo-tree-node as a block element
+
+[33mcommit 5be16e133b9854e1590b7259a1c3407a79f939b9[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue May 3 18:04:20 2016 +0100
+
+    ELEMENTS-75: improve api to manage tree nodes
+
+[33mcommit c713f729f30dcc8971d646305c1c0cd8aeb1b93a[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 29 12:29:33 2016 +0100
+
+    ELEMENTS-75: improve nuxeo-tree docs + add demo
+
+[33mcommit 894d0118e1d2c4298a33058d227aa36095a00fe2[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 29 11:55:55 2016 +0100
+
+    ELEMENTS-75: introduce nuxeo-tree
+
+[33mcommit 2c8cf2d03f9587302d9c69df219b8f2fcd4cb2e5[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Apr 27 16:16:15 2016 +0100
+
+    ELEMENTS-74: setup npm in nuxeo-ui-elements
+
+[33mcommit 72845b6113dcf8e4a3be2ab199521fb9cdc9ccc7[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Apr 27 11:36:05 2016 +0100
+
+    NXP-19548: show the user id when displaying results from the nuxeo-user-suggestion
+
+[33mcommit e6973d8149322151248c4502a833ad7f84b63f1f[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Apr 27 10:59:53 2016 +0100
+
+    NXP-19549: increase space between the search bar and the creation button
+
+[33mcommit 556f53392efdba187d6fd3952cc82cd3cc30ba53[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Apr 19 16:49:44 2016 +0100
+
+    ELEMENTS-82: improve user and group management styles
+
+[33mcommit ebde56d09311bd57e5e5a3f28ae6167a6fbe7023[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Apr 19 16:49:16 2016 +0100
+
+    ELEMENTS-82: add pagination to user and groups' document permissions
+
+[33mcommit 665875f5c47e4c7c30eec89e70646c061fc97de9[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Apr 18 14:48:23 2016 +0100
+
+    ELEMENTS-94: add nuxeo path suggestion widget to nuxeo-ui-elements
+
+[33mcommit d1fbd1c7f6c0d02c8e04d595f854696aef8e24e2[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Apr 8 14:03:59 2016 +0200
+
+    ELEMENTS-84: remove flex style on member suggestion
+
+[33mcommit 8c994fa3d539e2a847b7ed05ab34fb68ceecc2a3[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Apr 8 12:27:34 2016 +0200
+
+    ELEMENTS-84: remove flex style on password input
+
+[33mcommit 5d92bc5cda1d5ebcaf32f55793305c7aea2b2b55[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Apr 7 15:59:05 2016 +0200
+
+    ELEMENTS-83: remove build meta on README
+
+[33mcommit cee81a1160a7476a76752ea0b4e8f23e6f23d6a4[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu Apr 7 14:54:40 2016 +0100
+
+    ELEMENTS-81: code cleanup and documentation
+
+[33mcommit 76a4f66e0c195cfa6d49af4e912b3e5ac1116283[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Apr 7 15:11:13 2016 +0200
+
+    ELEMENTS-83: mv nuxeo-document-distribution-chart to nuxeo-ui-elements
+
+[33mcommit 2df150ab7fa407b7de6c38b5a8c9f8e48799ff1c[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Apr 6 23:19:47 2016 +0100
+
+    ELEMENTS-81: use Polymer.isInstance to check for registered elements
+
+[33mcommit d42612e75879905ca2ae59d0b199eb4ad7974723[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Wed Apr 6 18:32:38 2016 +0100
+
+    ELEMENTS-81: prevent duplicated user layout loading
+
+[33mcommit 4ce0cf2c5b1458449caccec2ea933c8a7bcce7e1[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Tue Apr 5 14:53:06 2016 +0100
+
+    ELEMENTS-81: allow dynamic loading of user view and edit layouts
+
+[33mcommit 28544834a1fd887d9053184733c4e46d922a7e9b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 17:48:30 2016 +0200
+
+    ELEMENTS-51: make latest element available for import
+
+[33mcommit 52294883bec10e759b49b66c315d7fe40af2e71f[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 15:17:48 2016 +0200
+
+    ELEMENTS-51: clean up
+
+[33mcommit acd4b440dfb869c8199efd9d8dbad414a48bcf25[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 15:14:02 2016 +0200
+
+    Revert "ELEMENTS-76: fix wrong adapter name"
+    
+    This reverts commit d838eb818def432f488658174bfeafd123521c5c.
+
+[33mcommit 84f537c7fb2ce64a0562ac7a9f8855800c9d2a36[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 12:49:59 2016 +0200
+
+    ELEMENTS-76: add needed headers to fetch user/group members + avoid errors on empty groups/users
+
+[33mcommit d838eb818def432f488658174bfeafd123521c5c[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 12:15:56 2016 +0200
+
+    ELEMENTS-76: fix wrong adapter name
+
+[33mcommit 3af1902b18914d4a832ec00924cb77e8a87ac8f0[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 11:31:06 2016 +0200
+
+    ELEMENTS-51: extract latest user/group in standalone element
+
+[33mcommit 8fdfdfc60a6f930ad89004ed9a15196e62bb0e41[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Mar 30 10:22:00 2016 +0100
+
+    ELEMENTS-78: explicitly ask for group members
+
+[33mcommit 6526d532ca5b55fd71c021ec02ebad9df9b4ecea[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 30 11:11:55 2016 +0200
+
+    ELEMENTS-51: fix wrong event data to edit group
+
+[33mcommit 3dcbcc5e74d6c1fa1606833704713f01a88e6710[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Thu Mar 24 12:02:25 2016 +0100
+
+    ELEMENTS-51: fix display for user
+
+[33mcommit d2a8ea799215582d35cda9c080947f05b1254b2c[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 23 16:29:45 2016 +0100
+
+    ELEMENTS-51: better display label for latest user/group + refresh latest on new user/group
+
+[33mcommit ae634f8dea11425a34e783eca17fce30af291b6b[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Wed Mar 23 15:35:14 2016 +0100
+
+    ELEMENTS-51: explicitly ask for group members
+
+[33mcommit a0cba3b11cf721c3b8653b2ffa9593930f6fd635[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 22 12:21:45 2016 +0000
+
+    ELEMENTS-71: improve style of disabled input
+
+[33mcommit 734bb5bdcd630a7c814a8a451f2e90e2aebefb74[m
+Author: Guillaume Renard <grenard@nuxeo.com>
+Date:   Fri Mar 18 14:00:15 2016 +0100
+
+    ELEMENTS-51: add latest user/group created
+
+[33mcommit 1e97e41190b20e7f41b0900d29b4e8780583c2eb[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 17 17:03:56 2016 +0000
+
+    ELEMENTS-69: fix management of a user's groups
+
+[33mcommit e4f06637f0cdf6185bb5a4ded453c4ae681737a9[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 17 17:02:46 2016 +0000
+
+    ELEMENTS-68: properly reset user model
+
+[33mcommit b7bb83f009b8618e2149185560d7793a8d40fd5e[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Mar 16 11:19:41 2016 +0000
+
+    ELEMENTS-65 ELEMENTS-66: make sure password fields are reseted
+
+[33mcommit 0b590c350f5bf4997269cf2ad638578d507aaa4d[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Mar 16 11:18:15 2016 +0000
+
+    ELEMENTS-52: fix alignment of creation dropdown
+
+[33mcommit 23e0c2cc8503e9b36319efcaceb1932525629fff[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 15 22:47:14 2016 +0000
+
+    ELEMENTS-44: clean up styles
+
+[33mcommit f47f0824d96e7e80bc5181b003fdd549b72567f4[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 15 22:46:30 2016 +0000
+
+    ELEMENTS-50: fix i18n label
+
+[33mcommit 79debc8d4eb9bce2561fccf23bdb537583a8ad67[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 15 22:43:14 2016 +0000
+
+    ELEMENTS-43 ELEMENTS-47: make sure errors are reseted
+
+[33mcommit b407bf0038b24c30aa627468ca07872a72e80d0c[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 15 13:15:47 2016 +0000
+
+    ELEMENTS-44: improve nuxeo-user-management styles
+
+[33mcommit b542ebed390a1588503523d6b49b1044e8dc54f2[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Thu Mar 10 17:45:07 2016 +0000
+
+    ELEMENTS-63: introduce i18n to the new User & Group Management
+
+[33mcommit 9c4850574c25447b9c75dd174f45de9073d76b0b[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 10 11:26:49 2016 +0000
+
+    ELEMENTS-50: fix css
+
+[33mcommit 085f4bba74798261c37ccee01678b6364bbb3783[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 10 11:18:47 2016 +0000
+
+    ELEMENTS-45: delete password from model when user is fetched
+
+[33mcommit 06cc586fa501bf627b5b671a3bd002238e00bf99[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 10 11:17:18 2016 +0000
+
+    ELEMENTS-50: allow editing groups + allow filtering members
+
+[33mcommit 2216aab0d08d6c0173e5f702cd88013675311a48[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Mar 9 18:10:11 2016 +0000
+
+    ELEMENTS-52: clean up
+
+[33mcommit ea4cc1b4931d601ff31ca2b65312d2fbd5512df2[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Mar 9 18:09:18 2016 +0000
+
+    ELEMENTS-44: fix toasts
+
+[33mcommit 429da460da6a91fa706eaf8a3fbd9fa35754e282[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Wed Mar 9 18:08:02 2016 +0000
+
+    ELEMENTS-50: allow managing group members
+
+[33mcommit e520b7e6ac45df8afb0b3a4c95349b4ab2f08a46[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Wed Mar 9 17:06:41 2016 +0000
+
+    ELEMENTS-52: fix create button positioning
+
+[33mcommit 8c4b974499f6d198aecf9a32807fa00d917bd04d[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 8 12:53:52 2016 +0000
+
+    ELEMENTS-62: follow changes on nuxeo-select2 to get selected items
+
+[33mcommit dfdbea48c3435e1b9bfbfa313e62936fc59bfcec[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Mar 7 17:57:02 2016 +0000
+
+    ELEMENTS-45: fix group creation event to be on par with that of the user
+
+[33mcommit e3233a22a0aa9c9bec8eb712e587cca2a70b6d03[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Mar 7 17:25:32 2016 +0000
+
+    ELEMENTS-45: removed unused script import
+
+[33mcommit e91836eb54f754f244f56b8d1af074a6f7fea7fc[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Mar 7 17:12:53 2016 +0000
+
+    ELEMENTS-45: ditch lodash usage in user management
+
+[33mcommit 3bf80ed01c58e75065db27ef8d818af8a3ccd438[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Mar 7 15:50:03 2016 +0000
+
+    ELEMENTS-47: fix import path
+
+[33mcommit 5fa45ed176fbfbf8a29f3a92c1dc4d9ba5651051[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Mar 7 15:43:22 2016 +0000
+
+    ELEMENTS-47: fix group creation tests
+
+[33mcommit 922fbd6af81f1d9d2df82718bf65a939f10436d8[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Mar 7 12:45:58 2016 +0000
+
+    ELEMENTS-48: clean up
+
+[33mcommit 901a66302a613d2a8b4f7a0479c3b054f16f3178[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Mar 7 12:45:24 2016 +0000
+
+    ELEMENTS-52: move creation menu to root element + clean up
+
+[33mcommit 3b2a6f7ab489d32ea1d3624bbc60ce86e8e5607e[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Mon Mar 7 15:17:56 2016 +0000
+
+    ELEMENTS-45: allow editing users
+
+[33mcommit 1a15bbc76a3e95b46713b1ff9773c9837d7a97a6[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Mon Mar 7 12:52:28 2016 +0000
+
+    ELEMENTS-46: rely on NuxeoPrincipal marshalling support in automation
+
+[33mcommit 98d801cc8193776828028d5d8a9a53fa212c28b3[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Mon Mar 7 09:57:37 2016 +0000
+
+    ELEMENTS-46: use operation to invite users when password is not set
+
+[33mcommit 1ac00e5abf8edbb041be8bdf9dbb175359f903ee[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 18:22:18 2016 +0000
+
+    ELEMENTS-48: store the deleted ace in a private property
+
+[33mcommit a44b32d93453109f0c99c18dbd5f1ab0eb3db12c[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 18:20:13 2016 +0000
+
+    ELEMENTS-44: add confirmation popup when removing a user from a group
+
+[33mcommit ab1b714a229c40fa0efe1ef5bf7347aeb4aa2509[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 16:10:07 2016 +0000
+
+    ELEMENTS-48: prevent ace deletion if there is no ace id
+
+[33mcommit c68fc43c0ca3370ecb4b9b802d411be47f2b4f13[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 15:55:07 2016 +0000
+
+    ELEMENTS-48: add confirmation popup when deleting an ace
+
+[33mcommit 68c97fe37c961a85dd64847adae1b40ef717c144[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 14:52:47 2016 +0000
+
+    ELEMENTS-47: adapt group creation tests
+
+[33mcommit 7669825cfbc7d59ec4f8552a6f6d29d5065e18eb[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 12:14:55 2016 +0000
+
+    ELEMENTS-52: add title to search results tables
+
+[33mcommit 4812b4f5fe76c61f27c3614c8bd91d1aa6496f13[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 10:29:43 2016 +0000
+
+    ELEMENTS-52: add pagination to search results
+
+[33mcommit 07e2c6b7c9e530177a59704b6ec9bc9b2ba804cb[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Mar 4 10:08:29 2016 +0000
+
+    ELEMENTS-52: introduce nuxeo-pagination-controls
+
+[33mcommit fbd78cbcf0e2b0f9fd3ac0e0492f667959daf644[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 3 15:57:37 2016 +0000
+
+    ELEMENTS-52: use a pagesize of 5 for search results
+
+[33mcommit 3c04ccb833ca6c656aa88091df449bdb2fd1ba50[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 3 15:54:00 2016 +0000
+
+    ELEMENTS-59: display groups ACE tables in user page
+
+[33mcommit 7310aa6dfb9638472d2d723e7e5ca07b6ce68f98[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 3 15:52:47 2016 +0000
+
+    ELEMENTS-48: use nuxeo-user-group-permissions-table to display the permissions of a user
+
+[33mcommit 853c3ea450c53167f84d87d0a770e668f2888eae[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Mar 3 15:46:07 2016 +0000
+
+    ELEMENTS-48: introduce nuxeo-user-group-permissions-table
+
+[33mcommit e6ae3aeed021b25acd4fe39fe6359cc7702a6733[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Tue Mar 1 18:44:19 2016 +0000
+
+    ELEMENTS-47: display server error on group creation form + code cleanup
+
+[33mcommit 1baad28f17c41fdeaaf58419a0e3ded8f51e3487[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Mar 1 09:44:59 2016 +0000
+
+    ELEMENTS-44: improve query to fetch permissions
+
+[33mcommit 2f2ad1f348e0aa35dcaf7930b4537f4da2f0a7b0[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Feb 29 17:13:46 2016 +0000
+
+    ELEMENTS-44: update moment.js version
+
+[33mcommit 246c7fe4eccd8e9355f44a9e99d37c94391300a5[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Feb 29 17:06:52 2016 +0000
+
+    ELEMENTS-52: allow searching for users and groups
+
+[33mcommit f1fede3d65bd5e4dd37029d5eb1907cc9f4f0304[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Feb 29 17:03:22 2016 +0000
+
+    ELEMENTS-44: allow managing a user's groups
+
+[33mcommit 01060ac5dc8f669f9a7ea0bbae32f00d181595fa[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Feb 23 12:25:14 2016 +0000
+
+    ELEMENTS-43 ELEMENTS-47: fix polylint issues + add missing imports
+
+[33mcommit 6c4e854f5e0fea6ef6fd447a7a46a2915c978d19[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Feb 23 10:07:01 2016 +0000
+
+    ELEMENTS-47: rename users and groups management root element
+
+[33mcommit dc6681776b927f98c40e5a638b830ffaad973313[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Feb 23 10:05:52 2016 +0000
+
+    ELEMENTS-47: improve form submission + cleanup
+
+[33mcommit 18af8303f9000c810cd37cf725443a8f64e2accd[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Tue Feb 23 10:04:44 2016 +0000
+
+    ELEMENTS-43: allow creating new users with password
+
+[33mcommit 9360d1fcac20f84d17d6bd692101c413bc502f85[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Feb 19 19:16:08 2016 +0000
+
+    ELEMENTS-47: fix broken group creation test
+
+[33mcommit 768a25bf353f832ceab25ee28527d8d9cd1a03d8[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Feb 19 18:59:30 2016 +0000
+
+    ELEMENTS-47: style cleanup
+
+[33mcommit 851af78f0ef033c176e1c69a26392753fc18302f[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Feb 19 17:52:33 2016 +0000
+
+    ELEMENTS-47: code cleanup
+
+[33mcommit e0a3d8b1f3b475b679ba350ce08981df61c88585[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Feb 19 16:40:08 2016 +0000
+
+    ELEMENTS-47: allow creating new groups via the new users and groups management element
+
+[33mcommit 7ab1679fb511f261cc704145b7501ae3b62b6a98[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Feb 15 11:01:58 2016 +0000
+
+    ELEMENTS-37: move mode is now enabled by default on nuxeo-image-viewer
+
+[33mcommit 8516d870ce310d4bd669f3ade8b6e69365164532[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Feb 15 10:52:24 2016 +0000
+
+    ELEMENTS-36: big pictures no longer overflow the dimensions of the nuxeo-image-viewer container
+
+[33mcommit 7c90c4847556a59d4106e6fe4ff7e93b35053c0a[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Mon Feb 1 18:02:49 2016 +0000
+
+    ELEMENTS-30: change default height of nuxeo-image-viewer
+
+[33mcommit fc052a382e3ec554573600e666c555d560472ab6[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Tue Jan 26 22:13:01 2016 +0000
+
+    ELEMENTS-28: allow styling the iframe in nuxeo-pdf-viewer
+
+[33mcommit 7d14710d4a6834664e5b6d9d6bdea1e419ee3be4[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Tue Jan 26 21:38:17 2016 +0000
+
+    ELEMENTS-28: update url resolving in pdf viewer and use xhr with credentials
+
+[33mcommit 5f8cb2303c6cfda460861531c448e82222ed7b94[m
+Author: Gabriel Barata <gbarata@nuxeo.com>
+Date:   Fri Jan 22 11:13:30 2016 +0000
+
+    ELEMENTS-28: create element for PDF preview
+
+[33mcommit a964d03af53b4d727d19da0776eade2d5ab4c8a4[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Fri Jan 22 14:35:08 2016 +0000
+
+    ELEMENTS-30: ensure image-viewer behaves correctly on resize
+
+[33mcommit b652e833325705801b90b960bf66ae6b65db564f[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Jan 21 15:54:11 2016 +0000
+
+    ELEMENTS-30: fix z-index of nuxeo-image-viewer toolbar
+
+[33mcommit dfa3f726b4fa47e9bccae27f58f9dd92abf99722[m
+Author: Andre Justo <ajusto@nuxeo.com>
+Date:   Thu Jan 21 15:23:04 2016 +0000
+
+    ELEMENTS-30: add nuxeo-image-viewer
+
+[33mcommit 8261c3cba96c9b5f5da1b0d91c4b5c55fe6e09fd[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Wed Jan 20 18:18:19 2016 +0000
+
+    ELEMENTS-29: add nuxeo-video-viewer
+
+[33mcommit 6403b89ed0aea97dcce8973abcda12537c013503[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Wed Jan 20 18:15:26 2016 +0000
+
+    Add bower package and component page
+
+[33mcommit c2677c53554fca8a39667ac37c349ead53eddf46[m
+Author: Nelson Silva <nelson.silva@inevo.pt>
+Date:   Wed Jan 20 18:08:35 2016 +0000
+
+    Initial import
