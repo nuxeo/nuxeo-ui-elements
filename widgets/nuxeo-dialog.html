@@ -74,12 +74,7 @@ An element for dialogs
       listeners: {
         'iron-overlay-opened': '_opened',
         'iron-overlay-closed': '_closed',
-        'iron-overlay-canceled': '_closed',
-        'keydown': '_keyDown'
-      },
-
-      _keyDown: function(e) {
-        e.preventDefault();
+        'iron-overlay-canceled': '_closed'
       },
 
       _opened: function() {
