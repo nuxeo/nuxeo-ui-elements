@@ -24,13 +24,13 @@ limitations under the License.
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../paper-card/paper-card.html">
-<link rel="import" href="../../paper-dialog/paper-dialog.html">
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../paper-input/paper-input.html">
 <link rel="import" href="../../paper-toast/paper-toast.html">
 <link rel="import" href="../widgets/nuxeo-group-tag.html">
 <link rel="import" href="../widgets/nuxeo-tag.html">
 <link rel="import" href="../widgets/nuxeo-user-tag.html">
+<link rel="import" href="../widgets/nuxeo-dialog.html">
 
 <!--
 An element for managing a group.
@@ -182,21 +182,21 @@ Used by `nuxeo-user-group-management`
         width: 150px;
       }
 
-      paper-dialog[id="editGroupDialog"] {
+      nuxeo-dialog[id="editGroupDialog"] {
         width: 40%;
       }
 
-      paper-dialog paper-button {
+      nuxeo-dialog paper-button {
         padding: .7em .57em;
       }
 
-      paper-dialog paper-button.primary {
+      nuxeo-dialog paper-button.primary {
         background-color: var(--nuxeo-button-primary, #00adff);
         color: #fff;
       }
 
-      paper-dialog paper-button.primary:hover,
-      paper-dialog paper-button.primary:focus {
+      nuxeo-dialog paper-button.primary:hover,
+      nuxeo-dialog paper-button.primary:focus {
         background-color: var(--nuxeo-button-primary-focus, #0079b3);
         font-weight: inherit;
         color: #fff !important;
@@ -235,31 +235,27 @@ Used by `nuxeo-user-group-management`
 
     <paper-toast id="toast"></paper-toast>
 
-    <paper-dialog id="deleteGroupDialog" modal>
-      <div class="horizontal layout confirm">
-        [[i18n('groupManagement.delete.confirm')]]
-      </div>
+    <nuxeo-dialog id="deleteGroupDialog" with-backdrop>
+      <h2>[[i18n('groupManagement.delete.confirm')]]</h2>
       <div class="buttons horizontal end-justified layout">
         <div class="flex start-justified">
           <paper-button noink dialog-dismiss>[[i18n('label.no')]]</paper-button>
         </div>
         <paper-button noink class="primary" on-tap="_deleteGroup">[[i18n('label.yes')]]</paper-button>
       </div>
-    </paper-dialog>
+    </nuxeo-dialog>
 
-    <paper-dialog id="rmFromGroupDialog" modal class="vertical layout">
-      <div class="horizontal layout confirm">
-        [[i18n('groupManagement.removeUserFromGroup.confirm', _removedMember.id)]]
-      </div>
+    <nuxeo-dialog id="rmFromGroupDialog" with-backdrop>
+      <h2>[[i18n('groupManagement.removeUserFromGroup.confirm', _removedMember.id)]]</h2>
       <div class="buttons horizontal end-justified layout">
         <div class="flex start-justified">
           <paper-button noink dialog-dismiss>[[i18n('label.no')]]</paper-button>
         </div>
         <paper-button noink class="primary" dialog-confirm on-tap="_removeMember">[[i18n('label.yes')]]</paper-button>
       </div>
-    </paper-dialog>
+    </nuxeo-dialog>
 
-    <paper-dialog id="editGroupDialog" modal>
+    <nuxeo-dialog id="editGroupDialog" with-backdrop>
       <h2>[[i18n('groupManagement.editGroup.heading')]]</h2>
       <form is="iron-form" id="editForm" class="vertical layout">
         <div class="layout horizontal">
@@ -277,7 +273,7 @@ Used by `nuxeo-user-group-management`
         </div>
         <paper-button noink class="primary" on-tap="_submitEditForm">[[i18n('command.save.changes')]]</paper-button>
       </div>
-    </paper-dialog>
+    </nuxeo-dialog>
 
     <paper-card>
     <div class="header horizontal layout">

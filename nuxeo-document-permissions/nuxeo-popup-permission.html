@@ -19,7 +19,6 @@ limitations under the License.
 <link rel="import" href="../../iron-autogrow-textarea/iron-autogrow-textarea.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../../paper-dialog/paper-dialog.html">
 <link rel="import" href="../../paper-dialog-scrollable/paper-dialog-scrollable.html">
 <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
@@ -33,6 +32,7 @@ limitations under the License.
 <link rel="import" href="../widgets/nuxeo-date-picker.html">
 <link rel="import" href="../widgets/nuxeo-textarea.html">
 <link rel="import" href="../widgets/nuxeo-select.html">
+<link rel="import" href="../widgets/nuxeo-dialog.html">
 
 <link rel="import" href="../nuxeo-i18n-behavior.html">
 
@@ -66,7 +66,7 @@ limitations under the License.
       <paper-icon-button on-tap="togglePopup" icon="nuxeo:edit"></paper-icon-button>
     </template>
 
-    <paper-dialog id="popupRight" modal no-auto-focus>
+    <nuxeo-dialog id="popupRight" with-backdrop no-auto-focus>
       <h2>[[_computedTitle]]</h2>
 
       <!-- Give acces to row -->
@@ -142,7 +142,7 @@ limitations under the License.
           <paper-button noink class="primary" on-tap="doUpdate">[[i18n('popupPermission.update')]]</paper-button>
         </template>
       </div>
-    </paper-dialog>
+    </nuxeo-dialog>
   </template>
 
   <script>
