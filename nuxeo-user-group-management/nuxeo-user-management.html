@@ -210,7 +210,7 @@ Used by `nuxeo-user-group-management`
         <div class="actions">
 
           <!-- delete -->
-          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
+          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, user)]]">
             <paper-button noink id="deleteUserButton" class="horizontal layout center" on-tap="_toggleDeleteUser">
               <iron-icon noink icon="nuxeo:delete"></iron-icon> [[i18n('command.delete')]]
             </paper-button>
@@ -226,7 +226,7 @@ Used by `nuxeo-user-group-management`
           </nuxeo-dialog>
 
           <!-- change password -->
-          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
+          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, user)]]">
             <paper-button noink id="changePasswordButton" class="primary horizontal layout center" on-tap="_toggleChangePassword">
               <iron-icon icon="nuxeo:lock"></iron-icon> [[i18n('command.change.password')]]
             </paper-button>
@@ -249,7 +249,7 @@ Used by `nuxeo-user-group-management`
           </nuxeo-dialog>
 
           <!-- edit -->
-          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
+          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, user)]]">
             <paper-button noink id="editUserButton" class="primary horizontal layout center" on-tap="_toggleEditUser">
               <iron-icon icon="nuxeo:edit"></iron-icon> [[i18n('userManagement.editUser.button')]]
             </paper-button>
@@ -285,7 +285,7 @@ Used by `nuxeo-user-group-management`
     <paper-card>
       <div class="layout horizontal center">
         <h3 class="flex">[[i18n('userManagement.groups')]]</h3>
-        <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
+        <template is="dom-if" if="[[_canEdit(readonly, _currentUser, user)]]">
           <paper-button noink id="addGroup" class="flex-end" on-tap="_toggleEditGroups">
             <iron-icon icon="nuxeo:add"></iron-icon> [[i18n('userManagement.addToGroup.button')]]
           </paper-button>
@@ -322,7 +322,7 @@ Used by `nuxeo-user-group-management`
               </div>
               <div class="flex-4">[[item.name]]</div>
               <div class="table-actions">
-                <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
+                <template is="dom-if" if="[[_canEdit(readonly, _currentUser, user)]]">
                   <paper-icon-button icon="nuxeo:remove"
                                      title="[[i18n('userManagement.removeFrom.group', item.label)]]"
                                      on-tap="_toggleDialog">
@@ -471,13 +471,13 @@ Used by `nuxeo-user-group-management`
       },
 
       _hasAdministrationPermissions: function(currentUser) {
-        return this.user && currentUser && (currentUser.isAdministrator ||
+        return currentUser && (currentUser.isAdministrator ||
           (this.isMember(currentUser, 'powerusers') && !this.user.isAdministrator));
       },
 
-      _canEdit: function(readonly, currentUser, username) {
-        return !readonly && currentUser && (this._hasAdministrationPermissions(currentUser) ||
-          this._isSameUsername(currentUser.properties.username, username));
+      _canEdit: function(readonly, currentUser, user) {
+        return !readonly && this.user && currentUser && (this._hasAdministrationPermissions(currentUser) ||
+          this._isSameUsername(currentUser.properties.username, user.properties.username));
       },
 
       _isSameUsername: function(username1, username2) {
