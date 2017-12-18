@@ -27,6 +27,9 @@ limitations under the License.
 <link rel="import" href="../widgets/nuxeo-user-suggestion.html">
 <link rel="import" href="../widgets/nuxeo-group-tag.html">
 <link rel="import" href="../widgets/nuxeo-dialog.html">
+<link rel="import" href="../nuxeo-i18n-behavior.html">
+<link rel="import" href="../nuxeo-filters-behavior.html">
+
 <link rel="import" href="nuxeo-edit-password.html">
 <link rel="import" href="nuxeo-user-group-permissions-table.html">
 
@@ -207,7 +210,7 @@ Used by `nuxeo-user-group-management`
         <div class="actions">
 
           <!-- delete -->
-          <template is="dom-if" if=[[!readonly]]>
+          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
             <paper-button noink id="deleteUserButton" class="horizontal layout center" on-tap="_toggleDeleteUser">
               <iron-icon noink icon="nuxeo:delete"></iron-icon> [[i18n('command.delete')]]
             </paper-button>
@@ -223,7 +226,7 @@ Used by `nuxeo-user-group-management`
           </nuxeo-dialog>
 
           <!-- change password -->
-          <template is="dom-if" if=[[!readonly]]>
+          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
             <paper-button noink id="changePasswordButton" class="primary horizontal layout center" on-tap="_toggleChangePassword">
               <iron-icon icon="nuxeo:lock"></iron-icon> [[i18n('command.change.password')]]
             </paper-button>
@@ -246,7 +249,7 @@ Used by `nuxeo-user-group-management`
           </nuxeo-dialog>
 
           <!-- edit -->
-          <template is="dom-if" if=[[!readonly]]>
+          <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
             <paper-button noink id="editUserButton" class="primary horizontal layout center" on-tap="_toggleEditUser">
               <iron-icon icon="nuxeo:edit"></iron-icon> [[i18n('userManagement.editUser.button')]]
             </paper-button>
@@ -282,7 +285,7 @@ Used by `nuxeo-user-group-management`
     <paper-card>
       <div class="layout horizontal center">
         <h3 class="flex">[[i18n('userManagement.groups')]]</h3>
-        <template is="dom-if" if=[[!readonly]]>
+        <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
           <paper-button noink id="addGroup" class="flex-end" on-tap="_toggleEditGroups">
             <iron-icon icon="nuxeo:add"></iron-icon> [[i18n('userManagement.addToGroup.button')]]
           </paper-button>
@@ -319,7 +322,7 @@ Used by `nuxeo-user-group-management`
               </div>
               <div class="flex-4">[[item.name]]</div>
               <div class="table-actions">
-                <template is="dom-if" if="[[_canRemoveAdministratorsGroup(item)]]">
+                <template is="dom-if" if="[[_canEdit(readonly, _currentUser, username)]]">
                   <paper-icon-button icon="nuxeo:remove"
                                      title="[[i18n('userManagement.removeFrom.group', item.label)]]"
                                      on-tap="_toggleDialog">
@@ -367,7 +370,7 @@ Used by `nuxeo-user-group-management`
   <script>
     Polymer({
       is: 'nuxeo-user-management',
-      behaviors: [Nuxeo.I18nBehavior],
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
       properties: {
         username: {
           type: String,
@@ -467,12 +470,18 @@ Used by `nuxeo-user-group-management`
         return user && user.isAdministrator;
       },
 
-      _canRemoveAdministratorsGroup: function(group) {
-        if (group.name === 'administrators') {
-          return !this.readonly && this._isAdministrator(this._currentUser);
-        } else {
-          return !this.readonly;
-        }
+      _hasAdministrationPermissions: function(user) {
+        return user && (user.isAdministrator || (this.isMember(user, 'powerusers')
+          && this.groupname !== 'administrators'));
+      },
+
+      _canEdit: function(readonly, currentUser, username) {
+        return !readonly && currentUser && (this._hasAdministrationPermissions(currentUser) ||
+          this._isSameUsername(currentUser.properties.username, username));
+      },
+
+      _isSameUsername: function(username1, username2) {
+        return username1 && username2 && username1 === username2;
       },
 
       _computeGroups: function() {
