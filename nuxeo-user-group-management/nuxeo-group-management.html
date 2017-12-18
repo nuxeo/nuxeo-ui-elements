@@ -507,7 +507,8 @@ Used by `nuxeo-user-group-management`
       },
 
       _hasAdministrationPermissions: function(user) {
-        return user && (user.isAdministrator || (this.isMember(user, 'powerusers') && this.groupname !== 'administrators'));
+        return user && (user.isAdministrator || (this.isMember(user, 'powerusers')
+          && this.groupname !== 'administrators'));
       },
 
       _canEditGroup: function(readonly, currentUser, groupname) {
