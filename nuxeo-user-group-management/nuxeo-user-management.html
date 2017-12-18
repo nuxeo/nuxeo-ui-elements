@@ -470,9 +470,9 @@ Used by `nuxeo-user-group-management`
         return user && user.isAdministrator;
       },
 
-      _hasAdministrationPermissions: function(user) {
-        return user && (user.isAdministrator || (this.isMember(user, 'powerusers')
-          && this.groupname !== 'administrators'));
+      _hasAdministrationPermissions: function(currentUser) {
+        return this.user && currentUser && (currentUser.isAdministrator ||
+          (this.isMember(currentUser, 'powerusers') && !this.user.isAdministrator));
       },
 
       _canEdit: function(readonly, currentUser, username) {
