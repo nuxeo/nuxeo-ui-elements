@@ -69,6 +69,12 @@ Example:
           type: String,
           value: "MMMM D, YYYY HH:mm"
         }
+      },
+
+      ready: function () {
+        document.body.appendChild(this.$.tooltip);
+        this.$.tooltip._target = this.$.datetime;
+        this.$.tooltip._addListeners();
       }
     });
   </script>
