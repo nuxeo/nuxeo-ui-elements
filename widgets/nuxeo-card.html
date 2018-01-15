@@ -44,66 +44,77 @@ Custom property         | Description | Default
   <template>
     <style>
       :host {
+        display: block;
         -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
         -moz-box-sizing: border-box;    /* Firefox, other Gecko */
         box-sizing: border-box;         /* Opera/IE 8+ */
-      }
-
-      :host([collapsible]) #card {
-        padding-bottom: 1px;
-      }
-
-      :host([opened]) #card {
-        padding-bottom: 16px;
-      }
-
-      :host([collapsible]) h3:hover {
-        cursor: pointer;
-        @apply --nuxeo-link-hover;
-      }
-
-      #card {
-        display: block;
         background-color: white;
         padding: 16px;
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.04);
         @apply --nuxeo-card;
       }
-
-      h3 {
-        @apply --layout-center;
+      :host([collapsible]) {
+        padding-bottom: 1px;
+      }
+      :host([opened]) {
+        padding-bottom: 16px;
+      }
+      :host([collapsible]) h3:hover {
+        cursor: pointer;
+        @apply --nuxeo-link-hover;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .header {
         @apply --layout-horizontal;
+        @apply --layout-center;
         margin: 0 0 1em;
+      }
+      .header .icon {
+        display: inline-block;
+        margin-right: 8px;
+        --iron-icon-width: 16px;
+        --iron-icon-height: 16px;
+      }
+      .header .heading {
+        @apply --layout-flex;
         font-size: 1rem;
         font-weight: 700;
         letter-spacing: .04em;
         text-transform: uppercase;
       }
+      .header .toggle {
+        --iron-icon-width: 20px;
+        --iron-icon-height: 20px;
+      }
     </style>
 
-    <div id="card">
-      <template is="dom-if" if="[[collapsible]]">
-        <h3 on-tap="_toggle">
-          <iron-icon icon="[[_icon(opened)]]" toggle></iron-icon>
-          <span>[[heading]]</span>
+    <dom-if if="[[_hasHeading(icon, heading, collapsible)]]">
+      <template>
+        <h3 class="header" on-click="_toggle">
+          <iron-icon class="icon" icon="[[icon]]" hidden$="[[!icon]]"></iron-icon>
+          <span class="heading">[[heading]]</span>
+          <iron-icon class="toggle" icon="[[_toggleIcon(opened)]]" toggle hidden$="[[!collapsible]]"></iron-icon>
         </h3>
-        <iron-collapse opened="{{opened}}">
-          <div>
-            <slot></slot>
-          </div>
+      </template>
+    </dom-if>
+
+    <dom-if if="[[collapsible]]">
+      <template>
+        <iron-collapse opened="[[_opened(opened, collapsible)]]">
+          <slot></slot>
         </iron-collapse>
       </template>
+    </dom-if>
 
-      <template is="dom-if" if="[[!collapsible]]">
-        <template is="dom-if" if="[[heading]]">
-          <h3>[[heading]]</h3>
-        </template>
-        <div>
-          <slot></slot>
-        </div>
+    <dom-if if="[[!collapsible]]">
+      <template>
+        <slot></slot>
       </template>
-    </div>
+    </dom-if>
   </template>
+
   <script>
     Polymer({
       is: 'nuxeo-card',
@@ -111,37 +122,55 @@ Custom property         | Description | Default
       behaviors: [Polymer.IronResizableBehavior],
 
       properties: {
-
+        /**
+         * Heading icon
+         */
+        icon: {
+          type: String,
+          value: null,
+        },
         /**
          * Heading of the card
          */
-        heading: String,
-
+        heading: {
+          type: String,
+          value: null,
+        },
         /**
          * If the card is collapsible
          */
         collapsible: {
           type: Boolean,
-          value: false
+          value: false,
+          reflectToAttribute: true,
         },
-
         /**
          * If is a collapsible card, if it is opened or not
          */
         opened: {
           type: Boolean,
           value: false,
-          reflectToAttribute: true
+          reflectToAttribute: true,
+        },
+      },
+
+      _hasHeading(icon, heading, collapsible) {
+        return icon || heading || collapsible;
+      },
+
+      _opened(opened, collapsible) {
+        return !collapsible || opened;
+      },
+
+      _toggle() {
+        if (this.collapsible) {
+          this.opened = !this.opened;
+          this.notifyResize();
         }
       },
 
-      _toggle: function() {
-        this.opened = !this.opened;
-        this.notifyResize();
-      },
-
-      _icon: function(opened) {
-        return 'hardware:keyboard-arrow-' + (opened ? 'up' : 'down');
+      _toggleIcon(opened) {
+        return `hardware:keyboard-arrow-${opened ? 'up' : 'down'}`;
       }
     });
   </script>
