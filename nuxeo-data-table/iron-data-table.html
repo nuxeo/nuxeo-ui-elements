@@ -313,9 +313,9 @@ Example:
       ],
 
       listeners: {
-        'iron-resize': '_resizeCellContainers',
+        'settings-changed': '_settingsChanged',
         'item-changed': '_itemChanged',
-        'scroll': '_onHorizontalScroll',
+        'scroll': '_updateContainerWidth',
         'edit-entry': '_editEntry',
         'delete-entry': '_deleteEntry',
         'move-upward': '_moveItemUpward',
@@ -516,25 +516,21 @@ Example:
         }
       },
 
-      _resizeCellContainers: function() {
-        // reset header width first to make the cells and scroll width to reset their widths.
-        this.$.container.style.width = '';
-
-        this.async(function() {
-          this.$.container.style.width = Math.min(this.scrollWidth, this.clientWidth + this.scrollLeft) + 'px';
-
-          // add scrollbar width as padding
-          this.$.header.style.paddingRight = this.$.list.offsetWidth - this.$.list.clientWidth + 'px';
-        }.bind(this));
+      _settingsChanged: function() {
+        this.notifyResize();
+        this._updateContainerWidth();
       },
 
-      _onHorizontalScroll: function() {
-        if (!this.isDebouncerActive('scrolling')) {
-          this.$.container.style.width = this.scrollWidth + 'px';
-          this.debounce('scrolling', function() {
-            this.$.container.style.width = Math.min(this.scrollWidth, this.clientWidth + this.scrollLeft) + 'px';
-            // long timeout here to prevent jerkiness with the rubberband effect on iOS especially.
-          }, 1000);
+      _updateContainerWidth: function() {
+        if (this.$.container.scrollWidth > this.$.container.clientWidth) {
+          if (!this.isDebouncerActive('scrolling')) {
+            this.$.container.style.width = this.scrollWidth + 'px';
+            this.debounce('scrolling', function() {
+              this.$.container.style.width = Math.min(this.scrollWidth, this.clientWidth + this.scrollLeft) + 'px';
+            }, 500); // long timeout here to prevent jerkiness with the rubberband effect on iOS especially.
+          }
+        } else {
+          this.$.container.style.width = '';
         }
       },
 
