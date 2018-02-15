@@ -168,23 +168,25 @@ limitations under the License.
           var parent = Polymer.dom(Polymer.dom(this).parentNode);
           // keep track of stamped instances
           this._instances = [];
-          _getRegistry(this.slot).nodes.forEach(function(node) {
-            var template = node.template;
-            if (!node.disabled && template) {
-              delete template.__templatizeOwner;
-              var ctor = Polymer.Templatize.templatize(template, this);
-              // setting the model in the constructor seems to require instanceProps to be properly set
-              // so we're doing it ourselves after
-              var el =  new ctor({});
-              for (var prop in this.model) {
-                el._setPendingProperty(prop, this.model[prop]);
+          this.debounce('_render', function() {
+            _getRegistry(this.slot).nodes.forEach(function(node) {
+              var template = node.template;
+              if (!node.disabled && template) {
+                delete template.__templatizeOwner;
+                var ctor = Polymer.Templatize.templatize(template, this);
+                // setting the model in the constructor seems to require instanceProps to be properly set
+                // so we're doing it ourselves after
+                var el =  new ctor({});
+                for (var prop in this.model) {
+                  el._setPendingProperty(prop, this.model[prop]);
+                }
+                el._flushProperties()
+                this._instances.push(el);
+                parent.insertBefore(el.root, this);
               }
-              el._flushProperties()
-              this._instances.push(el);
-              parent.insertBefore(el.root, this);
-            }
-          }.bind(this));
-          this.set('empty', this._instances.length === 0);
+            }.bind(this));
+            this.set('empty', this._instances.length === 0);
+          }.bind(this), 20);
         },
 
         _updateContent: function() {
