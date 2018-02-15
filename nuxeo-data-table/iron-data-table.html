@@ -173,6 +173,11 @@ Example:
         @apply(--layout-end-justified);
         margin: 1em 0 1em 0;
       }
+
+      /* IE11 fix (ELEMENTS-519) */
+      *::-ms-backdrop, #header {
+        padding-right: 0 !important;
+      }
     </style>
 
     <div id="container">
