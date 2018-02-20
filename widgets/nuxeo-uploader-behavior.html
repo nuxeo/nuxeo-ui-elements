@@ -18,6 +18,189 @@ limitations under the License.
 <script>
   var Nuxeo = Nuxeo || {};
 
+  var DEFAULT_PROVIDER = function(options) {
+    this.isPaused = false;
+    this.connection = options.connection;
+    this.accept = options.accept;
+  };
+
+  var filesToUpload = {};
+
+  DEFAULT_PROVIDER.prototype.upload = function(files, callback) {
+    this._ensureBatch().then(function() {
+      if(files.length) {
+        for (var i = 0; i < files.length; ++i) {
+          var file = files[i];
+          if (!this.accepts(file)) {
+            return false;
+          }
+        }
+
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          file.index = i;
+          file.progress = 0;
+          file.error = false;
+          file.complete = false;
+          var blob = new Nuxeo.Blob({ content: file });
+          //this._uploadStarted(i, file);
+          if(typeof callback === "function") {
+            callback(file, {type: "uploadStarted"})
+          }
+          this.uploader.upload(blob)
+            .then(function(result) {
+              callback(file, {type: "uploadCompleted", result: result});
+            }.bind(this));
+        }
+        }
+    }.bind(this));
+  };
+
+  DEFAULT_PROVIDER.prototype._ensureBatch = function () {
+    if (!this.uploader) {
+      return this.connection.batchUpload().then(function(uploader) {
+        this.uploader = uploader;
+      }.bind(this));
+    }
+  };
+
+  DEFAULT_PROVIDER.prototype.accepts = function(file) {
+    var mimeType = ((file.type !== '') ? file.type.match(/^[^\/]*\//)[0] : null);
+    var fileType = file.name.match(/\.[^\.]*$/)[0];
+
+    return !(this.accept && !(this.accept.indexOf(mimeType) > -1 || this.accept.indexOf(fileType) > -1));
+  };
+
+  DEFAULT_PROVIDER.prototype.newBatch = function(blobs) {
+  };
+
+  DEFAULT_PROVIDER.prototype.pause = function(blob) {
+    //TODO
+  };
+
+  DEFAULT_PROVIDER.prototype.cancel = function(blob) {
+    //TODO
+  };
+
+  var PROVIDERS = { "default": DEFAULT_PROVIDER };
+
+  var S3_PROVIDER = function(options) {
+
+  };
+
+  S3_PROVIDER.prototype.upload = function(files, callback) {
+      this._ensureBatch().then(function(response) {
+        this.batchId = response.batchId;
+        this.extraInfo = response.extraInfo;
+        this._initCreds(response.extraInfo);
+      }.bind(this)
+    ).then(function() {
+        if (+new Date() >= this.extraInfo.expiration) {
+        this._refreshBatchInfo();
+      }
+    
+      for (var i = 0; i < files.length; ++i) {
+        var file = files[i];
+        file.index = i;
+        if(typeof callback === "function") {
+          callback(file, {type: "uploadStarted", batchId: this.batchId})
+        }
+        this._upload(file, callback);
+      }
+    }.bind(this));
+  };
+
+  S3_PROVIDER.prototype._upload = function(file, callback) {
+    if (!this.uploader) {
+      this._initUploader();
+    }
+
+    var batchId = this.batchId;
+
+    this.uploader.upload({
+      Key: this.extraInfo.baseKey.replace(/^\/+/g, '').concat(file.name),
+      ContentType: file.type,
+      Body: file
+    })
+    .on("httpUploadProgress", function(evt) {
+      console.log(evt);
+      if(typeof callback === "function") {
+        callback(file, {type:"uploadProgress", file: file, contents: evt})
+      }
+    })
+    .send(function(error, data) {
+      if(typeof callback === "function") {
+        callback(file, {type:"uploadCompleted", file: file, error: error, isError: error != null, batchId: batchId})
+      }
+      if (error == null) {
+        return fetch("http://localhost:8080/nuxeo/api/v1/upload/"
+                .concat(batchId).concat("/").concat(file.index).concat("/complete"), 
+                { method: "POST",
+                  headers: new Headers({
+                    "Accept": "application/json",
+                    "Authorization": "Basic ".concat(btoa("Administrator:Administrator")),
+                    "Content-Type": "application/json"
+                  }),
+                  body: JSON.stringify({
+                    name: file.name,
+                    fileSize: file.size,
+                    key: data.Key,
+                    bucket: data.Bucket,
+                    etag: data.ETag
+                  })
+               }).then(function(response) {
+                 console.log(response);
+               })
+               ;
+      }
+      console.log(error, data);
+    });
+  };
+
+  S3_PROVIDER.prototype._ensureBatch = function() {
+    if (!this.batchId || !this.uploader) {
+      return this.newBatch();
+    }
+  }
+
+  S3_PROVIDER.prototype._initUploader = function() {
+    var options = {
+      params: {
+        Bucket: this.extraInfo.bucket,
+      },
+      computeChecksums: true
+    };
+    this.uploader = new AWS.S3(options);
+  };
+
+  S3_PROVIDER.prototype._initCreds = function(options) {
+    AWS.config.update({
+      credentials: new AWS.Credentials(options.awsSecretKeyId, options.awsSecretAccessKey, options.awsSessionToken),
+      region: options.region,
+      useAccelerateEndpoint: options.useS3Accelerate || false
+    });
+
+    AWS.config.credentials.expireTime = new Date(options.expiration);
+  }
+
+  S3_PROVIDER.prototype.newBatch = function() {
+    return fetch("http://localhost:8080/nuxeo/api/v1/upload/new/s3", {
+      method: "POST",
+      headers: new Headers({
+        "Accept": "application/json",
+        "Authorization": "Basic ".concat(btoa("Administrator:Administrator"))
+      })
+    }).then(function(result) {
+      return result.json();
+    });
+  };
+
+  S3_PROVIDER.prototype.hasProgress = function() {
+    return true;
+  }
+
+  PROVIDERS.s3 = S3_PROVIDER;
+
   /**
    * @polymerBehavior Nuxeo.UploaderBehavior
    */
@@ -64,7 +247,16 @@ limitations under the License.
       batchAppend: {
         type: Boolean,
         value: false
+      },
+
+      provider: {
+        type: String,
+        value: Nuxeo.uploadProvider || "default"
       }
+    },
+
+    registerProvider: function(name, provider, options) {
+      PROVIDERS[name] = provider;
     },
 
     setupDropZone: function(el) {
@@ -74,7 +266,38 @@ limitations under the License.
       this._dropZone.addEventListener('drop', this._drop.bind(this));
     },
 
+    _initProvider: function() {
+      var options = {};
+      options.connection = this.connection;
+      options.accept = this.accept;
+      this._provider_instance = new PROVIDERS[this.provider](options);
+    },
+
     uploadFiles: function(files) {
+      if (!this._provider_instance) {
+        this._initProvider();
+      }
+
+      this._provider_instance.upload(files, function(file, event) {
+        if(event.type === "uploadStarted") {
+          file.error = false;
+          file.complete = false;
+          this.push("files", file);
+          this._uploadStarted(file.index, file)
+        }
+
+        if(event.type === "uploadCompleted") {
+          this._uploadFinished(file.index);
+          if (this._checkAllUploaded(files) == true) {
+            this._batchFinished(event.batchId);
+          }
+        }
+
+        if(event.type === "uploadProgress") {
+          this._uploadProgressUpdated(event.file.index, event.file, ((event.contents.loaded * 100) / event.contents.total));
+        }
+      }.bind(this));
+  /*
       if (!this.accepts(files)) {
         console.warn('Can only upload ' + this.accept +' files.');
         return;
@@ -88,7 +311,7 @@ limitations under the License.
       } else {
         this._uploadeFiles(files);
       }
-
+*/
     },
 
     batchExecute: function(operationId, params, headers) {
@@ -124,6 +347,10 @@ limitations under the License.
         this.uploader = null;
         this.batchId = null;
       }
+    },
+
+    hasProgress: function() {
+      return _provider_instance.hasProgress() === true;
     },
 
     _uploadeFiles: function(files) {
@@ -172,6 +399,12 @@ limitations under the License.
       } else {
         return true;
       }
+    },
+
+    _checkAllUploaded: function(values) {
+      return Object.keys(values).every(function(index){ 
+        return values[index].complete == true; 
+      }.bind(this));
     },
 
     _updateFile: function(index, values) {
