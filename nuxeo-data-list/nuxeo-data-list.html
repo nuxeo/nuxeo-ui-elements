@@ -68,6 +68,11 @@ Example:
   <template>
 
     <style>
+      :host {
+        display: block;
+        min-height: 500px;
+      }
+
       :host([loading]) {
         opacity: 0.25;
       }

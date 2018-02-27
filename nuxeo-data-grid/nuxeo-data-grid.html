@@ -70,6 +70,11 @@ An element to display page provider results as a grid with infinite scrolling.
   <template>
 
     <style>
+      :host {
+        display: block;
+        min-height: 500px;
+      }
+
       :host([loading]) {
         opacity: 0.25;
       }
