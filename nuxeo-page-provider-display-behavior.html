@@ -303,7 +303,8 @@ limitations under the License.
       },
 
       _isSelected: function(item) {
-        return this.$.list.selectedItems && this.$.list.selectedItems.indexOf(item) > -1;
+        return this.$.list.selectedItems && this.$.list.selectedItems.length
+          && this.$.list.selectedItems.indexOf(item) > -1;
       },
 
       _toggleSelectAll: function() {
