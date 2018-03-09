@@ -102,10 +102,8 @@ Example:
       <audio id="audio" controls><source src="[[_audioSource]]">AUDIO</audio>
     </template>
 
-    <template mime-pattern="text/(?:.*-)?markdown">
-      <marked-element markdown="[[_blob.data]]" sanitize>
-        <div class="markdown-html"></div>
-      </marked-element>
+    <template mime-pattern="text/(?:.*-)?(markdown|html)">
+      <marked-element markdown="[[_blob.data]]"></marked-element>
     </template>
 
     <template mime-pattern="text/xml">
@@ -206,9 +204,7 @@ Example:
             this._blob = this.document && this._deepFind(this.document.properties, this.xpath);
           }
           // update our previewer
-          if (this._blob) {
-            this._updatePreview();
-          }
+          this._updatePreview();
         }
       },
 
@@ -223,11 +219,15 @@ Example:
         for (var i = 0; i < previewers.length; i++) {
           var previewer = previewers[i];
           var regex = new RegExp(previewer.getAttribute('mime-pattern'));
-          if (this._blob['mime-type'].match(regex)) {
+          if (regex.test(this._blob && this._blob['mime-type'])) {
             // Insert our previewer
             delete previewer.__templatizeOwner;
             this.templatize(previewer);
             var instance = this.stamp();
+            for (var prop in this.properties) {
+              instance._setPendingProperty(prop, this[prop]);
+            }
+            instance._flushProperties();
             this.$.preview.appendChild(instance.root);
             break;
           }
@@ -245,7 +245,8 @@ Example:
       },
 
       _computeImageSource: function() {
-        if (this.document && this.document.properties && this.document.properties['picture:views']) {
+        if (this.document && this.document.properties && this.document.properties['picture:views']
+            && this.xpath === 'file:content') {
           var filteredViews = this.document.properties['picture:views'].filter(function(view) {
             return view.title === 'FullHD';
           });
@@ -262,7 +263,8 @@ Example:
       },
 
       _computeVideoSources: function() {
-        if (this.document && this.document.properties && this.document.properties['vid:transcodedVideos']) {
+        if (this.document && this.document.properties && this.document.properties['vid:transcodedVideos']
+            && this.xpath === 'file:content') {
           return this.document.properties['vid:transcodedVideos'].map(function(conversion) {
             return {
               data: conversion.content.data,
@@ -283,7 +285,8 @@ Example:
       },
 
       _computeStoryboard: function() {
-        if (this.document && this.document.properties && this.document.properties['vid:storyboard']) {
+        if (this.document && this.document.properties && this.document.properties['vid:storyboard']
+            && this.xpath === 'file:content') {
           return this.document.properties['vid:storyboard'];
         }
       },
