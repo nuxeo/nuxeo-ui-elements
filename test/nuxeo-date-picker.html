@@ -78,6 +78,21 @@ limitations under the License.
     var element;
     setup(function() {
       element = fixture('picker');
+      console.log('moment debugging info:');
+      console.log((new Date()).toString());
+      console.log((new Date()).toLocaleString());
+      console.log((new Date()).getTimezoneOffset());
+      console.log(navigator.userAgent);
+      console.log(moment.version);
+    });
+
+    test('Moment test', function() {
+      var date = moment.utc('2022-03-12T00:00:00.000Z').utcOffset(moment().utcOffset()).format('YYYY-MM-DD HH:mm:ss');
+      expect(date).to.be.equal('2022-03-12 00:00:00');
+      date = moment('2022-03-12T00:00:00.000Z').format('YYYY-MM-DD HH:mm:ss');
+      expect(date).to.be.equal('2022-03-12 00:00:00');
+      date = moment('2022-03-12T00:00:00.000Z').local().format('YYYY-MM-DD HH:mm:ss');
+      expect(date).to.be.equal('2022-03-12 00:00:00');
     });
 
     test('the value can be changed', function() {
