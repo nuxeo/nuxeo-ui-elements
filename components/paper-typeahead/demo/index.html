@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../iron-ajax/iron-ajax.html">
+    <link rel="import" href="../paper-typeahead.html">
+    <style>
+      h1 {
+        font-family: Roboto, Helvetica Neue, Helvetica;
+        font-weight: 100;
+      }
+      .custom.result-item {
+        background: red;
+        color: #fff;
+      }
+      .custom.result-item.iron-selected {
+        background: teal;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>List of string data</h1>
+    <dom-bind id="sample">
+      <template>
+        <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
+        <paper-typeahead label="which dog?" data="[[data]]" show-empty-results></paper-typeahead>
+      </template>
+    </dom-bind>
+    <h1>List of string data with custom item template</h1>
+    <dom-bind id="dom-bind-two">
+      <template>
+        <iron-ajax url="data/dogs.json" last-response="{{data}}" auto></iron-ajax>
+        <paper-typeahead label="which dog?" data="[[data]]">
+          <template>
+            <div
+                on-mouseenter="_mouseenterItem"
+                class="custom result-item selectable"
+                tabindex="-1">I am a dog [[item]]</div>
+          </template>
+        </paper-typeahead>
+      </template>
+    </dom-bind>
+    <h1>List of object data</h1>
+    <pre>
+    <code>
+      [
+        {name: {title: 'red'}},
+        {name: {title: 'green'}},
+        {name: {title: 'blue'}},
+        {name: {title: 'brown'}},
+        {name: {title: 'pink'}},
+        {name: {title: 'orange'}},
+        {name: {title: 'teal'}},
+        {name: {title: 'purple'}},
+      ]
+    </code>
+    </pre>
+    <dom-bind id="object-list">
+      <template>
+        <paper-typeahead
+          label="which color"
+          data-key="name.title"
+          data="[[data]]"></paper-typeahead>
+      </template>
+    </dom-bind>
+    <h1>Fetch data on keypress.</h1>
+    <pre>
+      <code>
+      document.querySelector('#data-fetch').fetchFn = function(typedValue) {
+        return Promise.resolve().then(() => ['red', 'green', 'blue', 'teal']);
+      }
+      </code>
+    </pre>
+    <dom-bind id="data-fetch">
+      <template>
+        <paper-typeahead
+          label="which color"
+          fetch-data="[[fetchFn]]"
+          ></paper-typeahead>
+      </template>
+    </dom-bind>
+
+    <script>
+      document.querySelector('#data-fetch').fetchFn = function(typedValue) {
+        return Promise.resolve().then(() => ['red', 'green', 'blue', 'teal']);
+      }
+
+      document.body.querySelector('#object-list').data = [
+        {name: {title: 'red'}},
+        {name: {title: 'green'}},
+        {name: {title: 'blue'}},
+        {name: {title: 'brown'}},
+        {name: {title: 'pink'}},
+        {name: {title: 'orange'}},
+        {name: {title: 'teal'}},
+        {name: {title: 'purple'}},
+      ]
+    </script>
+  </body>
+</html>

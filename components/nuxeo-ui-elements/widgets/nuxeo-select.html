@@ -1,0 +1,253 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link rel="import" href="../../paper-item/paper-item.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+
+<!--
+An element for selecting options.
+
+Example:
+
+    <nuxeo-select label="Options" options=[[options]] selected={{selected}}></nuxeo-select>
+
+`nuxeo-select`
+@group Nuxeo Widgets
+@element nuxeo-select
+@demo demo/nuxeo-select/index.html
+-->
+<dom-module id="nuxeo-select">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+        --paper-input-container-underline: {
+          border-bottom: 1px solid var(--paper-input-container-input-color) !important;
+        };
+      }
+
+      :host([hidden]) {
+        display: none;
+      }
+
+      :host([required]) label::after {
+        display: block;
+        content: '*';
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: var(--paper-input-container-invalid-color, red);
+      }
+
+      paper-listbox {
+        padding: 0;
+        --paper-listbox-selected-item: {
+          font-weight: normal;
+        };
+        --paper-listbox-focused-item: {
+          font-weight: normal;
+          color: var(--paper-input-container-input-color);
+        };
+        --paper-listbox-focused-item-after: {
+          font-weight: normal;
+          color: var(--nuxeo-box, white);
+        }
+      }
+
+      paper-dropdown-menu {
+        --paper-input-container: {
+          padding-top: 0;
+        }
+      }
+
+      label {
+        @apply --nuxeo-label;
+      }
+
+      ::slotted(paper-item) {
+        font-weight: normal !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 32px;
+        min-height: 32px;
+        padding: 0 12px;
+        cursor: pointer;
+        color: var(--paper-input-container-input-color);
+      }
+
+      ::slotted(paper-item:hover), ::slotted(paper-item[pressed]) {
+        background: var(--paper-input-container-focus-color);
+        color: var(--nuxeo-box, white) !important;
+      }
+    </style>
+
+    <label>[[label]]</label>
+
+    <paper-dropdown-menu id="paperDropdownMenu"
+                         placeholder="[[placeholder]]"
+                         error-message="[[errorMessage]]"
+                         no-label-float
+                         noink
+                         no-animations
+                         restore-focus-on-close="false"
+                         horizontal-align="left"
+                         on-paper-dropdown-open="_resize"
+                         readonly$="[[readonly]]"
+                         disabled$="[[disabled]]"
+                         required$="[[required]]"
+                         validator$="[[validator]]"
+                         invalid$="[[invalid]]">
+
+      <paper-listbox id="paperMenu" slot="dropdown-content"
+                  attr-for-selected="[[_computeAttrForSelected(attrForSelected, options)]]" selected="{{selected}}">
+        <template is="dom-if" if="[[options]]">
+          <template is="dom-repeat" items="[[options]]" as="item">
+            <paper-item option="[[_id(item)]]">[[_label(item)]]</paper-item>
+          </template>
+        </template>
+        <slot></slot>
+      </paper-listbox>
+    </paper-dropdown-menu>
+
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-select',
+      behaviors: [Polymer.IronResizableBehavior, Polymer.IronValidatableBehavior],
+      properties: {
+
+        /**
+         * Label.
+         */
+        label: {
+          type: String,
+          value: null
+        },
+
+        /**
+         * Placeholder.
+         */
+        placeholder: {
+          type: String,
+          value: ' '
+        },
+
+        /**
+         * Error message.
+         */
+        errorMessage: {
+          type: String
+        },
+
+        /**
+         * Options array to show.
+         */
+        options: {
+          type: Array,
+          value: null
+        },
+
+        /**
+         * Gets or sets the selected option.
+         */
+        selected: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * Attribute value or property of an element for `selected` instead of the default `option` value.
+         */
+        attrForSelected: {
+          type: String,
+          value: null
+        },
+
+        /**
+         * Read only.
+         */
+        readonly:  {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Disabled.
+         */
+        disabled:  {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Required.
+         */
+        required:  {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        }
+      },
+
+      listeners: {
+        'iron-resize': '_resize'
+      },
+
+      close: function() {
+        this.$.paperDropdownMenu.close();
+      },
+
+      _resize: function() {
+        var button = this.$.paperDropdownMenu.$.menuButton;
+        button.noOverlap = true;
+        button.verticalOffset = -8;
+        var width = this.getBoundingClientRect().width;
+        if (width > 0) {
+          this.$.paperDropdownMenu.style.width = this.$.paperMenu.style.width = width + 'px';
+        }
+      },
+
+      _id: function(item) {
+        if (!this.selected) { // select first item as default selection
+          this.selected = (item && item.id) ? item.id : item;
+        }
+        return (item && item.id) ? item.id : item;
+      },
+
+      _label: function(item) {
+        return (item && item.label) ? item.label : item;
+      },
+
+      _computeAttrForSelected: function(attrForSelected, options) {
+        return options ? 'option' : attrForSelected;
+      },
+
+      /* Override method from Polymer.IronValidatableBehavior. */
+      _getValidity: function() {
+        return this.$.paperDropdownMenu._getValidity();
+      }
+
+    });
+  </script>
+</dom-module>

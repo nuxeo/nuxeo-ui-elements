@@ -1,0 +1,537 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../property-mixins/range-mixin.html">
+
+<script>
+  /**
+   * mixin to create a number-input
+   *
+   * @appliesMixin RangeMixin
+   *
+   * @mixinFunction
+   * @polymer
+   */
+  const NumberInputMixin = (superClass) => { // eslint-disable-line no-unused-vars
+
+    return class extends RangeMixin(superClass) {
+
+      static get template() {
+        return `
+          ${this.styleTemplate}
+          ${this.contentTemplate}
+        `;
+      }
+
+      static get styleTemplate() {
+        return `
+          <style>
+            :host {
+              display: block;
+              box-sizing: content-box;
+              --number-input: {
+                @apply --input-style;
+              };
+              --number-input-focus: {
+                @apply --input-focus;
+              };
+              padding: 0 !important;
+            }
+            #input:focus {
+              outline: none;
+            }
+            #input {
+              font-family: inherit;
+              font-size: inherit;
+              font-weight: inherit;
+              text-align: var(--number-input-allign, center);
+              overflow: visible;
+              box-sizing: content-box;
+              border: 0;
+              @apply --number-input;
+            }
+            #input::placeholder {
+              @apply --number-input-placeholder;
+            }
+            #input:hover,
+            #input:focus {
+              @apply --number-input-focus;
+            }
+            :host([disabled]) {
+              @apply --input-disabled;
+            }
+          </style>
+        `;
+      }
+
+      static get contentTemplate() {
+        return `
+          <input id="input"
+            type="tel"
+            placeholder="[[placeholder]]"
+            disabled="[[disabled]]"
+            on-focusin="_checkInput"
+            on-focusout="_checkInput"
+            on-blur="_checkInput"
+            on-keydown="_checkKeycode"
+            on-keyup="_stopIncrem">
+        `;
+      }
+
+      static get properties() {
+        return {
+          /**
+           * length to pad the string (with `0`) according to the total amount of numbers
+           * @type {number}
+           */
+          padLength: {
+            type: Number
+          },
+
+          /**
+           * placeholder string
+           * @type {string}
+           */
+          placeholder: {
+            type: String
+          },
+
+          /**
+           * disables the input
+           * @type {boolean}
+           */
+          disabled: {
+            type: Boolean,
+            reflectToAttribute: true
+          },
+
+          /**
+           * disable autosizing
+           * @type {boolean}
+           */
+          noAutoWidth: {
+            type: Boolean,
+            value: false,
+            observer: '_noAutoWidthChanged'
+          },
+
+          /**
+           * enables auto padding
+           * @type {boolean}
+           */
+          autoPadding: {
+            type: Boolean
+          },
+
+          /**
+           * value string of the input
+           * @type {string}
+           */
+          valueString: {
+            type: String,
+            notify: true,
+            observer: '_valueStringChanged'
+          },
+
+          /**
+           * unit of the value
+           * @type {string}
+           */
+          unit: {
+            type: String,
+            observer: '_unitChanged'
+          },
+
+          /**
+           * The current locale to set the decimal-separator automatically
+           */
+          locale: {
+            type: String,
+            value: window.navigator.language,
+            observer: '_localeChanged'
+          },
+
+          /**
+           * Separator for local decimal values
+           * @type {string}
+           */
+          decimalSeparator: {
+            type: String
+          },
+
+          /**
+           * always put the sign in the beginning
+           * @type {string}
+           */
+          alwaysSign: {
+            type: Boolean
+          },
+
+          /**
+           * minimum digits right to the decimal separator
+           * @type {number}
+           */
+          minimumFractionDigits: {
+            type: Number,
+            computed: '_computeMinimumFractionDigits(step, min, max)'
+          },
+
+          /**
+           * minimum digits left to the decimal separator
+           * @type {number}
+           */
+          minimumIntegerDigits: {
+            type: Number,
+            computed: '_computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits)'
+          },
+
+          /**
+           * longest number-string of the given range
+           * @type {number}
+           */
+          _longestStaticLength: {
+            type: Number,
+            computed: '_computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits)'
+          },
+
+          /**
+           * regular expression to detect the decimal separator
+           * @type {RegExp}
+           */
+          _regExpDecimalSeparator: {
+            type: RegExp,
+            computed: '_computeRegExpDecimalSeparator(decimalSeparator)'
+          },
+
+          /**
+           * regular expression to parse the numeric parts of a number string
+           * @type {RegExp}
+           */
+          _regExpNotInNumber: {
+            type: RegExp,
+            computed: '_computeRegExpNotInNumber(decimalSeparator)'
+          }
+        }
+      }
+
+      static get observers() {
+        return [
+          '_debouncedComputeWidth(valueString)',
+          '_computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits)'
+        ]
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        /**
+         * IE & Edge ch-unit fix
+         */
+        this._chCorrection = window.navigator.userAgent.match(/Edge|Trident/g) ? 1.25 : 1;
+        this._ensureAttribute('tabindex', 0);
+        this.addEventListener('focus', this.focus.bind(this), false);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        this.removeEventListener('focus', this.focus.bind(this), false);
+        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
+      }
+
+      _computeMinimumFractionDigits(step, min, max) {
+        return ['0', '' + step, '' + (min || 0), '' + (max || 0)].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max((pos < 0) ? 0 : (curr.length - 1 - pos), acc);
+        });
+      }
+
+      _computeMinimumIntegerDigits(autoPadding, padLength, min, max, minimumFractionDigits) {
+        if (!(autoPadding || padLength)) {
+          return 1;
+        }
+        return Math.max(1, (padLength || 0) - (minimumFractionDigits || 0), ['1', '' + Math.abs(min || 0), '' + Math.abs(max || 0)].reduce( (acc, curr) => {
+          const pos = curr.indexOf('.');
+          return Math.max(pos > 0 ? pos : curr.length, acc);
+        }));
+      }
+
+      _computePadding(autoPadding, minimumIntegerDigits, minimumFractionDigits) {
+        if (autoPadding === true && minimumIntegerDigits !== undefined && minimumFractionDigits !== undefined) {
+          this.padLength = minimumIntegerDigits + minimumFractionDigits;
+        }
+      }
+
+      _computeLongestStatic(min, max, placeholder, minimumIntegerDigits, minimumFractionDigits) {
+        return [this._computeChWidth((this.min && this.formatNumber(this.min)) || ''), this._computeChWidth((this.max && this.formatNumber(this.max)) || ''), this._computeChWidth(placeholder || ''), this._computeChWidth(this.formatNumber(Math.pow(10, (minimumIntegerDigits - 1) || 1) + Math.pow(10, -(minimumFractionDigits || 0))))].reduce((acc, curr) => {
+          return (acc > curr) ? acc : curr;
+        });
+      }
+
+      _computeChWidth(str) {
+        return str.length - str.replace(/\d/g, '').length/2;
+      }
+
+      _computeRegExpDecimalSeparator(decimalSeparator) {
+        return new RegExp('\\' + decimalSeparator, 'g');
+      }
+
+      _computeRegExpNotInNumber(decimalSeparator) {
+        return new RegExp('[^\\d\-\+\\' + decimalSeparator + ']', 'g');
+      }
+
+      _checkInput() {
+        this._stopIncrem();
+        this._valueStringChanged(this.$.input.value);
+      }
+
+      _unitChanged(unit) {
+        this._unitEmLength = unit.length - unit.replace(/\D/g, '').length*0.25 - unit.replace(/\w/g, '').length*0.5; // estimated, that letters do have length: 1em, numbers do have length: 0.75em, other do have length: 0.5em
+        this._checkInput();
+      }
+
+      _valueStringChanged(valueString, oldValueString) {
+        if (!valueString) return;
+
+        oldValueString = oldValueString || '';
+        const newValue = parseFloat(valueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        const oldValue = parseFloat(oldValueString.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.'));
+        let value;
+
+        if (isNaN(oldValue)) {
+          value = this._checkValue(newValue);
+        } else {
+          value = this._checkValue(newValue, oldValue);
+        }
+
+        valueString = this.formatNumber(value);
+
+        if (this.valueString !== valueString) {
+          this.valueString = valueString;
+          return;
+        }
+
+        this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit) : '');
+        this.value = value;
+      }
+
+      _valueChanged(value, oldValue) {
+        if (value === undefined) return;
+
+        if (isNaN(oldValue)) {
+          value = this._checkValue(value);
+        } else {
+          value = this._checkValue(value, oldValue);
+        }
+
+        if (this.value !== value) {
+          this.value = value;
+          return;
+        }
+        const valueString = this.formatNumber(value);
+
+        this.$.input.value = valueString + (this.unit ? ('\u202F' + this.unit) : '');
+        this.valueString = valueString;
+      }
+
+      _checkKeycode(e) {
+        if (!e.target) {
+          if (e && e.preventDefault) e.preventDefault();
+          return;
+        }
+        // up or down key press
+        if (this.step !== undefined) {
+          const inc = (e.keyCode === 38) ? this.step : (e.keyCode === 40 ? -this.step : 0);
+          if (inc !== 0) {
+            this._startIncrem(inc);
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+          }
+        }
+
+        // enter & space
+        if (e.keyCode === 13 || e.keyCode === 32) {
+          this._checkInput();
+          return;
+        }
+
+        // esc
+        if (e.keyCode === 27) {
+          this._checkInput();
+          this.blur();
+          return;
+        }
+      }
+
+      _startIncrem(step) {
+        this._stopIncrem();
+
+        if (step === undefined) return;
+
+        this._increm(step);
+        this._activeJob = setInterval(() => {
+          this._increm(step);
+        }, 150);
+      }
+
+      _stopIncrem() {
+        if (this._activeJob) {
+          clearInterval(this._activeJob);
+        }
+      }
+
+      _increm(step) {
+        if (step === undefined) return;
+        step = step || this.step || 1;
+        const value = (this.minimumFractionDigits === 0) ? ((parseInt(this.$.input.value.replace(this._regExpNotInNumber, '')) + step)) : this._safeAdd(parseFloat(this.$.input.value.replace(this._regExpNotInNumber, '').replace(this._regExpDecimalSeparator, '.')), step);
+        this.value = this._checkValue(value, this.value);
+      }
+
+      _updateView(prop) {
+        if (prop !== undefined) {
+          this._debouncedComputeWidth(this.valueString);
+        }
+      }
+
+      _debouncedComputeWidth(valueString) {
+        if (this._activeResizeJob) {
+          cancelAnimationFrame(this._activeResizeJob);
+        }
+        this._activeResizeJob = requestAnimationFrame(this._computeWidth.bind(this, valueString));
+      }
+
+      _computeWidth(valueString) {
+        if (this.noAutoWidth) return;
+
+        valueString = valueString || '';
+
+        if (!this.alwaysSign && !(this.min >= 0) && valueString[0] !== '-') {
+          valueString = '-' + valueString;
+        }
+        const currLength = this._computeChWidth(valueString);
+        const length = (this._longestStaticLength > currLength ? this._longestStaticLength : currLength) * this._chCorrection;
+
+        if (this._unitEmLength) {
+          // add unit-string-length plus one space-length
+          this.$.input.style.width = `calc(${length}ch + ${0.125 + this._unitEmLength}em)`;
+        } else {
+          this.$.input.style.width = `${length}ch`;
+        }
+      }
+
+      _noAutoWidthChanged(noAutoWidth) {
+        if (!noAutoWidth) {
+          this._debouncedComputeWidth(this.valueString);
+          window.addEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
+          return;
+        }
+        this.$.input.style.width = '';
+        window.removeEventListener('resize', this._debouncedComputeWidth.bind(this, this.valueString), false);
+      }
+
+      _localeChanged(locale) {
+        if (!(locale && Intl.NumberFormat && Intl.NumberFormat.supportedLocalesOf(locale))) {
+          this.decimalSeparator = '.';
+          return;
+        }
+        locale += '-u-nu-latn-ca-iso8601';
+        const decimalSeparator = new Intl.NumberFormat(locale).format(1.2).split(/\d/g).filter(s => { return s !== ''; }).pop();
+        this.decimalSeparator = decimalSeparator !== '\u202F' ? decimalSeparator : '.';
+      }
+
+      /**
+       * focus the input
+       */
+      focus() {
+        this.$.input.focus();
+      }
+
+      /**
+       * focus the input
+       */
+      blur() {
+        this.$.input.blur();
+      }
+
+      formatNumber() {
+        const n = arguments[0];
+        let str = '' + Math.abs(n);
+        const decimalR = str.slice(str.indexOf('.')).length - 1;
+        let decimalL = str.length - decimalR - 1;
+
+        if (decimalR === 0) {
+          decimalL++;
+          if (this.minimumFractionDigits > 0) {
+            str += '.';
+          }
+        }
+        for (let i = 0; i < this.minimumIntegerDigits - decimalL; i++) {
+          str = '0' + str;
+        }
+        for (let i = 0; i < this.minimumFractionDigits - decimalR; i++) {
+          str += '0';
+        }
+        if (this.decimalSeparator !== '.') {
+          str = str.replace('.', this.decimalSeparator || '.');
+        }
+        if (n < 0) {
+          str = '-' + str;
+        } else if (this.alwaysSign) {
+          str = '+' + str;
+        }
+        return str;
+      }
+    }
+  }
+</script>
+
+<dom-module id="number-input">
+  <script>
+    /**
+     *  `number-input` is an element that can:
+     * * prevent non numeric input
+     * * guarantee **live**-data to be valid
+     * * pad a value with `0` (to a specific length)
+     * * size the input (according to it's length)
+     * * overflow to minimum or underflow to maximum
+     * * saturate to minimum or to maximum
+     * * display a specified unit and size the input
+     * * specify the decimal separator (the value will still be a Number object)
+     *
+     * Example:
+     * ```html
+     * <number-input step="2" min="-20" max="140" pad-length="2"></number-input>
+     * ```
+     *
+     * It sizes automatically. Use `key-up` and `key-down` to increment the value. If `step` is given, the value is a **multiple** of `step`.
+     *
+     * ### Styling
+     * Custom property                  | Description                            | Default
+     * ---------------------------------|----------------------------------------|--------------------
+     * `--number-input`                 | style of the input                     | {}
+     * `--number-input-focus`           | style of the focussed and hovered input | {}
+     * `--number-input-placeholder`     | style of the placeholder               | {}
+     *
+     * ```css
+     * :host {
+     *   --number-input-focus: {
+     *     background: rgba(0,0,0,.25);
+     *   };
+     *   --number-input-placeholder: {
+     *     color: pink;
+     *   };
+     * }
+     * ```
+     * @polymer
+     * @customElement
+     *
+     * @appliesMixin NumberInputMixin
+     *
+     * @demo demo/index.html
+     **/
+    class NumberInput extends NumberInputMixin(Polymer.Element) {
+
+      static get is() {
+        return 'number-input';
+      }
+    }
+    window.customElements.define(NumberInput.is, NumberInput);
+  </script>
+</dom-module>

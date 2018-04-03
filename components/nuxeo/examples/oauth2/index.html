@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+  <title>Nuxeo JavaScript Client Examples</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/nuxeo.js"></script>
+</head>
+<body>
+  <header>
+    <img alt="nuxeo" src="https://www.nuxeo.com/assets/imgs/logo340x60.png" />
+    <span>|</span>
+    <h1>JavaScript Client Examples</h1>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      <div class="title">
+        <h2>
+          <a href="/">examples</a> / oauth2
+        </h2>
+        <code><a href="https://github.com/nuxeo/nuxeo-js-client/tree/master/examples/oauth2/index.html">View Source</a></code>
+      </div>
+
+      <div id="unauthenticated" style="display:none;">
+        <p>This example takes the user through Nuxeo's API OAuth2 flow using <code>Nuxeo.oauth2.getAuthorizationURL()</code>
+          method, then uses <code>Nuxeo.oauth2.fetchAccessToken()</code> to exchange the authorization code for an access token
+          and finally, list the content of their user workspace using the access token.
+        </p>
+        <p>The Nuxeo Server URL is <code>http://localhost:8080/nuxeo</code>.</p>
+        <p>Make sure to have <a href="https://doc.nuxeo.com/nxdoc/cross-origin-resource-sharing-cors/">CORS</a>
+          enabled on your Nuxeo Server.</p>
+        <p>You need to register an OAuth2 Client on your Nuxeo Server
+          [<a href="https://doc.nuxeo.com/nxdoc/using-oauth2/#client-registration">doc</a>] with the following attributes:</p>
+        <ul>
+          <li>Client Id: <code>test-client</code></li>
+          <li>Redirect URI: <code>http://localhost:8888/oauth2</code></li>
+        </ul>
+        <p>Note that you can change those values in the <code>script</code> part of this page.</p>
+        <a href="" id="authlink" class="button">Authenticate</a>
+      </div>
+
+      <div id="authenticating" style="display:none;">
+        <p>Authenticating...</p>
+      </div>
+
+      <div id="authenticated" style="display:none;">
+        <p>You have successfully authenticated!</p>
+        <p>Below are the assets of your user workspace fetched using the Nuxeo JavaScript Client and access token.</p>
+        <ul id="docs"></ul>
+      </div>
+
+      <div id="error" style="display:none;">
+        <p>An error occured, see the console log.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // register a new OAuth2 client on your Nuxeo Server with 'test-client' as client id,
+    // and 'http://localhost:8888/oauth2' as redirect uri, or change values below
+    var CLIENT_ID = 'test-client';
+    var NUXEO_URL = 'http://localhost:8080/nuxeo';
+
+    function getAuthorizationCode() {
+      var params = getQueryParameters();
+      return params.code;
+    }
+
+    function getQueryParameters() {
+      var queryParams = {};
+      var href = window.location.href;
+      if (href.indexOf('?')) {
+        var params = href.substring(href.indexOf('?') + 1).split('&');
+        params.forEach(function(e) {
+          var a = e.split('=');
+          queryParams[a[0]] = a[1];
+        })
+      }
+      return queryParams;
+    }
+
+    function hide(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function show(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function renderDocuments(docs) {
+      var docsContainer = document.getElementById('docs');
+      docs.forEach(function(doc) {
+        var li = document.createElement('li');
+        li.innerHTML = doc.title;
+        docsContainer.appendChild(li);
+      });
+    }
+
+    var unauthenticated = true;
+    var nuxeo;
+
+    var code = getAuthorizationCode();
+    if (code) {
+      var index = window.location.href.indexOf('?code');
+      history.replaceState(null, null, window.location.href.substring(0, index));
+      unauthenticated = false;
+      show('authenticating');
+      Nuxeo.oauth2.fetchAccessToken(NUXEO_URL, CLIENT_ID, code)
+        .then(function(token) {
+          nuxeo = new Nuxeo({ baseURL: NUXEO_URL, auth: { method: 'bearerToken', token : token }});
+          return nuxeo.operation('User.GetUserWorkspace')
+            .execute();
+        })
+        .then(function(doc) {
+          return nuxeo.repository().query({
+            pageProvider: 'document_content',
+            queryParams: [doc.uid]
+          });
+        })
+        .then(function(res) {
+          renderDocuments(res.entries);
+          hide('authenticating');
+          show('authenticated')
+        })
+        .catch(function(e) {
+          console.log(e);
+          hide('unauthenticated');
+          hide('authenticating');
+          hide('authenticated');
+          show('error');
+        });
+    }
+
+    if (unauthenticated) {
+      var authURL = Nuxeo.oauth2.getAuthorizationURL(NUXEO_URL, CLIENT_ID);
+      document.getElementById('authlink').href = authURL;
+      show('unauthenticated');
+    }
+  </script>
+</body>
+</html>

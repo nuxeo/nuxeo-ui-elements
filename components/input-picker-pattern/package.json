@@ -1,0 +1,29 @@
+{
+  "name": "@fooloomanzoo/input-picker-pattern",
+  "version": "1.0.13",
+  "authors": [
+    "Johannes Brautzsch <fooloomanzoo>"
+  ],
+  "description": "A pattern for polymer elements to create a picker for an input",
+  "homepage": "https://github.com/fooloomanzoo/input-picker-pattern/",
+  "keywords": [
+    "webcomponents",
+    "polymer",
+    "picker",
+    "pattern",
+    "polyfill",
+    "input"
+  ],
+  "main": "input-picker-pattern.html",
+  "scripts": {
+    "postinstall": "bower install",
+    "prepublish": "npm run build && git add . && git commit -m \"publish new version\" && git push && npm version patch",
+    "build": "bower update && polymer analyze > analysis.json",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fooloomanzoo/datetime-picker.git"
+  },
+  "license": "MIT"
+}

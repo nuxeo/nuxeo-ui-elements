@@ -1,0 +1,111 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../widgets/nuxeo-selectivity.html">
+<link rel="import" href="../nuxeo-i18n-behavior.html">
+<link rel="import" href="nuxeo-aggregation-behavior.html">
+
+<!--
+An element to interact with page provider aggregations as suggestions.
+
+    <nuxeo-page-provider provider="default_search" auto
+                         aggregations="{{aggregations}}"
+                         params="[[params]]">
+    </nuxeo-page-provider>
+
+    <nuxeo-dropdown-aggregation data="[[aggregations.dc_creator_agg]]" multiple
+                                value="{{params.dc_creator_agg}}">
+    </nuxeo-dropdown-aggregation>
+
+@group Nuxeo UI
+@element nuxeo-dropdown-aggregation
+@demo demo/nuxeo-dropdown-aggregation/index.html
+-->
+<dom-module id="nuxeo-dropdown-aggregation">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+
+      [hidden] {
+        display: none;
+      }
+    </style>
+
+    <nuxeo-selectivity data="[[_computedData]]"
+                   min-chars="[[minChars]]"
+                   multiple="[[multiple]]"
+                   placeholder="[[placeholder]]"
+                   value="{{value}}" hidden$="[[_isEmpty]]">
+    </nuxeo-selectivity>
+
+    <label hidden$="[[!_isEmpty]]">[[i18n('dropdownAggregation.noResults')]]</label>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'nuxeo-dropdown-aggregation',
+      behaviors: [Nuxeo.I18nBehavior, Nuxeo.AggregationBehavior],
+      properties: {
+
+        value: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+
+        multiple: {
+          type: Boolean,
+          value: false
+        },
+
+        minChars: {
+          type: Number,
+          value: 0
+        },
+
+        placeholder: String,
+
+        _computedData: {
+          type: Object,
+          value: []
+        }
+      },
+
+      observers: [
+        '_computeData(data)'
+      ],
+
+      _computeData: function () {
+        if (this.data) {
+          this._computedData = this.data.extendedBuckets.map(function (item) {
+            var label = this.labelFormatter(item) + ' (' + item.docCount + ')';
+            return {
+              id: item.key,
+              text: label,
+              displayLabel: label
+            };
+          }.bind(this));
+        } else {
+          this._computedData = [];
+        }
+      }
+    });
+  </script>
+</dom-module>

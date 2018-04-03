@@ -1,0 +1,83 @@
+/*
+ * (C) Copyright 2017 Nuxeo (http://nuxeo.com/) and others.
+ *
+ * Contributors:
+ *     Thomas Roger <troger@nuxeo.com>
+ */
+
+properties([
+    [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', daysToKeepStr: '60', numToKeepStr: '60', artifactNumToKeepStr: '1']],
+    disableConcurrentBuilds(),
+    [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
+])
+
+node('SLAVE') {
+    try {
+        timestamps {
+            timeout(30) {
+                stage('checkout') {
+                    checkout([$class: 'GitSCM',
+                        branches: [[name: env.BRANCH_NAME]],
+                        extensions: [[$class: 'WipeWorkspace']],
+                        userRemoteConfigs: [[url: 'git@github.com:nuxeo/nuxeo-js-client.git']]
+                    ])
+                }
+
+                def branch = sh script: 'git show -s --pretty=format:"%D" | sed "s,.*\\(release/[^,]*\\).*,\\1,"', returnStdout: true
+                if (!(branch =~ /release\/\d+.\d+.\d+/)) {
+                    error "Branch ${branch} does not match a release branch format"
+                }
+                def releaseVersion = branch.replaceAll(/release\//, '')
+                stage ('release') {
+                    def envVars = [ 'npm_config_registry=' ]
+                    withEnv(envVars) {
+                        sh "npm run release -- ${releaseVersion}"
+                        currentBuild.description = "Release ${releaseVersion}"
+                    }
+                    // checkout the released version
+                    sh "git checkout v${releaseVersion}"
+                    stash includes: 'dist/**', name: 'dist'
+                    stash includes: 'node_modules/**', name: 'node_modules'
+                }
+
+                stage ('cdn publication') {
+                    unstash 'dist'
+                    def mvnHome = tool name: 'maven-3.3', type: 'hudson.tasks.Maven$MavenInstallation'
+                    sh """
+                        ${mvnHome}/bin/mvn deploy:deploy-file \
+                        -Dfile=dist/nuxeo.js \
+                        -DgroupId=org.nuxeo.js \
+                        -DartifactId=nuxeo \
+                        -Dversion=${releaseVersion} \
+                        -DrepositoryId=public-releases \
+                        -Durl=https://mavenin.nuxeo.com/nexus/content/repositories/public-releases
+                    """
+                    sh "scp dist/nuxeo.js nuxeo@lethe.nuxeo.com:/opt/www/community.nuxeo.com/static/releases/nuxeo.js/nuxeo-${releaseVersion}.js"
+                }
+
+                stage ('doc') {
+                    unstash 'node_modules'
+                    sh "./bin/doc.sh ${releaseVersion}"
+                }
+
+                stage ('post build') {
+                    // Clean up release branch
+                    sh 'git checkout master'
+                    sh "git push origin --delete ${branch}"
+                    archive 'dist/**'
+                    emailext (recipientProviders: [[$class: 'RequesterRecipientProvider']],
+                        subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) - Success!",
+                        body: "Build success ${env.BUILD_URL}")
+                }
+            }
+        }
+    } catch(e) {
+        currentBuild.result = "FAILURE"
+        step([$class: 'ClaimPublisher'])
+        archive 'dist/**'
+        emailext (recipientProviders: [[$class: 'RequesterRecipientProvider']],
+            subject: "${env.JOB_NAME} (${env.BUILD_NUMBER}) - Failure!",
+            body: "Build failed ${env.BUILD_URL}")
+        throw e
+    }
+}

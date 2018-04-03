@@ -1,0 +1,29 @@
+{
+  "name": "paper-typeahead",
+  "dependencies": {
+    "polymer": "^2.0.0",
+    "iron-menu-behavior": "polymerelements/iron-menu-behavior#~2.0.0",
+    "paper-input": "PolymerElements/paper-input#~2.0.0",
+    "paper-item": "PolymerElements/paper-item#~2.0.0",
+    "paper-styles": "PolymerElements/paper-styles#~2.0.0",
+    "paper-material": "PolymerElements/paper-material#~2.0.0",
+    "iron-a11y-keys-behavior": "PolymerElements/iron-a11y-keys-behavior#~2.0.0",
+    "iron-selector": "PolymerElements/iron-selector#~2.0.0",
+    "iron-behaviors": "PolymerElements/iron-behaviors#~2.0.0",
+    "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#~2.0.0"
+  },
+  "devDependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#~2.0.0",
+    "iron-component-page": "PolymerElements/iron-component-page#^2.0.0"
+  },
+  "homepage": "https://github.com/nuxeo/paper-typeahead",
+  "_release": "67c1941b40",
+  "_resolution": {
+    "type": "branch",
+    "branch": "0.6",
+    "commit": "67c1941b40c63dc5ecdd1bd51f09fe9069ea6361"
+  },
+  "_source": "https://github.com/nuxeo/paper-typeahead.git",
+  "_target": "0.6",
+  "_originalSource": "nuxeo/paper-typeahead"
+}

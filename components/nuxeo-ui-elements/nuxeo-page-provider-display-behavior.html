@@ -1,0 +1,616 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  var Nuxeo = Nuxeo || {};
+  (function () {
+
+    /**
+    * @polymerBehavior Nuxeo.PageProviderDisplayBehavior
+    */
+    Nuxeo.PageProviderDisplayBehavior = {
+
+      properties: {
+
+        nxProvider: {
+          type: HTMLElement
+        },
+
+        size: {
+          type: Number,
+          value: 0,
+          notify: true
+        },
+
+        emptyLabel: {
+          type: String,
+          value : 'No result',
+          observer: '_observeEmptyLabel'
+        },
+
+        emptyLabelWhenFiltered: {
+          type: String,
+          value : 'No result'
+        },
+
+        _computedEmptyLabel: {
+          type: String
+        },
+
+        _isEmpty: {
+          type: Boolean,
+          value: true
+        },
+
+        _isSelectAllChecked: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+
+        _isSelectAllIndeterminate: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+
+        _isSelectionEmpty: {
+          type: Boolean,
+          value: true,
+          notify: true
+        },
+
+        multiSelection: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * An array containing path/filter value pairs that are used to filter the items
+         */
+        filters: {
+          type: Array,
+          notify: true,
+          value: []
+        },
+
+        /**
+         * An array with a path/sortorder ('asc' or 'desc') pairs that are used to sort the items.
+         */
+        sortOrder: {
+          type: Array,
+          notify: true,
+          value: function() {
+            return [];
+          }
+        },
+
+        _ppSort: {
+          type: Object,
+          value: {},
+          notify: true
+        },
+
+        /**
+         * `true` if the table is currently loading data from the data source.
+         */
+        loading: {
+          type: Boolean,
+          reflectToAttribute: true,
+          notify: true,
+          readOnly: true,
+          value: false
+        },
+
+        selectionEnabled: {
+          type: Boolean,
+          value: false
+        },
+
+        selectedItems: {
+          type: Object,
+          notify: true
+        },
+
+        selectedItem: {
+          type: Object,
+          notify: true
+        },
+
+        items: {
+          type: Array,
+          value: [],
+          notify: true
+        },
+
+        /**
+         * Use this property to limit the maximum number of items.
+         */
+        maxItems: {
+          type: Number,
+          value: 10000
+        },
+
+        selectOnTap: {
+          type: Boolean,
+          value: false
+        },
+
+        as: {
+          type: String,
+          value: 'item'
+        },
+
+        displayQuickFilters: {
+          type: Boolean,
+          value: false
+        },
+
+        quickFilters: {
+          type: Array,
+          notify: true
+        },
+
+        scrollThrottle: {
+          type: Number,
+          value: 60
+        },
+
+        _lastSelectedIndex: Number
+      },
+
+      observers: [
+        '_updateFlags(size, loading)',
+        '_nxProviderChanged(nxProvider)',
+        '_selectionEnabledChanged(selectionEnabled, selectOnTap)',
+        '_itemsChanged(items.*)'
+      ],
+
+      listeners: {
+        'column-filter-changed': '_onColumnFilterChanged',
+        'selected': '_selected'
+      },
+
+      _nxProviderChanged: function(nxProvider) {
+        if (typeof nxProvider === 'string') {
+          this.nxProvider = this.__dataHost ? this.__dataHost.$[nxProvider] :
+            Polymer.dom(this.ownerDocument).querySelector('#' + nxProvider);
+          if (this.nxProvider === null) {
+            this.nxProvider = Polymer.dom(this).parentNode.querySelector('#' + nxProvider);
+          }
+        } else if (nxProvider) {
+          this._pageSize = this.nxProvider.pageSize;
+          this.listen(this.nxProvider, 'update', '_updateResults');
+        }
+      },
+
+      _hasPageProvider: function() {
+        return this.nxProvider && typeof this.nxProvider !== 'string';
+      },
+
+      _resetResults: function() {
+        if (this._hasPageProvider()) {
+          this._reset(0);
+        }
+      },
+
+      _updateResults: function() {
+        if (this._hasPageProvider()) {
+          this.size = this.items.length;
+        }
+      },
+
+      _itemsChanged: function() {
+        this._isEmpty = !(this.items && this.items.length > 0);
+      },
+
+      _selected: function(e) {
+        var index = e.detail.index;
+        if (typeof index === 'number') {
+          if (e.detail.shiftKey && typeof this._lastSelectedIndex === 'number') {
+
+            // prevent selecting an item not loaded yet
+            if (!this.items[index] || !this.items[index].uid) {
+              this.deselectIndex(index);
+            }
+
+            var last = this._lastSelectedIndex;
+            var start = index > last ? last : index;
+            var end = index > last ? index : last;
+
+            // check if all items in the range are loaded
+            var valid = this.items.slice(start, end).every(function(item) {
+              return item && item.uid;
+            }.bind(this));
+
+            // select items in range
+            if (valid) {
+              for (var i = start; i < end; i++) {
+                var item = this.items[i];
+                if (item && item.uid) {
+                  this.selectItem(item);
+                }
+              }
+            }
+          }
+          this._lastSelectedIndex = e.detail.index;
+        }
+      },
+
+      selectItem: function(item) {
+        if (this.selectionEnabled) {
+          this.$.list.selectItem(item);
+          this._updateFlags();
+        }
+      },
+
+      selectIndex: function(index) {
+        if (this.selectionEnabled) {
+          this.$.list.selectIndex(index);
+          this._updateFlags();
+        }
+      },
+
+      selectItems: function(items) {
+        if (this.selectionEnabled && items && items.length > 0) {
+          items.forEach(function(item) {
+            this.selectItem(item);
+          }.bind(this.$.list));
+          this._updateFlags();
+        }
+      },
+
+      deselectItem: function(item) {
+        if (this.selectionEnabled) {
+          this.$.list.deselectItem(item);
+          this._updateFlags();
+        }
+      },
+
+      deselectIndex: function(index) {
+        if (this.selectionEnabled) {
+          this.$.list.deselectIndex(index);
+          this._updateFlags();
+        }
+      },
+
+      selectAll: function() {
+        this.items.forEach(function(item) {
+          this.selectItem(item);
+        }.bind(this.$.list));
+        this._updateFlags();
+      },
+
+      clearSelection: function() {
+        this.$.list.clearSelection();
+        this._updateFlags();
+      },
+
+      _isSelected: function(item) {
+        return this.selectedItems && this.selectedItems.length && this.selectedItems.indexOf(item) > -1;
+      },
+
+      _toggleSelectAll: function() {
+        if (this._isSelectAllChecked) {
+          this.clearSelection();
+        } else {
+          this.selectAll();
+        }
+      },
+
+      _selectionEnabledChanged: function() {
+        this.$.list.selectionEnabled = this.selectionEnabled;
+        this.$.list.multiSelection = this.multiSelection;
+        this.$.list.unlisten.call(this.$.list, this.$.list, 'selected', '_selectionHandler');
+        if (this.selectionEnabled && !this.selectOnTap) {
+          this.$.list.unlisten.call(this.$.list, this.$.list, 'tap', '_selectionHandler');
+          this.$.list.listen.call(this.$.list, this.$.list, 'selected', '_selectionHandler');
+        }
+      },
+
+      _sortDirectionChanged: function(e) {
+        if (this._hasPageProvider()) {
+          var notFound = true;
+          for (var i = 0; i < this.sortOrder.length; i++) {
+            if (this.sortOrder[i].path === e.detail.path) {
+              if (e.detail.direction) {
+                this.set('sortOrder.' + i + '.direction', e.detail.direction);
+              } else {
+                this.splice('sortOrder', i, 1);
+              }
+              notFound = false;
+              break;
+            }
+          }
+          if (notFound) {
+            this.push('sortOrder', {
+              path: e.detail.path,
+              direction: e.detail.direction
+            });
+          }
+
+          // TODO make it simpler
+          var tmpSort = {};
+          if (this.sortOrder && this.sortOrder.length > 0) {
+            this.sortOrder.forEach(function(sortItem) {
+              tmpSort[sortItem.path] = sortItem.direction;
+            });
+          }
+          if (JSON.stringify(this._ppSort) !== JSON.stringify(tmpSort)) {
+            this._ppSort = tmpSort;
+            this.nxProvider.sort = this._ppSort;
+            if (!this.nxProvider.auto) {
+              this.fetch();
+            }
+          }
+        }
+      },
+
+      _onColumnFilterChanged: function(e) {
+        if (this._hasPageProvider()) {
+          var notFound = true;
+          for (var i = 0; i < this.filters.length; i++) {
+            if (this.filters[i].path === e.detail.filterBy) {
+              if (e.detail.value.length === 0) {
+                this.splice('filters', i, 1);
+              } else {
+                this.set('filters.' + i + '.value', e.detail.value);
+              }
+              notFound = false;
+              break;
+            }
+          }
+
+          if (notFound && e.detail.value.length !== 0) {
+            this.push('filters', {
+              path: e.detail.filterBy,
+              value: e.detail.value,
+              name: e.detail.name
+            });
+          }
+
+          if (this.nxProvider.params[e.detail.filterBy] && e.detail.value.length === 0) {
+            delete this.nxProvider.params[e.detail.filterBy];
+            this.fetch();
+          } else {
+            if (e.detail.value.length > 0) {
+              if (e.detail.filterBy === 'title' || e.detail.filterBy === 'ecm_fulltext') {
+                this.nxProvider.params[e.detail.filterBy] = e.detail.value + '*';
+              } else {
+                this.nxProvider.params[e.detail.filterBy] = e.detail.value;
+              }
+              this.fetch();
+            }
+          }
+        }
+      },
+
+      scrollToItem: function(item) {
+        this.$.list.scrollToItem(item);
+      },
+
+      scrollToIndex: function(index) {
+        this.$.list.scrollToIndex(Math.min(Math.max(index, 0), this.items.length - 1));
+      },
+
+      focusOnIndexIfNotVisible: function(index) {
+        if (!this.$.list._isIndexVisible(index)) {
+          this.$.list.scrollToIndex(index);
+        }
+      },
+
+      _observeEmptyLabel: function() {
+        this._computedEmptyLabel = this.emptyLabel;
+      },
+
+      _quickFilterChanged: function() {
+        this.fetch();
+      },
+
+      _updateFlags: function() {
+        if (!this.loading) {
+          this.size = this.items && this.items.length > 0 ? this.items.length : 0;
+          this._isSelectAllIndeterminate = this.selectedItems
+            && this.selectedItems.length > 0
+            && this.selectedItems.length < this.size;
+          this._isSelectAllChecked = this.selectedItems
+            && this.selectedItems.length > 0
+            && this.selectedItems.length === this.size;
+          this._isEmpty = this.size === 0;
+          this._computedEmptyLabel = (this.filters && this.filters.length > 0) ?
+            this.emptyLabelWhenFiltered : this.emptyLabel;
+        }
+      },
+
+      /**
+       * This function can be overridden by elements that includes this behavior.
+       * That allows to use different items array initialization.
+       */
+      reset: function(size) {
+        this._reset(size);
+      },
+
+      _reset: function(size) {
+        if (this.maxItems && size && size > this.maxItems) {
+          size = this.maxItems;
+        }
+
+        if (typeof size === 'number' && size > 0) {
+          var arr = new Array(size);
+          for (var i = 0; i < arr.length; i++) {
+            arr[i] = {};
+          }
+          this.set('items', arr);
+        } else {
+          this.set('items', []);
+        }
+        Polymer.dom.flush();
+        this.size = this.items.length;
+        this.$.list.notifyResize();
+      },
+
+      /**
+       * This function can be overridden by elements that includes this behavior.
+       * That allows to use either range OR page based fetch APIs.
+       * Default behavior is range base fetching.
+       */
+      fetch: function() {
+        if (this._hasPageProvider()) {
+          return this._fetchRange(0, this._pageSize, true);
+        }
+      },
+
+      /**
+       * Fetch a page and push the results to the items array.
+       *
+       * @param page Page index to fetch
+       * @param pageSize Number of results per page
+       */
+      _fetchPage: function(page, pageSize) {
+        if (this._hasPageProvider()) {
+          if (page) {
+            this.nxProvider.page = page;
+            if (page === 1) {
+              this.reset();
+            }
+          }
+          if (pageSize) {
+            this.nxProvider.pageSize = pageSize;
+          }
+          this.nxProvider.offset = 0;
+          return this.nxProvider.fetch().then(function (response) {
+            for (var i = 0; i < response.entries.length; i++) {
+              this.push('items', response.entries[i]);
+            }
+            return response;
+          }.bind(this));
+        }
+      },
+
+      /**
+       * Fetch a range of items (and fill the items array accordingly)
+       *
+       * @param firstIndex First index to fetch
+       * @param lastIndex Last index to fetch
+       * @param clear Clear items array
+       */
+      _fetchRange: function(firstIndex, lastIndex, clear) {
+        if (this._hasPageProvider()) {
+
+          if (!firstIndex && !lastIndex && !clear) {
+            firstIndex = 0;
+            lastIndex = this._pageSize;
+            clear = true;
+          }
+
+          if (this.maxItems && lastIndex > this.maxItems) {
+            lastIndex = this.maxItems;
+            clear = true;
+          }
+
+          // update items array based on first and last visible indexes
+          this.nxProvider.offset = firstIndex;
+          this.nxProvider.page = 1;
+          this.nxProvider.pageSize = (lastIndex - firstIndex) + 1;
+          return this.nxProvider.fetch().then(function(response) {
+            if (!response) {
+              return;
+            }
+
+            // get results count, and reset the array if it differs from current array length
+            var count = response.currentPageSize;
+            if (response.resultsCountLimit === 0) {
+              if (response.resultsCount > 0) {
+                count = response.resultsCount;
+              }
+            } else if (response.resultsCountLimit < response.resultsCount) {
+              count = response.resultsCountLimit;
+            } else {
+              count = response.resultsCount;
+            }
+            if (this.maxItems) {
+              if (count > this.maxItems) {
+                count = this.maxItems;
+              }
+            }
+            if (clear || this.items.length !== count) {
+              this.reset(count);
+            }
+
+            // fill items range based on response
+            var entryIndex = 0;
+            for (var i = firstIndex; i <= lastIndex; i++) {
+              if (entryIndex < response.entries.length) {
+                var isSelected = this._isSelected(this.items[i]);
+
+                this.set('items.' + i, response.entries[entryIndex++]);
+
+                if (isSelected) {
+                  this.selectIndex(i);
+                }
+              }
+            }
+
+            // quick filters
+            this.quickFilters = this.nxProvider.quickFilters;
+
+            // check if there is any active quick filter
+            var hasActiveQuickFilters = this.quickFilters ? Object.keys(this.quickFilters).some(function(k) {
+              return this.quickFilters[k].active;
+            }.bind(this)) : false;
+
+            // update buckets array based on provider's sort property
+            var buckets = [];
+            if (response.aggregations && !hasActiveQuickFilters) {
+              var providerSort = this.nxProvider.sort;
+              if (providerSort && Object.keys(providerSort).length === 1) {
+                var providerField = Object.keys(providerSort)[0];
+                var providerOrder = providerSort[providerField];
+                Object.keys(response.aggregations).map(function(key) {
+                  var aggregation = response.aggregations[key];
+                  if (aggregation.field === providerField && aggregation.buckets.length >= buckets.length &&
+                    aggregation.properties && aggregation.properties.order) {
+                    var order = aggregation.properties.order.split(' ');
+                    if (order.length > 0 && order[0] === 'key') {
+                      buckets = aggregation.buckets;
+                    }
+                    if (order.length > 1 && order[1] !== providerOrder) {
+                      buckets.reverse();
+                    }
+                  }
+                }.bind(this));
+              }
+            }
+            this.set('buckets', buckets);
+
+            this.fire('nuxeo-page-loaded');
+
+          }.bind(this));
+        }
+      },
+
+      _scrollChanged: function() {
+        this.debounce('debounce-scroll-changed', function() {
+          this._fetchRange(this.$.list.firstVisibleIndex, this.$.list.lastVisibleIndex);
+        }.bind(this), this.scrollThrottle > 0 ? this.scrollThrottle : 1);
+      }
+
+    };
+  })();
+</script>

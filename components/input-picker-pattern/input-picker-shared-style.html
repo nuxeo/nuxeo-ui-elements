@@ -1,0 +1,112 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`input-picker-shared-style`
+shared styles of the picker elements
+-->
+
+<custom-style>
+  <style is="custom-style">
+    html {
+      /* initial values */
+      --input-background: #2b2b2b;
+      --input-color: #dadada;
+      --input-selected-background: var(--primary-color, #394FE8);
+      --input-disabled-background: transparent;
+      --input-selected-color: #f5f5f5;
+      --input-disabled-color: #9c9c9c;
+    }
+  </style>
+<custom-style>
+
+<dom-module id="input-picker-shared-style">
+  <template>
+    <style>
+      :host {
+        font-family: inherit;
+        font-size: inherit;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-tap-highlight-color: transparent;
+        outline-width: 0;
+        -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        position: relative;
+        box-sizing: content-box;
+        /* initial mixins */
+        --input-style: {
+          border-radius: 4px;
+          padding: 0.25em 0.1em;
+          border: none;
+          outline: none;
+          text-align: center;
+          color: inherit;
+          cursor: pointer;
+          background-color: transparent;
+          box-sizing: content-box;
+          transition: background-color 150ms cubic-bezier(0.6, 1, 0.2, 1);
+        };
+        --input-focus: {
+          background-color: var(--input-selected-background);
+          color: var(--input-selected-color);
+        };
+        --input-disabled: {
+          background-color: var(--input-disabled-background);
+          color: var(--input-disabled-color);
+          font-weight: lighter;
+          cursor: default;
+        };
+        --input-element: {
+          border-radius: 4px;
+          padding: 4px;
+        };
+        --input-picker: {
+          box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+                      0 1px 8px 0 rgba(0, 0, 0, 0.12),
+                      0 3px 3px -2px rgba(0, 0, 0, 0.4);
+        };
+        --input-icon: {
+          border-radius: 2px;
+          padding: 8px;
+          height: 16px;
+          width: 16px;
+          background-color: transparent;
+          transition: background-color 150ms cubic-bezier(0.6, 1, 0.2, 1);
+          cursor: pointer;
+          fill: currentColor;
+        };
+      }
+      :host > * {
+        position: relative;
+      }
+      input::-webkit-input-edit-text,
+      input::-webkit-input-placeholder,
+      input::-webkit-inner-spin-button,
+      input::-webkit-outer-spin-button,
+      input::-webkit-clear-button,
+      input::-webkit-calendar-picker-indicator {
+        color: currentColor;
+      }
+      input[type=tel],
+      input[type=text] {
+        font-family: inherit;
+        font-size: inherit;
+        @apply --input-input;
+      }
+      input[type=tel]:focus:not([disabled]),
+      input[type=tel]:hover:not([disabled]),
+      input[type=text]:focus:not([disabled]),
+      input[type=text]:hover:not([disabled]) {
+        @apply --input-focus;
+      }
+      .icon {
+        @apply --input-icon;
+      }
+      .icon:focus,
+      .icon:hover {
+        @apply --input-focus;
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </template>
+
+</dom-module>

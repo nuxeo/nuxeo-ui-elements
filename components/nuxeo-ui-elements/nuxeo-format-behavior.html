@@ -1,0 +1,114 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="nuxeo-i18n-behavior.html">
+
+<script>
+  var Nuxeo = Nuxeo || {};
+
+  /**
+   * `Nuxeo.FormatBehavior` provides a set of helpers to format values.
+   *
+   * @polymerBehavior
+   */
+  Nuxeo.FormatBehavior = [Nuxeo.I18nBehavior, {
+
+    /**
+     * Formats a size given in bytes in MB, KB, or bytes.
+     */
+    formatSize: function(size) {
+      if (!size) {
+        return '';
+      } else if (size > 1048576) {
+        return parseFloat(size / 1048576).toFixed(2) + ' MB';
+      } else if (size > 1024) {
+        return parseFloat(size / 1024).toFixed(2) + ' KB';
+      } else {
+        return size.toString() + ' Bytes';
+      }
+    },
+
+    /**
+     * Formats a date as a string. Default format is 'MMM D, YYYY'.
+     * Use format "relative" to show date relative to current time
+     */
+    formatDate: function(date, fmt) {
+      if (!date) return;
+      moment.locale(this._languageCode());
+      if (fmt && fmt === "relative"){
+        return moment().to(date) ;
+      }
+      return moment(date).format(fmt || 'MMMM D, YYYY');
+    },
+
+    /**
+     * Returns the translated mimetype. Message key is 'mimetype.<value>'.
+     */
+    formatMimeType: function(value) {
+      if (!value) return;
+      return this.i18n('mimetype.' + value);
+    },
+
+    /**
+     * Returns the version of a document as <major>.<minor>.
+     */
+    formatVersion: function(doc) {
+      if (doc && doc.properties
+          && doc.properties['uid:major_version'] !== undefined && doc.properties['uid:minor_version'] !== undefined) {
+        return doc.properties['uid:major_version'] + '.' + doc.properties['uid:minor_version'];
+      } else {
+        return '';
+      }
+    },
+
+    /**
+     * Returns the label for the given directory entry.
+     */
+    formatDirectory: function(value) {
+      if (value && value['entity-type'] && value['entity-type'] === 'directoryEntry') {
+        if (value.properties && value.properties.label) {
+          return value.properties.label;
+        } else {
+          var label = 'label_' + this._languageCode();
+          return value.properties[label] || value.properties['label_en']
+        }
+      } else {
+        return value;
+      }
+    },
+
+    /**
+     * Returns the label for the given lifecycle state.
+     */
+    formatLifecycleState: function(state) {
+      var t = this.i18n('label.ui.state.' + state);
+      return t === 'label.ui.state.' + state ? state : t;
+    },
+
+    /**
+     * Returns sanitized fulltext
+     */
+    formatFulltext: function(text) {
+      return text.replace(/-/g, ' ');
+    },
+
+    _languageCode: function (){
+      return ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+    }
+
+  }];
+</script>

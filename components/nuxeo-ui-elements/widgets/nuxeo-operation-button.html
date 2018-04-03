@@ -1,0 +1,162 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-icon/iron-icon.html">
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../../nuxeo-elements/nuxeo-operation.html">
+<link rel="import" href="../nuxeo-i18n-behavior.html">
+
+<!--
+An element for running an operation.
+
+Example:
+
+    <nuxeo-operation-button
+        icon="icons:account-box" label="Get user"
+        operation="User.Get" response="{{operationResponse}}">
+    </nuxeo-operation-button>
+
+@group Nuxeo UI
+@element nuxeo-operation-button
+@demo demo/nuxeo-operation-button/index.html
+-->
+<dom-module id="nuxeo-operation-button">
+  <template>
+
+    <nuxeo-operation id="op" op="[[operation]]" input="[[input]]" params="[[params]]" sync-indexing$="[[syncIndexing]]">
+    </nuxeo-operation>
+
+    <paper-icon-button id="bt" icon="[[icon]]" on-tap="_execute"></paper-icon-button>
+    <paper-tooltip for="bt">[[label]]</paper-tooltip>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'nuxeo-operation-button',
+
+      behaviors: [Nuxeo.I18nBehavior],
+
+      properties: {
+
+        /* Icon */
+        icon: String,
+
+        /* Label (shown as tooltip) */
+        label: String,
+
+        /* The id of the operation to call. */
+        operation: String,
+
+        /* The operation input. */
+        input: String,
+
+        /**
+         * If true, documents changed by the operation call will be reindexed synchronously server side.
+         */
+        syncIndexing: Boolean,
+
+        /* The parameters to send. */
+        params: {
+          type: Object,
+          value: function() {
+            return {};
+          }
+        },
+
+        /* The response from the server. */
+        response: {
+          type: Object,
+          value: null,
+          notify: true
+        },
+
+        /* The text or i18n key to display in the notification. */
+        notification: {
+          type: String
+        },
+
+        /* Trigger download of Blob response. */
+        download: {
+          type: Boolean,
+          value: false
+        },
+
+        /* The event type to fire on completion. */
+        event: {
+          type: String,
+          value: 'operation-executed'
+        },
+
+        /* The detail of the event fired on completion.  */
+        detail: {
+          type: String
+        }
+      },
+
+      _execute: function() {
+        this.$.op.execute().then(function(response) {
+          if (this.notification) {
+            this.fire('notify', {'message': this.i18n(this.notification)});
+          }
+          var detail = {response: response};
+          if (this.detail) {
+            // if the supplied params are a string, parse them as JSON
+            detail = typeof this.detail === 'string' ? JSON.parse(this.detail) : this.detail;
+          }
+          this.fire(this.event, detail);
+
+          if (this.download) {
+            return this._download(response);
+          }
+        }.bind(this))
+        .catch(function(error) {
+          this.fire('notify', {'message': error});
+        }.bind(this));
+      },
+
+      // https://jira.nuxeo.com/browse/ELEMENTS-370
+      _download: function(response) {
+        var contentDisposition = response.headers.get('Content-Disposition');
+        if (contentDisposition) {
+          var filenameMatches = contentDisposition
+              .match(/filename[^;=\n]*=([^;\n]*''([^;\n]*)|[^;\n]*)/).filter(function(match) { return !!match; });
+          var filename = decodeURI(filenameMatches[filenameMatches.length - 1]);
+          return response.blob().then(function(blob) {
+            if (navigator.msSaveBlob) {
+              // handle IE11 and Edge
+              navigator.msSaveBlob(blob, filename);
+            } else {
+              var a = document.createElement('a');
+              a.style = 'display: none';
+              a.download = filename;
+              a.href = URL.createObjectURL(blob);
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(a.href);
+            }
+          }.bind(this));
+        } else {
+          return Promise.reject(new Error('missing Content-Disposition header'));
+        }
+      }
+
+    });
+  </script>
+</dom-module>

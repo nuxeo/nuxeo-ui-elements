@@ -1,0 +1,564 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<script src="selectivity/selectivity.js"></script>
+<!-- browsers without native shadow dom -->
+<link rel="stylesheet" href="selectivity/selectivity.css">
+
+<link rel="import" href="../../nuxeo-elements/nuxeo-operation.html">
+<link rel="import" href="../../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+
+<!--
+An element wrapping selectivity.js and relying on an operation for suggestions
+
+   <nuxeo-selectivity operation="Directory.SuggestEntries"
+                  multiple
+                  params='{"directoryName": "subject"}'
+                  value="{{value}}">
+
+@group Nuxeo Widgets
+@element nuxeo-selectivity
+@demo demo/nuxeo-selectivity/index.html
+-->
+
+<dom-module id="nuxeo-selectivity">
+  <link rel="import" type="css" href="selectivity/selectivity.css">
+
+  <template>
+    <style is="custom-style">
+      :host {
+        display: block;
+        position: relative;
+        padding-bottom: 8px;
+      }
+
+      :host([hidden]) {
+        display: none;
+      }
+
+      :host([invalid]) .label,
+      .error {
+        color: var(--paper-input-container-invalid-color, red);
+      }
+
+      :host([invalid]) .error {
+        opacity: 1;
+        font-size: .923rem;
+      }
+
+      .label {
+         @apply --nuxeo-label;
+      }
+
+      .label[required]::after {
+        display: block;
+        content: '*';
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: var(--paper-input-container-invalid-color, red);
+        font-size: 1.2em;
+      }
+
+    </style>
+
+    <nuxeo-operation id="op" op="[[operation]]"></nuxeo-operation>
+
+    <label class="label" hidden$="[[!label]]" required$="[[required]]">[[label]]</label>
+
+    <div id="input" readonly$="[[readonly]]"></div>
+
+    <label class="error" hidden$="[[!invalid]]">[[errorMessage]]</label>
+
+  </template>
+
+  <script>
+
+    Polymer({
+      is: 'nuxeo-selectivity',
+      behaviors: [Polymer.IronFormElementBehavior, Polymer.IronValidatableBehavior],
+      properties: {
+
+        /**
+         * Selected value(s).
+         */
+        value: {
+          notify: true,
+          observer: '_valueChanged'
+        },
+
+        /**
+         * Set to `true` to allow multiple selection.
+         */
+        multiple: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * If true, the dropdown stays open after a selection is made.
+         */
+        stayOpenOnSelect: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Set to `true` for read only mode.
+         */
+        readonly: {
+          type: Boolean,
+          value: false,
+          observer: '_readonlyChanged'
+        },
+
+        /**
+         * Minimum number of chars to trigger the suggestions.
+         */
+        minChars: {
+          type: Number,
+          value: 3
+        },
+
+        /**
+         * Placeholder.
+         */
+        placeholder: {
+          type: String,
+          value: ' ',
+          observer: '_placeholderChanged'
+        },
+
+        /**
+         * Separator to use with multiple selection.
+         */
+        separator: {
+          type: String,
+          value: ','
+        },
+
+        tagging: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * Function used to get the id from the choice object.
+         */
+        idFunction: {
+          type: Function,
+          value: function() {
+            return this._idFunction.bind(this);
+          }
+        },
+
+        /**
+         * Formatter for selected entries.
+         */
+        selectionFormatter: {
+          type: Function,
+          value: function() {
+            return this._selectionFormatter.bind(this);
+          }
+        },
+
+        /**
+         * Formatter for suggested entries.
+         */
+        resultFormatter: {
+          type: Function,
+          value: function() {
+            return this._resultFormatter.bind(this);
+          }
+        },
+
+        /**
+         * Formatter for new entries.
+         */
+        newEntryFormatter: {
+          type: Function,
+          value: function() {
+            return this._newEntryFormatter.bind(this);
+          }
+        },
+
+
+        /**
+         * Function that transforms the entries added using the value property into object
+         */
+        resolveEntry: {
+          type: Function,
+          value: function() {
+            return this._resolveEntry.bind(this);
+          }
+        },
+
+        /**
+         * Function called when an entry is selected.
+         */
+        addedEntryHandler: {
+          type: Function
+        },
+
+        /**
+         * Function called when an entry is unselected.
+         */
+        removedEntryHandler: {
+          type: Function
+        },
+
+        /**
+         * Formatter for initial selection.
+         */
+        initSelection: {
+          type: Function,
+          value: function() {
+            return this._initSelection.bind(this);
+          }
+        },
+
+        maximumSelectionSize: {
+          type: Number,
+          value: -1
+        },
+
+        data: {
+          type: Array,
+          observer: '_dataChanged'
+        },
+
+        /**
+         * Selected items.
+         */
+        selectedItems: {
+          type: Array,
+          notify: true,
+          observer: '_valueChanged'
+        },
+
+        /**
+         * Selected item.
+         */
+        selectedItem: {
+          type: Object,
+          notify: true,
+          observer: '_valueChanged'
+        },
+
+        /**
+         * Operation to call for suggestions.
+         */
+        operation: String,
+
+        /**
+         * Parameters to use in the operation call (will include `searchTerm`).
+         */
+        params: {
+          type: Object
+        },
+
+        /**
+         * Results filtering function (optional).
+         */
+        queryResultsFilter: Function,
+
+        /**
+         * Error message to show when `invalid` is true.
+         */
+        errorMessage: String
+      },
+
+      attached: function() {
+
+        var options = {
+          searchFloor: this.minChars, // minimum length a search value should be before choices are searched
+          tokenSeparators: [this.separator],
+          width: "100%",
+          readOnly: this.readonly,
+          backspaceHighlightsBeforeDelete: true,
+
+          // initialize selection and create entries
+          initSelection: function(value, callback) {
+            if (!value) return;
+
+            var prep = function(item) {
+              var id = this.idFunction(item);
+              return {
+                id: id,
+                text: id,
+                item: item
+              };
+            }.bind(this);
+
+            this.initSelection(value, function(selection) {
+              callback(this.multiple ? selection.map(prep) : prep(selection));
+            }.bind(this));
+          }.bind(this),
+
+          idFunction: function(value) {
+            return this.idFunction(value);
+          }.bind(this),
+
+          // override templates since formatter should already escape text
+          templates: {
+            resultItem: function(options) {
+              return (
+                  '<div class="selectivity-result-item' +
+                  (options.disabled ? ' disabled' : '') +
+                  '" data-item-id="' + this.escapeHTML(options.id) + '">' +
+                  this.resultFormatter(options.item)
+                  + '</div>');
+            }.bind(this),
+
+            singleSelectedItem: function(options) {
+              return (
+                  '<span class="selectivity-single-selected-item" ' +
+                  'data-item-id="' + this.escapeHTML(options.id) + '">' +
+                  (options.removable
+                      ? '<a class="selectivity-single-selected-item-remove">' +
+                        '<i class="selectivity-remove"></i>' +
+                        '</a>'
+                      : '') +
+                  this.selectionFormatter(options.item || options) +
+                  '</span>'
+              );
+            }.bind(this),
+
+            multipleSelectedItem: function(options) {
+              var extraClass = options.highlighted ? ' highlighted' : '';
+              return (
+                  '<span class="selectivity-multiple-selected-item' +
+                  extraClass +
+                  '" data-item-id="' + this.escapeHTML(options.id) + '">' +
+                  (options.removable
+                      ? '<a class="selectivity-multiple-selected-item-remove">' +
+                        '<i class="selectivity-remove"></i>' +
+                        '</a>'
+                      : '') +
+                  this.selectionFormatter(options.item || options) +
+                  '</span>');
+            }.bind(this),
+          }
+        };
+
+        var InputType = Selectivity.Inputs[this.multiple ? 'Multiple' : 'Single'];
+        options.element = this.$.input;
+
+        options.closeOnSelect = !this.stayOpenOnSelect;
+
+        if (!this.readonly) {
+          options.placeholder = this.placeholder;
+          options.allowClear = !this.required;
+        }
+
+        if (this.data) {
+          options.items = this._wrap(this.data);
+        } else {
+          options.query = function(query) {
+            if (query.term.length < this.minChars) {
+              query.error("Please enter " + this.minChars + " or more character");
+              return;
+            }
+            // debounce requests
+            this.debounce('_selectivityQuery', function() {
+              this._query(query);
+            }.bind(this), 300);
+          }.bind(this);
+        }
+
+        // createTokenItem is not supported in single inputs in selectivity
+        if (this.multiple && this.tagging) {
+          options.createTokenItem = function(term) {
+            return this._wrap(this.newEntryFormatter(term));
+          }.bind(this);
+        }
+
+        this.$.input.addEventListener('selectivity-change', this._updateSelection.bind(this));
+
+        this._selectivity = new InputType(options);
+
+        if (this.value || this.selectedItem || this.selectedItems) {
+          this.async(function() {
+            this._valueChanged(this.value || this.selectedItem || this.selectedItems);
+          }.bind(this), 100);
+        }
+
+        // scope styles
+        this.scopeSubtree(this.$.input, true);
+      },
+
+      _getValidity: function() {
+        if (!this.required) {
+          return true;
+        }
+        return this.multiple ? !!this.value && this.value.length > 0 : !!this.value;
+      },
+
+      _initSelection: function(value, callback) {
+        if (!this.multiple) {
+          return callback(this.resolveEntry(value));
+        }
+        return callback(value.map(this.resolveEntry.bind(this)));
+      },
+
+      _resolveEntry: function(entry) {
+        if (this.data) {
+          for (var i = 0; i < this.data.length; i++) {
+            if (this.idFunction(this.data[i]) === entry) {
+              return this.data[i];
+            }
+          }
+        } else {
+          return { id: entry, displayLabel: entry };
+        }
+      },
+
+      _updateSelection: function(e) {
+        this._inUpdateSelection = true;
+        this.value = this.multiple ? e.value.slice(0) : e.value;
+        this._inUpdateSelection = true;
+        if (this.multiple) {
+          var items = [];
+          var valS = e.items.slice(0);
+          if (valS) {
+            valS.forEach(function(el) {
+              items.push(el.item ? el.item : el);
+            });
+          }
+          this.selectedItems = items;
+        } else {
+          this.set('selectedItem', e.items ? e.items.item : null);
+        }
+        if (e.added) {
+          if (this.addedEntryHandler) {
+            this.addedEntryHandler(e.added);
+          }
+        } else if (e.removed) {
+          if (this.removedEntryHandler) {
+            this.removedEntryHandler(e.removed);
+          }
+        }
+      },
+
+      _valueChanged: function(newValue) {
+        if (this._selectivity && !this._inUpdateSelection) {
+          if (newValue) {
+            this._selectivity.setValue(newValue, { triggerChange: false });
+            this._selectivity.rerenderSelection();
+          } else {
+            // in cases where newValue is either undefined or null, clear the value
+            this._selectivity.setValue(null);
+            this._selectivity.clear();
+          }
+        }
+        this._inUpdateSelection = false;
+      },
+
+      _dataChanged: function() {
+        this._selectivity && this._selectivity.setOptions({items: this._wrap(this.data)});
+      },
+
+      _placeholderChanged: function() {
+        this.$.input.setAttribute('placeholder', this.placeholder);
+      },
+
+      _readonlyChanged: function() {
+        this._selectivity && this._selectivity.setOptions({readOnly: this.readonly});
+      },
+
+      _idFunction: function(item) {
+        return item.computedId || item.uid || item.id || item;
+      },
+
+      _newEntryFormatter: function(term) {
+        return { id: term, displayLabel: term };
+      },
+
+      _selectionFormatter: function(item) {
+        return this.escapeHTML(item.displayLabel || item.title || item.text || item);
+      },
+
+      _resultFormatter: function(item) {
+        return this.escapeHTML(item.displayLabel || item.title || item.text || item);
+      },
+
+      _wrap: function(value) {
+        var fn = function(item) {
+          var id = this.idFunction(item);
+          var entry = {
+            id: id,
+            text: item.displayLabel || item.text || id || '',
+            item: item
+          };
+          if (item.children) {
+            entry.children = item.children.map(fn.bind(this));
+          }
+          return entry;
+        };
+        return Array.isArray(value) ? value.map(fn.bind(this)) : fn.call(this, value);
+      },
+
+      // Implements abstract Nuxeo.Select2 methods
+      _query: function(query) {
+        var params = this.params || {};
+        params.searchTerm = query.term;
+        this.$.op.params = params;
+
+        this.$.op.execute().then(function(response) {
+          var results = Array.isArray(response.entries) ? response.entries : response;
+          if (this.queryResultsFilter) {
+            results = results.filter(this.queryResultsFilter);
+          }
+          if (this.tagging && query.term) {
+            var exists = results.some(function(item) {
+              return item.id === query.term;
+            })
+            if (!exists) {
+              results.push(this.newEntryFormatter(query.term));
+            }
+          }
+
+          query.callback({
+            results: this._wrap(results)
+          });
+        }.bind(this));
+      },
+
+      escapeHTML: function(markup) {
+        var replaceMap = {
+          '\\': '&#92;',
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          '\'': '&#39;',
+          '/': '&#47;'
+        };
+
+        // Do not try to escape the markup if it's not a string
+        if (typeof markup !== 'string') {
+          return markup;
+        }
+
+        return String(markup).replace(/[&<>"'\/\\]/g, function (match) {
+          return replaceMap[match];
+        });
+      }
+    });
+  </script>
+</dom-module>

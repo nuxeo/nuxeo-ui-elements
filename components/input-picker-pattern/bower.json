@@ -1,0 +1,34 @@
+{
+  "name": "input-picker-pattern",
+  "authors": [
+    "Johannes Brautzsch <fooloomanzoo>"
+  ],
+  "description": "A pattern for polymer elements to create a picker for an input",
+  "homepage": "https://github.com/fooloomanzoo/input-picker-pattern/",
+  "keywords": [
+    "webcomponents",
+    "polymer",
+    "picker",
+    "input",
+    "polyfill"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fooloomanzoo/input-picker-pattern.git"
+  },
+  "licence": "https://github.com/fooloomanzoo/input-picker-pattern/raw/master/LICENSE.txt",
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.9 - 2",
+    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior"
+  },
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "polymer": "Polymer/polymer#^1.9"
+      },
+      "resolutions": {
+        "webcomponentsjs": "^0.7"
+      }
+    }
+  }
+}
