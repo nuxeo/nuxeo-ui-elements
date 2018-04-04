@@ -26,11 +26,11 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "homepage": "https://github.com/nuxeo/nuxeo-elements",
-  "_release": "4b7bbb9657",
+  "_release": "99baed3f35",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "4b7bbb9657536256c223601727d4e796d9883530"
+    "commit": "99baed3f35ed5637a6fae7200642c2c54d2b37d4"
   },
   "_source": "https://github.com/nuxeo/nuxeo-elements.git",
   "_target": "master",
