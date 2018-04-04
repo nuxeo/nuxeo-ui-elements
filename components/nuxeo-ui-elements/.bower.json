@@ -63,11 +63,11 @@
     "web-component-tester": "^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
-  "_release": "7a4a239c54",
+  "_release": "6304104ea5",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "7a4a239c54d09f236cbee64fe0821b016c9c3c12"
+    "commit": "6304104ea5b012835224de6e7cbc5e6b97d5c9b7"
   },
   "_source": "https://github.com/nuxeo/nuxeo-ui-elements.git",
   "_target": "master",
