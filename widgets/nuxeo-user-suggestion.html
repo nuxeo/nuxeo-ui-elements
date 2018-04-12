@@ -49,6 +49,7 @@ limitations under the License.
     <nuxeo-selectivity id="s2" operation="UserGroup.Suggestion"
                    label="[[label]]"
                    min-chars="[[minChars]]"
+                   frequency="[[frequency]]"
                    multiple="[[multiple]]"
                    params="[[params]]"
                    placeholder="[[placeholder]]"
@@ -133,6 +134,11 @@ limitations under the License.
           type: Number,
           value: 3
         },
+
+        /**
+         * Time in ms used to debounce requests.
+         */
+        frequency: Number,
 
         /**
          * Placeholder.
