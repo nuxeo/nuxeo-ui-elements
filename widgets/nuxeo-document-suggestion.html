@@ -48,6 +48,7 @@ An element for selecting one or more documents.
     <nuxeo-selectivity id="s2" operation="[[operation]]"
                    label="[[label]]"
                    min-chars="[[minChars]]"
+                   frequency="[[frequency]]"
                    multiple="[[multiple]]"
                    params="[[_computeParams(params.*, pageProvider, schemas, repository)]]"
                    placeholder="[[placeholder]]"
@@ -154,6 +155,11 @@ An element for selecting one or more documents.
           type: Number,
           value: 3
         },
+
+        /**
+         * Time in ms used to debounce requests.
+         */
+        frequency: Number,
 
         /**
          * Placeholder.
