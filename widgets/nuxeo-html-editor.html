@@ -65,7 +65,7 @@ limitations under the License.
           value: 'Type here...'
         },
 
-        readOnly: Boolean,
+        readonly: Boolean,
 
         hideToolbars: Boolean
       },
@@ -111,7 +111,7 @@ limitations under the License.
           }
         };
         var editor = AlloyEditor.editable(this.$.editor, {
-          readOnly: this.readOnly,
+          readOnly: this.readonly,
           uiNode: this.root,
           toolbars: toolbars
         });
