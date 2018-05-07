@@ -5,7 +5,7 @@
 
 # About nuxeo-ui-elements
 
-**Nuxeo UI Elements** is an ongoing work to develop a set of UI elements for building Polymer applications with Nuxeo.
+**Nuxeo UI Elements** is a set of UI elements for building Polymer applications with Nuxeo.
 
 ## Dependencies
 
