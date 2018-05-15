@@ -29,6 +29,7 @@ limitations under the License.
     <link rel="import" href="../nuxeo-demo.html">
     <link rel="import" href="../../../nuxeo-elements/nuxeo-connection.html">
     <link rel="import" href="../../widgets/nuxeo-directory-suggestion.html">
+    <link rel="import" href="../../bower_components/vaadin-dialog/vaadin-dialog.html">
   </head>
 
   <body unresolved>
@@ -50,6 +51,30 @@ limitations under the License.
         <nuxeo-demo-section heading="Directory suggestion (multiple)" size="small">
           <nuxeo-directory-suggestion directory-name="subject" value="{{multipleDirectories}}" multiple="true"></nuxeo-directory-suggestion>
           <div>Selected directories: [[multipleDirectories]]</div>
+        </nuxeo-demo-section>
+
+        <nuxeo-demo-section heading="Directory suggestion (multiple)" size="small">
+          <vaadin-dialog opened>
+            <template>
+              <header><h2>Test dialog</h2></header>
+              <div>
+                <nuxeo-directory-suggestion
+                  id="suggester"
+                  directory-name="continent"
+                  value="{{selectedIds}}"
+                  min-chars="0"
+                  placeholder="Select a type">
+                </nuxeo-directory-suggestion>
+              </div>
+            </template>
+          </vaadin-dialog>
+
+          <h3>Ids</h3>
+          <paper-button primary toggles active="{{dialogOpened}}" noink>OPEN DIALOG</paper-button>
+          <template is="dom-repeat" items="[[selectedIds]]">
+            [[item]]
+            <br/>
+          </template>
         </nuxeo-demo-section>
 
       </template>
