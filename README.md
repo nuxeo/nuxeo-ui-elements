@@ -2,6 +2,10 @@
 [![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=master/nuxeo-ui-elements-master)](https://qa.nuxeo.org/jenkins/job/master/job/nuxeo-ui-elements-master/)
 
 [![Browser Status](https://badges.herokuapp.com/sauce/nuxeo-ui-elements?name=nuxeo-ui-elements-master)](https://saucelabs.com/u/nuxeo-ui-elements)
+  
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/nuxeonuxeo-ui-elements)
+[![Stars on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/nuxeonuxeo-ui-elements.svg)](https://vaadin.com/directory/component/nuxeonuxeo-ui-elements)
+
 
 # About nuxeo-ui-elements
 
