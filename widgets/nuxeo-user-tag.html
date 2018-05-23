@@ -16,8 +16,8 @@ limitations under the License.
 -->
 
 <link rel="import" href="../../polymer/polymer.html">
-<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../nuxeo-routing-behavior.html">
+<link rel="import" href="../widgets/nuxeo-tooltip.html">
 <link rel="import" href="nuxeo-tag.html">
 <link rel="import" href="nuxeo-user-avatar.html">
 
@@ -70,9 +70,9 @@ Example:
           [[_name(user)]]
         </template>
         <template is="dom-if" if="[[_isEntity(user)]]">
-          <paper-tooltip id="tooltip" position="top" offset="0" animation-delay="0">
+          <nuxeo-tooltip position="top" offset="0" animation-delay="0">
             [[_id(user)]]<br>[[_email(user)]]
-          </paper-tooltip>
+          </nuxeo-tooltip>
         </template>
       </div>
     </nuxeo-tag>
@@ -103,12 +103,6 @@ Example:
         fetchAvatar: {
           type: Boolean,
           value: false
-        }
-      },
-
-      ready: function() {
-        if (this.$.tooltip) {
-          document.body.appendChild(this.$.tooltip);
         }
       },
 

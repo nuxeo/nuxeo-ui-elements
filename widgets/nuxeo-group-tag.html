@@ -18,8 +18,8 @@ limitations under the License.
 <link rel="import" href="../../polymer/polymer.html">
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-icons/social-icons.html">
-<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../nuxeo-routing-behavior.html">
+<link rel="import" href="../widgets/nuxeo-tooltip.html">
 <link rel="import" href="nuxeo-tag.html">
 
 <!--
@@ -52,7 +52,7 @@ Example:
         [[_label(group)]]
       </template>
       <template is="dom-if" if="[[_isEntity(group)]]">
-        <paper-tooltip id="tooltip" position="top" offset="0" animation-delay="0">[[_name(group)]]</paper-tooltip>
+        <nuxeo-tooltip position="top" offset="0" animation-delay="0">[[_name(group)]]</nuxeo-tooltip>
       </template>
     </nuxeo-tag>
 
@@ -75,12 +75,6 @@ Example:
         disabled: {
           type: Boolean,
           value: false
-        }
-      },
-
-      ready: function() {
-        if (this.$.tooltip) {
-          document.body.appendChild(this.$.tooltip);
         }
       },
 

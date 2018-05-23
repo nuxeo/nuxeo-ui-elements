@@ -1,6 +1,6 @@
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
+<link rel="import" href="../widgets/nuxeo-tooltip.html">
 <link rel="import" href="data-table-templatizer-behavior.html">
 
 <!-- Part of `nuxeo-data-table` -->
@@ -28,19 +28,19 @@
         <div class="orderable">
           <template is="dom-if" if="[[isUpVisible(index)]]">
             <paper-icon-button noink id="upButton" icon="icons:arrow-upward" on-tap="moveUp"></paper-icon-button>
-            <paper-tooltip for="upButton" position="left">[[i18n('command.moveUpward')]]</paper-tooltip>
+            <nuxeo-tooltip for="upButton" position="left">[[i18n('command.moveUpward')]]</nuxeo-tooltip>
           </template>
           <template is="dom-if" if="[[isDownVisible(index, size)]]">
             <paper-icon-button noink id="downButton" icon="icons:arrow-downward" on-tap="moveDown"></paper-icon-button>
-            <paper-tooltip for="downButton" position="left">[[i18n('command.moveDownward')]]</paper-tooltip>
+            <nuxeo-tooltip for="downButton" position="left">[[i18n('command.moveDownward')]]</nuxeo-tooltip>
           </template>
         </div>
       </template>
       <template is="dom-if" if="[[editable]]">
         <paper-icon-button id="edit-button" icon="nuxeo:edit" on-tap="_editEntry" noink></paper-icon-button>
-        <paper-tooltip for="edit-button" position="left">[[i18n('command.edit')]]</paper-tooltip>
+        <nuxeo-tooltip for="edit-button" position="left">[[i18n('command.edit')]]</nuxeo-tooltip>
         <paper-icon-button id="delete-button" name="delete" icon="nuxeo:delete" on-tap="_deleteEntry" noink></paper-icon-button>
-        <paper-tooltip for="delete-button" position="left">[[i18n('command.remove')]]</paper-tooltip>
+        <nuxeo-tooltip for="delete-button" position="left">[[i18n('command.remove')]]</nuxeo-tooltip>
       </template>
     </div>
   </template>
