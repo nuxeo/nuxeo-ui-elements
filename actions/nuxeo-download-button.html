@@ -19,9 +19,9 @@ limitations under the License.
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
 <link rel="import" href="../nuxeo-filters-behavior.html">
+<link rel="import" href="../widgets/nuxeo-tooltip.html">
 
 <!--
 A button element for downloading the main file from a document.
@@ -44,7 +44,7 @@ Example:
 
     <template is="dom-if" if="[[_isAvailable(document)]]">
       <paper-icon-button icon="[[icon]]" on-tap="_download" noink></paper-icon-button>
-      <paper-tooltip>[[i18n('downloadButton.tooltip')]]</paper-tooltip>
+      <nuxeo-tooltip>[[i18n('downloadButton.tooltip')]]</nuxeo-tooltip>
     </template>
 
   </template>
