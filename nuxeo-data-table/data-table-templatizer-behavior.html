@@ -14,12 +14,6 @@
       template: Object,
 
       //singleton
-      _instances: {
-        type: Array,
-        value: []
-      },
-
-      //singleton
       _forwardedParentProps: {
         type: Object,
         value: {}
@@ -49,6 +43,11 @@
       };
     },
 
+    detached: function() {
+      this.table = null;
+      this._instance = null;
+    },
+
     _templatize: function(template) {
 
       if(!template) {
@@ -72,7 +71,6 @@
       for (var key in this._forwardedParentProps) {
         instance[key] = this._forwardedParentProps[key];
       }
-      this._instances.push(instance);
 
       Polymer.dom(this).insertBefore(instance.root, Polymer.dom(this).firstElementChild);
 
@@ -122,13 +120,9 @@
     _forwardHostPropV2: function(prop, value) {
       // store props to initialize new instances.
       this._forwardedParentProps[prop] = value;
-
-      //TODO: Bug in Polymer, seems to two-way bind any parent property only
-      //to the last template instance created. We need to push the property
-      //to all instances manually.
-      this._instances.forEach(function(inst) {
-        inst[prop] = value;
-      });
+      if (this._instance) {
+        this._instance[prop] = value;
+      }
     },
 
     _notifyInstancePropV2: function(inst, prop, value) {
