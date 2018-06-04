@@ -99,11 +99,17 @@ Example:
       },
 
       ready: function() {
-        window.addEventListener('document-unsubscribed', function(e) {
+        this.documentUnsubscribedHandler = function(e) {
           if (this.document && e.detail.docUid && e.detail.docUid === this.document.uid) {
             this.subscribed = false;
           }
-        }.bind(this));
+        }.bind(this);
+        window.addEventListener('document-unsubscribed', this.documentUnsubscribedHandler);
+      },
+
+      detached: function() {
+        window.removeEventListener('document-unsubscribed', this.documentUnsubscribedHandler);
+        this.documentUnsubscribedHandler = null;
       },
 
       _isAvailable: function(doc) {

@@ -107,12 +107,16 @@ An element for uploading blobs using the batch upload API.
       },
 
       listeners: {
-          'batchFinished': '_updateValue'
+        'batchFinished': '_updateValue'
       },
 
       ready: function() {
         this.connection = this.$.nx;
         this.setupDropZone(this.$.dropZone);
+      },
+
+      detached: function() {
+        this.teardownDropZone();
       },
 
       _filesChanged: function(e) {
