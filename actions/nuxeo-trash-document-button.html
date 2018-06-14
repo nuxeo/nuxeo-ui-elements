@@ -29,19 +29,17 @@ limitations under the License.
 <link rel="import" href="../widgets/nuxeo-tooltip.html">
 
 <!--
-A button element for permanently deleting a document.
+A button element for moving document to trash (if available server side).
 
 Example:
 
-    <nuxeo-delete-document-button document="[[document]]"></nuxeo-delete-document-button>
-
-    <nuxeo-delete-document-button document="[[document]]" only-if-trashed></nuxeo-delete-document-button>
+    <nuxeo-trash-document-button document="[[document]]"></nuxeo-trash-document-button>
 
 @group Nuxeo UI
-@element nuxeo-delete-document-button
-@demo demo/nuxeo-delete-document-button/index.html
+@element nuxeo-trash-document-button
+@demo demo/nuxeo-trash-document-button/index.html
 -->
-<dom-module id="nuxeo-delete-document-button">
+<dom-module id="nuxeo-trash-document-button">
 
   <template>
     <style>
@@ -50,12 +48,12 @@ Example:
       }
     </style>
 
-    <nuxeo-operation id="deleteOp" op="Document.Delete" input="[[document.uid]]" sync-indexing></nuxeo-operation>
+    <nuxeo-operation id="trashOp" op="Document.Trash" input="[[document.uid]]" sync-indexing></nuxeo-operation>
 
     <dom-if if="[[_isAvailable(document)]]">
       <template>
-        <paper-icon-button icon="[[icon]]" on-click="_delete" noink id="deleteButton"></paper-icon-button>
-        <nuxeo-tooltip>[[i18n('deleteButton.tooltip.permanently')]]</nuxeo-tooltip>
+        <paper-icon-button icon="[[icon]]" on-click="_trash" noink id="trashButton"></paper-icon-button>
+        <nuxeo-tooltip>[[i18n('deleteButton.tooltip')]]</nuxeo-tooltip>
       </template>
     </dom-if>
 
@@ -67,7 +65,7 @@ Example:
         extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior], Nuxeo.Element) {
 
         static get is() {
-          return 'nuxeo-delete-document-button';
+          return 'nuxeo-trash-document-button';
         }
 
         static get properties() {
@@ -82,26 +80,21 @@ Example:
              */
             icon: {
               type: String,
-              value: 'nuxeo:delete-permanently',
+              value: 'nuxeo:delete',
             },
 
-            /**
-             * If true, action will be available only if the document is already trashed.
-             */
-            onlyIfTrashed: Boolean,
           };
         }
 
         _isAvailable(doc) {
-          return doc && !this.isVersion(doc) && this.hasPermission(doc, 'Write') &&
-            (!this.onlyIfTrashed || this.isTrashed(doc));
+          return doc && !this.isVersion(doc) && this.hasPermission(doc, 'Write') && !this.isTrashed(doc);
         }
 
-        _delete() {
+        _trash() {
           if (!confirm(this.i18n('deleteButton.confirm'))) {
             return;
           }
-          this.$.deleteOp.execute().then(() => {
+          this.$.trashOp.execute().then(() => {
             this.dispatchEvent(new CustomEvent('document-deleted', {
               composed: true,
               bubbles: true,

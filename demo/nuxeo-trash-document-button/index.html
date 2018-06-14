@@ -16,7 +16,7 @@ limitations under the License.
 -->
 <html>
   <head>
-    <title>nuxeo-delete-document-button</title>
+    <title>nuxeo-trash-document-button</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
@@ -29,7 +29,7 @@ limitations under the License.
     <link rel="import" href="../nuxeo-demo.html">
     <link rel="import" href="../../../nuxeo-elements/nuxeo-connection.html">
     <link rel="import" href="../../../nuxeo-elements/nuxeo-document.html">
-    <link rel="import" href="../../actions/nuxeo-delete-document-button.html">
+    <link rel="import" href="../../actions/nuxeo-trash-document-button.html">
   </head>
 
   <body>
@@ -40,8 +40,8 @@ limitations under the License.
 
         <nuxeo-document auto doc-path="/default-domain/workspaces/demo" response="{{document}}" enrichers="permissions"></nuxeo-document>
 
-        <nuxeo-demo-section heading="Delete a document (permanent)" size="small">
-          <nuxeo-delete-document-button document="[[document]]"></nuxeo-delete-document-button>
+        <nuxeo-demo-section heading="Delete a document (trash)" size="small">
+          <nuxeo-trash-document-button document="[[document]]"></nuxeo-trash-document-button>
         </nuxeo-demo-section>
 
       </template>
