@@ -19,12 +19,12 @@ limitations under the License.
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../../paper-button/paper-button.html">
 <link rel="import" href="../../nuxeo-elements/nuxeo-operation.html">
 <link rel="import" href="../widgets/nuxeo-dialog.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
 <link rel="import" href="../nuxeo-filters-behavior.html">
+<link rel="import" href="../widgets/nuxeo-tooltip.html">
 
 <!--
 A button element for moving document to trash (if available server side) or permanently delete if hard set to true.
@@ -53,7 +53,7 @@ Example:
 
     <template is="dom-if" if="[[_isAvailable(document)]]">
       <paper-icon-button icon="[[icon]]" on-tap="_delete" noink id="deleteButton"></paper-icon-button>
-      <paper-tooltip fit-to-visible-bounds>[[_tooltip]]</paper-tooltip>
+      <nuxeo-tooltip>[[_tooltip]]</nuxeo-tooltip>
     </template>
 
   </template>
