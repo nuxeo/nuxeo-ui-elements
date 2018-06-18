@@ -328,6 +328,7 @@ Example:
       properties: {
 
         /**
+         * @ignore
          * A function that is called before data is bound to a row or header cell.
          * Can be used to customize the cell element depending on the data.
          * #### Example:
@@ -340,6 +341,7 @@ Example:
         beforeCellBind: Object,
 
         /**
+         * @ignore
          * A function that is called before data is bound to a row details element.
          * Can be used to customize the element depending on the data.
          * #### Example:
@@ -352,6 +354,7 @@ Example:
         beforeDetailsBind: Object,
 
         /**
+         * @ignore
          * A function that is called before data is bound to a row.
          * Can be used to customize the row element depending on the data.
          * #### Example:
@@ -364,6 +367,7 @@ Example:
         beforeRowBind: Object,
 
         /**
+         * @ignore
          * If `true`, tapping a row will expand the item details, if available.
          */
         detailsEnabled: {
@@ -372,6 +376,7 @@ Example:
         },
 
         /**
+         * @ignore
          * An array of `data-table-column` elements which contain the templates
          * to be stamped with items.
          */
@@ -383,41 +388,55 @@ Example:
           },
           observer: '_columnsChanged'
         },
-
+        /**
+         * @ignore
+         */
         _expandedItems: {
           type: Array,
           value: function() {
             return [];
           }
         },
-
+        /**
+         * @ignore
+         */
         _this: {
           type: Object,
           value: function() {
             return this;
           }
         },
-
+        /**
+         * If enabled, it allows user to select which result columns to display in the search results.
+         */
         settingsEnabled: {
           type: Boolean,
           value: false
         },
-
+        /**
+         * If enabled, it allows to select multiple documents and apply an action on them,
+         */
         multiSelection: {
           type: Boolean,
           value: true
         },
-
+        /**
+         * @ignore
+         */
         editable: {
           type: Boolean,
           value: false
         },
-
+        /**
+         * In the context of multivalued fields, it displays icons to reorder the properties up or down.
+         */
         orderable: {
           type: Boolean,
           value: false
         },
-
+        /**
+         * If enabled, pagination will be used instead of lazy loading.
+         */
         paginable: {
           type: Boolean,
           value: false
