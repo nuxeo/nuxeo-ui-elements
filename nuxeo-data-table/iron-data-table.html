@@ -803,7 +803,7 @@ Example:
             }
             var result = this._fetchPage(this.nxProvider.page, this.nxProvider.pageSize);
             if (result) {
-              result.then(function() {
+              return result.then(function() {
                 this.nxProvider.page += 1;
                 this.$.scrollThreshold.clearTriggers();
                 this.$.list.notifyResize();
