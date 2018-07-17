@@ -460,15 +460,13 @@ limitations under the License.
         if (this.maxItems && size && size > this.maxItems) {
           size = this.maxItems;
         }
-
+        this.set('items', []);
         if (typeof size === 'number' && size > 0) {
           var arr = new Array(size);
           for (var i = 0; i < arr.length; i++) {
             arr[i] = {};
           }
           this.set('items', arr);
-        } else {
-          this.set('items', []);
         }
         this.size = this.items.length;
         this.$.list.notifyResize();
