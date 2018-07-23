@@ -51,7 +51,7 @@
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "nuxeo-elements": "nuxeo/nuxeo-elements#master",
-    "paper-typeahead": "nuxeo/paper-typeahead#0.6",
+    "paper-typeahead": "nuxeo/paper-typeahead#fix-ELEMENTS-713",
     "vaadin-date-picker": "^3.0.0"
   },
   "devDependencies": {
