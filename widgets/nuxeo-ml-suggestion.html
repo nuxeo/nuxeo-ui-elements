@@ -1,0 +1,182 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<link rel="import" href="../../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
+<link rel="import" href="../nuxeo-i18n-behavior.html">
+<link rel="import" href="../nuxeo-icons.html">
+<link rel="import" href="nuxeo-tag.html">
+
+<dom-module id="nuxeo-ml-suggestion">
+  <template>
+
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host([hidden]) {
+        display: none;
+      }
+
+      .suggestions {
+        @apply --layout-horizontal;
+        @apply --layout-wrap;
+      }
+
+      nuxeo-tag {
+        margin: 0 10px 10px 0;
+        cursor: pointer;
+      }
+
+      nuxeo-tag:hover {
+        background-color: var(--nuxeo-machine-learning-confidence-hover, rgba(74, 144, 246, 0.1));
+      }
+
+      nuxeo-tag.choosen {
+        opacity: 0.3;
+      }
+
+      span {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      iron-icon {
+        --iron-icon-fill-color: var(--nuxeo-machine-learning-confidence, #4A90E2);
+        width: 12px;
+        height: 10px;
+        margin-left: 5px;
+        bottom: 2px;
+      }
+
+    </style>
+
+    <div class="suggestions">
+      <template is="dom-repeat" items="[[suggestions]]">
+          <nuxeo-tag on-click="_click" data-action$="[[item]]">
+            <span>[[item.name]]</span><iron-icon icon="[[_getConfidenceIcon(item.confidence)]]"></iron-icon>
+          </nuxeo-tag>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+    {
+      /**
+       * `nuxeo-ml-suggestion` allows selecting one or more tags.
+       *
+       *     <nuxeo-ml-suggestion document="{{document}}"
+       *       property="dc:description"
+       *       suggestions="[[suggestions]]">
+       *     </nuxeo-ml-suggestion>
+       *
+       * @memberof Nuxeo
+       * @demo demo/nuxeo-ml-suggestion/index.html
+       */
+      class MachineLearningSuggestion
+        extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior, Polymer.IronFormElementBehavior], Nuxeo.Element) {
+
+        static get is() {
+          return 'nuxeo-ml-suggestion';
+        }
+
+        static get properties() {
+          return {
+            /**
+             * The document for which the suggestions were made.
+             */
+            document: {
+              type: Object,
+              notify: true,
+            },
+
+            /**
+             * The document's property name to which the suggestions were made.
+             */
+            property: {
+              type: String,
+            },
+
+            /**
+             * The list of suggestions made by Machine Learning engine.
+             */
+            suggestions: {
+              type: Array,
+              value: [],
+            },
+
+            observers: [
+              '_observeDocument(document.*)',
+            ],
+          };
+        }
+
+        _observeDocument() {
+          // TODO - Check usage of suggestions and reset visibilities?
+        }
+
+        _checkSuggestionInUse(suggestion) {
+          if (this.document && this.document.properties) {
+            const property = this.document.properties[this.property];
+            if (Array.isArray(property)) {
+              return property.contains(suggestion.value);
+            } else {
+              return property === suggestion.value;
+            }
+          }
+        }
+
+        _getConfidenceIcon(confidenceLevel) {
+          switch (true) {
+            case (confidenceLevel < 0.33):
+              return 'nuxeo:confidence-level-low';
+            case (confidenceLevel < 0.66):
+              return 'nuxeo:confidence-level-medium';
+            case (confidenceLevel <= 1):
+              return 'nuxeo:confidence-level-high';
+            default:
+              return undefined;
+          }
+        }
+
+        _click(event) {
+          const suggestion = JSON.parse(event.target.dataset.action || event.target.parentNode.dataset.action);
+          const suggestionElement = event.target.nodeName !== 'NUXEO-TAG' ? event.target.parentNode : event.target;
+
+          if (suggestionElement.classList.contains('choosen')) {
+            suggestionElement.classList.remove('choosen');
+          } else {
+            suggestionElement.classList.add('choosen');
+          }
+
+          // TODO - trigger event or affect document directly?
+          this.set('document.properties.dc:description', suggestion.value);
+        }
+
+      }
+
+      customElements.define(MachineLearningSuggestion.is, MachineLearningSuggestion);
+      Nuxeo.MachineLearningSuggestion = MachineLearningSuggestion;
+    }
+  </script>
+</dom-module>
