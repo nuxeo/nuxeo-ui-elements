@@ -41,7 +41,10 @@ limitations under the License.
         <nuxeo-document auto doc-path="/default-domain/workspaces/demo" response="{{document}}"></nuxeo-document>
 
         <nuxeo-demo-section heading="Machine Learning Suggestions" size="medium">
-          <nuxeo-ml-suggestion document="{{document}}" property="dc:description" suggestions="[[suggestions]]"></nuxeo-ml-suggestion>
+          <nuxeo-input value="{{document.properties.dc:description}}"></nuxeo-input>
+          <nuxeo-ml-suggestion document="{{document}}" property="dc:description" suggestions="[[suggestions]]">
+            <nuxeo-user-tag user="[[item.name]]">
+          </nuxeo-ml-suggestion>
         </nuxeo-demo-section>
 
       </template>
@@ -49,22 +52,12 @@ limitations under the License.
 
     <script>
       document.querySelector('dom-bind').suggestions = [
-        { name: 'Suggestion Number One', confidence: 0.7, value: 'one' },
-        { name: 'Two', confidence: 0.2, value: 'two' },
-        { name: 'suggest 3', confidence: 0.5, value: 'three' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
-        { name: 'suggest 3', confidence: 0.5, value: 'three' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
-        { name: 'suggest 3', confidence: 0.5, value: 'three' },
-        { name: 'Two', confidence: 0.2, value: 'two' },
-        { name: 'Two', confidence: 0.2, value: 'two' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
-        { name: 'Two', confidence: 0.2, value: 'two' },
-        { name: 'Suggestion Number One', confidence: 0.7, value: 'one' },
-        { name: 'one more suggestion, the 4th', confidence: 0.3, value: 'four' },
+        { name: 'Suggestion Number One', confidence: 0.7},
+        { name: 'Two', confidence: 0.2},
+        { name: 'suggest 3', confidence: 0.5},
+        { name: 'Another suggestion, the 4th', confidence: 0.3},
+        { name: 'Five Suggestions, really?', confidence: 0.6},
+        { name: 'Just one more, half dozen', confidence: 0.9},
       ];
     </script>
 
