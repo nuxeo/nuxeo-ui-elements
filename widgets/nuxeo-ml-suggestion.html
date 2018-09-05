@@ -20,9 +20,6 @@ limitations under the License.
 <link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
 <link rel="import" href="../nuxeo-icons.html">
-<link rel="import" href="nuxeo-user-tag.html">
-<link rel="import" href="nuxeo-tag.html">
-<link rel="import" href="nuxeo-input.html">
 
 <dom-module id="nuxeo-ml-suggestion">
   <template>
@@ -84,14 +81,14 @@ limitations under the License.
       <template is="dom-repeat" items="[[suggestions]]">
         <div class="wrapper" data-action$="[[item]]" on-click="_selectSuggestion">
           <div class="content">
-            <iron-label>[[item.name]]</iron-label>
-            <!-- <nuxeo-input value="[[item.name]]" readonly></nuxeo-input> -->
-            <!-- <nuxeo-user-tag disabled user="[[item.name]]"></nuxeo-user-tag> -->
-            <!-- <nuxeo-tag>[[item.name]]</nuxeo-tag> -->
+            <!--
+              As per Product Team, for now, this will be only text.
+              Anyway, it would be expected the need to render different objects (e.g. users, directories, etc.), so
+              we may need to think in a different approach to tackle this using templates or something similar.
+            -->
+            <iron-label>[[idFunction(item.name)]]</iron-label>
           </div>
-          <div class="confidence">
-            <iron-icon icon="[[_getConfidenceIcon(item.confidence)]]"></iron-icon>
-          </div>
+          <iron-icon icon="[[_getConfidenceIcon(item.confidence)]]"></iron-icon>
         </div>
       </template>
     </div>
@@ -129,10 +126,19 @@ limitations under the License.
             },
 
             /**
-             * The document's property name to which the suggestions were made.
+             * The document's property xpath to which the suggestions were made.
              */
             property: {
               type: String,
+            },
+
+            /**
+             * The document's property xpath parsed for internal usages.
+             */
+            _computedProperty: {
+              type: String,
+              readOnly: true,
+              computed: '_parsePropertyPath()',
             },
 
             /**
@@ -142,18 +148,28 @@ limitations under the License.
               type: Array,
               value: [],
             },
+
+            /**
+             * Function used to get the id from the choice object.
+             */
+            idFunction: {
+              type: Function,
+              value() {
+                return this._idFunction.bind(this);
+              },
+            },
           };
         }
 
         ready() {
           super.ready();
-          this._createMethodObserver(`_observeDocument(document.properties.${this.property})`, true);
+          this._createMethodObserver(`_observeDocument(${this._computedProperty})`, true);
         }
 
         _observeDocument(newValue) {
           if (this.document && this.document.properties) {
             const suggestionElements = this._getSuggestionElements();
-            suggestionElements.forEach( (element) => {
+            suggestionElements.forEach((element) => {
               const suggestion = JSON.parse(element.dataset.action);
               this._changeSuggestionVisibility(element, this._isSuggestionInUse(suggestion, newValue));
             });
@@ -169,24 +185,25 @@ limitations under the License.
         }
 
         _isSuggestionInUse(suggestion, newValue) {
+          const id = this.idFunction(suggestion.name);
           if (Array.isArray(newValue)) {
-            return newValue.contains(suggestion.name);
+            return newValue.contains(id);
           } else {
-            return newValue === suggestion.name;
+            return newValue === id;
           }
         }
 
         _getSuggestionElements() {
-          const suggestions = Array.from(this.$.suggestions.children);
-          return suggestions.filter((element) => element.nodeName === 'DIV' && element.classList.contains("wrapper"));
+          return Array.from(this.$.suggestions.children).filter((element) => element.nodeName === 'DIV' && element.classList.contains('wrapper'));
         }
 
         _getSuggestionElementByEvent(event) {
           let suggestionElement = event.target;
-          while (!suggestionElement.classList.contains("wrapper") && suggestionElement.nodeName.toLowerCase() !== MachineLearningSuggestion.is) {
+          while (!suggestionElement.classList.contains('wrapper')
+          && suggestionElement.nodeName.toLowerCase() !== MachineLearningSuggestion.is) {
             suggestionElement = suggestionElement.parentElement;
           }
-          return suggestionElement === event.target ? undefined : suggestionElement;
+          return suggestionElement.classList.contains('wrapper') ? suggestionElement : undefined;
         }
 
         _getConfidenceIcon(confidenceLevel) {
@@ -205,7 +222,71 @@ limitations under the License.
         _selectSuggestion(event) {
           const suggestionElement = this._getSuggestionElementByEvent(event);
           const suggestion = JSON.parse(suggestionElement.dataset.action);
-          this.set(`document.properties.${this.property}`, suggestion.name);
+
+          this._setDocumentProperty(this._computedProperty, this.idFunction(suggestion.name));
+        }
+
+        _idFunction(item) {
+          return item.computedId || item.uid || item.id || item;
+        }
+
+        _parsePropertyPath() {
+          return `document.properties.${this.property.replace(new RegExp('/', 'g'), '.')}`;
+        }
+
+        _setDocumentProperty(propertyPath, value) {
+          if (!this.get(propertyPath)) {
+            this._createNestedObjectRecursive(this.document.properties, this.property.split('/'));
+          }
+          this.set(propertyPath, value);
+        }
+
+        /**
+         * Recursive method to create nested objects when they don't exist in a parent object.
+         * It does not change any other existing objects or inner objects, only the ones referred in 'path'.
+         * @param obj Parent Object where inner nested objects should be created.
+         * @param path Array containing the inner object keys.
+         * Usage Example:
+         *
+         *  - Creating document properties using xpath:
+         *
+         *    const xpath = 'my:custom/field/subfield/x'
+         *    _createNestedObjectRecursive(this.document.properties, xpath.split('/');
+         *
+         */
+        _createNestedObjectRecursive(obj, path) {
+          if (path.length === 0) {
+            return;
+          }
+          if ((!Object.prototype.hasOwnProperty.call(obj, path[0]) && !obj[path[0]]) || typeof obj[path[0]] !== 'object') {
+            obj[path[0]] = {};
+          }
+          return this._createNestedObjectRecursive(obj[path[0]], path.slice(1));
+        }
+
+        /**
+         * Iterative Method to create nested objects when they don't exist in a parent object.
+         * It does not change any other existing objects or inner objects, only the ones referred in 'path'.
+         * @param obj Parent Object where inner nested objects should be created.
+         * @param path Array containing the inner object keys.
+         * @param startingPath Path from where the algorithm will start.
+         * Usage Example:
+         *
+         *  - Creating document properties using xpath:
+         *
+         *    const xpath = 'my:custom/field/subfield/x'
+         *    _createNestedObject(this.document.properties, xpath.split('/'), 'document.properties');
+         *
+         */
+        _createNestedObject(obj, path, startingPath) {
+          let composedPath = startingPath;
+          path.forEach((piece) => {
+            obj = this.get(composedPath);
+            composedPath += (`${composedPath.length === 0 ? '' : '.'}${piece}`);
+            if (!this.get(composedPath)) {
+              obj[piece] = {};
+            }
+          });
         }
 
       }

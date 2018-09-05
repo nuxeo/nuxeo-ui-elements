@@ -29,6 +29,7 @@ limitations under the License.
     <link rel="import" href="../nuxeo-demo.html">
     <link rel="import" href="../../../nuxeo-elements/nuxeo-connection.html">
     <link rel="import" href="../../../nuxeo-elements/nuxeo-document.html">
+    <link rel="import" href="../../widgets/nuxeo-input.html">
     <link rel="import" href="../../widgets/nuxeo-ml-suggestion.html">
   </head>
 
@@ -41,10 +42,8 @@ limitations under the License.
         <nuxeo-document auto doc-path="/default-domain/workspaces/demo" response="{{document}}"></nuxeo-document>
 
         <nuxeo-demo-section heading="Machine Learning Suggestions" size="medium">
-          <nuxeo-input value="{{document.properties.dc:description}}"></nuxeo-input>
-          <nuxeo-ml-suggestion document="{{document}}" property="dc:description" suggestions="[[suggestions]]">
-            <nuxeo-user-tag user="[[item.name]]">
-          </nuxeo-ml-suggestion>
+          <nuxeo-input value="{{document.properties.my:custom.field.test}}"></nuxeo-input>
+          <nuxeo-ml-suggestion document="{{document}}" property="my:custom/field/test" suggestions="[[suggestions]]"></nuxeo-ml-suggestion>
         </nuxeo-demo-section>
 
       </template>
@@ -52,11 +51,11 @@ limitations under the License.
 
     <script>
       document.querySelector('dom-bind').suggestions = [
-        { name: 'Suggestion Number One', confidence: 0.7},
+        { name: { uid: 'Suggestion Number One', other: ''}, confidence: 0.7},
         { name: 'Two', confidence: 0.2},
-        { name: 'suggest 3', confidence: 0.5},
+        { name: { id: 'suggest 3'}, confidence: 0.5},
         { name: 'Another suggestion, the 4th', confidence: 0.3},
-        { name: 'Five Suggestions, really?', confidence: 0.6},
+        { name: { computedId: 'Five Suggestions, really?'}, confidence: 0.6},
         { name: 'Just one more, half dozen', confidence: 0.9},
       ];
     </script>
