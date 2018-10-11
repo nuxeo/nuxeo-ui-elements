@@ -136,7 +136,7 @@ An element providing document permissions management
 
     <paper-toast id="toast"></paper-toast>
 
-    <nuxeo-document id="doc" doc-id="{{docId}}" doc-path="{{docPath}}" response="{{doc}}"
+    <nuxeo-document id="doc" doc-id="{{docId}}" doc-path="{{docPath}}" response="{{doc}}" loading="{{loading}}"
       enrichers="acls, permissions, userVisiblePermissions" params="{{params}}"></nuxeo-document>
 
     <!-- Local permissions -->
@@ -152,7 +152,7 @@ An element providing document permissions management
       <div>
         <nuxeo-document-acl-table doc="[[doc]]" acl-filter="_excludeInheritedAcls" ace-filter="_excludeExternalUserAces"
           show-actions="[[_hasPermission(doc,'Everything')]]">
-          <p slot="emptyResult" class="emptyResult">[[i18n('documentPermissions.noLocalPermissions')]]</p>
+          <p slot="emptyResult" class="emptyResult">[[_emptyLabel('documentPermissions.noLocalPermissions', loading)]]</p>
         </nuxeo-document-acl-table>
       </div>
     </div>
@@ -178,7 +178,7 @@ An element providing document permissions management
           [[i18n('documentPermissions.blockDescription')]]
         </div>
         <nuxeo-document-acl-table doc="[[doc]]" aces="{{inheritedAces}}" acl-filter="_onlyInheritedAcls" show-actions="false">
-          <p slot="emptyResult" class="emptyResult">[[i18n('documentPermissions.noInheritedText')]]</p>
+          <p slot="emptyResult" class="emptyResult">[[_emptyLabel('documentPermissions.noInheritedText', loading)]]</p>
         </nuxeo-document-acl-table>
       </div>
     </div>
@@ -200,7 +200,7 @@ An element providing document permissions management
         acl-filter="_excludeInheritedAcls"
         show-actions="[[_hasPermission(doc,'Everything')]]"
         share-with-external="true">
-        <p slot="emptyResult" class="emptyResult">[[i18n('documentPermissions.noExternalPermission')]]</p>
+        <p slot="emptyResult" class="emptyResult">[[_emptyLabel('documentPermissions.noExternalPermission', loading)]]</p>
       </nuxeo-document-acl-table>
     </div>
 
@@ -250,6 +250,7 @@ An element providing document permissions management
 
       refresh: function () {
         if (this.visible) {
+          this.doc = null;
           this.params.time = new Date().getTime();
           this.$.doc.get();
         }
@@ -309,6 +310,10 @@ An element providing document permissions management
 
       unblockInheritance: function () {
         this.$.unblockOp.execute().then(this.refresh.bind(this));
+      },
+
+      _emptyLabel: function(label, loading) {
+        return loading ? this.i18n('label.loading') : this.i18n(label);
       }
 
     });
