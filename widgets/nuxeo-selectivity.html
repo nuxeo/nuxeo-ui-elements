@@ -265,7 +265,7 @@ limitations under the License.
             selectedItems: {
               type: Array,
               notify: true,
-              observer: '_valueChanged',
+              observer: '_selectionChanged',
             },
 
             /**
@@ -274,7 +274,7 @@ limitations under the License.
             selectedItem: {
               type: Object,
               notify: true,
-              observer: '_valueChanged',
+              observer: '_selectionChanged',
             },
 
             /**
@@ -452,20 +452,7 @@ limitations under the License.
 
         _updateSelection(e) {
           this._inUpdateSelection = true;
-          this.value = this.multiple ? e.value.slice(0) : e.value;
-          this._inUpdateSelection = true;
-          if (this.multiple) {
-            const items = [];
-            const valS = e.items.slice(0);
-            if (valS) {
-              valS.forEach((el) => {
-                items.push(el.item ? el.item : el);
-              });
-            }
-            this.selectedItems = items;
-          } else {
-            this.set('selectedItem', e.items ? e.items.item : null);
-          }
+          this.set('value', this.multiple ? e.value.slice(0) : e.value);
           if (e.added) {
             if (this.addedEntryHandler) {
               this.addedEntryHandler(e.added);
@@ -488,6 +475,17 @@ limitations under the License.
                 this._selectivity.clear();
               }
             }
+          }
+          if (newValue !== this.selectedItem && newValue !== this.selectedItems) {
+            const variableName = this.multiple ? 'selectedItems' : 'selectedItem';
+            this.set(variableName, newValue);
+          }
+          this._inUpdateSelection = false;
+        }
+
+        _selectionChanged(newSelection) {
+          if (this.value !== newSelection && !this._inUpdateSelection) {
+            this.set('value', newSelection);
           }
           this._inUpdateSelection = false;
         }
