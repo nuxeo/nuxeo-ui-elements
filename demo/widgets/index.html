@@ -186,7 +186,19 @@ limitations under the License.
 
       <tr>
         <td>nuxeo-file</td>
-        <td><nuxeo-file value="{{upload}}"></nuxeo-file></td>
+        <td><nuxeo-file value="{{upload}}" multiple></nuxeo-file></td>
+        <td>[[upload.upload-batch]]</td>
+      </tr>
+
+      <tr>
+        <td>nuxeo-file</td>
+        <td><nuxeo-file value="{{upload}}" required invalid></nuxeo-file></td>
+        <td>[[upload.upload-batch]]</td>
+      </tr>
+
+      <tr>
+        <td>nuxeo-file</td>
+        <td><nuxeo-file value="{{upload}}" readonly empty-Label="No uploaded files!"></nuxeo-file></td>
         <td>[[upload.upload-batch]]</td>
       </tr>
 

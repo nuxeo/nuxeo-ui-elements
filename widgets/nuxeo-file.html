@@ -15,13 +15,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
+<link rel="import" href="../../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../../iron-icon/iron-icon.html">
 <link rel="import" href="../../iron-icons/iron-icons.html">
 <link rel="import" href="../../iron-icons/av-icons.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../../paper-button/paper-button.html">
-<link rel="import" href="../../paper-progress/paper-progress.html">
 <link rel="import" href="../../nuxeo-elements/nuxeo-connection.html">
+<link rel="import" href="../nuxeo-icons.html">
 <link rel="import" href="nuxeo-uploader-behavior.html">
+<link rel="import" href="../nuxeo-i18n-behavior.html">
 
 <!--
 An element for uploading blobs using the batch upload API.
@@ -48,38 +51,71 @@ An element for uploading blobs using the batch upload API.
     #dropZone.hover {
       @apply --nuxeo-drop-zone-hover;
     }
+
+    a {
+      @apply --nuxeo-link;
+    }
+    a:hover {
+      @apply --nuxeo-link-hover;
+    }
+    :host([required]) #button::after {
+      display: inline-block;
+      content: '*';
+      margin-left: 4px;
+      color: var(--paper-input-container-invalid-color, red);
+    }
+    :host([invalid]) paper-button {
+      color: var(--paper-input-container-invalid-color, red);
+      margin-bottom: 5px;
+    }
+    :host([invalid]) .error {
+      color: var(--paper-input-container-invalid-color, red);
+    }
+    #button {
+      margin-bottom: 5px;
+    }
+    iron-icon {
+      cursor: pointer;
+    }
     </style>
 
     <nuxeo-connection id="nx"></nuxeo-connection>
 
-    <input hidden id="input" type="file" multiple$="[[multiple]]" accept$="[[accept]]" on-change="_filesChanged">
+    <input hidden id="input" type="file" multiple$="[[multiple]]" accept$="[[accept]]" on-change="_filesChanged" required$="[[required]]">
 
-    <div id="dropZone">
+    <div id="dropZone" hidden$="[[readonly]]">
       <template is="dom-if" if="[[!uploading]]">
         <paper-button id="button" raised on-tap="_pick">
           <iron-icon icon="nuxeo:upload"></iron-icon>
-          <span>Upload</span>
-        </paper-button>
-      </template>
-
-      <template is="dom-if" if="[[uploading]]">
-        <paper-button id="button" raised on-tap="pause">
-          <iron-icon icon="av:pause"></iron-icon>
-          <span>Pause</span>
+          <span>[[i18n('file.upload')]]</span>
         </paper-button>
       </template>
     </div>
 
-    <template is="dom-repeat" items="[[files]]" as="file">
+    <label class="error" hidden$="[[!invalid]]">[[errorMessage]]</label>
+
+    <template is="dom-if" if="[[_hasSingleValue(multiple, value)]]">
       <div class="file">
         <div class="layout horizontal">
-          <span>[[file.name]]</span>
-          <iron-icon icon="autorenew" title="Retry" on-tap="retry" hidden$="[[!file.error]]"></iron-icon>
-          <iron-icon icon="nuxeo:remove" title="Remove" on-tap="cancel" hidden$="[[file.complete]]"></iron-icon>
-          <iron-icon icon="check-circle" title="Done" hidden$="[[!file.complete]]"></iron-icon>
+          <a href$="[[_data(value)]]" download="[[_fileName(value)]]">[[_fileName(value)]]</a>
+          <iron-icon icon="nuxeo:remove" title="[[i18n('command.remove')]]" on-click="remove" hidden$="[[readonly]]"></iron-icon>
         </div>
-        <paper-progress value="[[file.progress]]" error="[[file.error]]" hidden="[[file.complete]]"></paper-progress>
       </div>
+    </template>
+
+    <template is="dom-if" if="[[multiple]]">
+      <template is="dom-repeat" items="[[value]]" as="file">
+        <div class="file">
+          <div class="layout horizontal">
+             <a href$="[[_data(file)]]" download="[[_fileName(file)]]">[[_fileName(file)]]</a>
+            <iron-icon icon="nuxeo:remove" title="[[i18n('command.remove')]]" on-click="remove" hidden$="[[readonly]]"></iron-icon>
+          </div>
+        </div>
+      </template>
+    </template>
+
+    <template is="dom-if" if="[[readonly]]">
+      <label class="empty" hidden$="[[!_hasValue(value)]]">[[emptyLabel]]</label>
     </template>
 
   </template>
@@ -87,7 +123,8 @@ An element for uploading blobs using the batch upload API.
   <script>
     Polymer({
       is: 'nuxeo-file',
-      behaviors: [Nuxeo.UploaderBehavior],
+      behaviors: [Nuxeo.UploaderBehavior, Nuxeo.I18nBehavior,
+        Polymer.IronFormElementBehavior, Polymer.IronValidatableBehavior],
       properties: {
         /**
          * Blob reference (`upload-batch` and `upload-fileId).
@@ -103,7 +140,35 @@ An element for uploading blobs using the batch upload API.
         multiple: {
           type: Boolean,
           value: false
-        }
+        },
+
+        /**
+         * Read only.
+         */
+        readonly: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Required.
+         */
+        required: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true
+        },
+
+        /**
+         * Empty message to show when no uploaded files in readonly mode.
+         */
+        emptyLabel: String,
+
+        /**
+         * Error message to show when `invalid` is true.
+         */
+        errorMessage: String
       },
 
       listeners: {
@@ -128,24 +193,53 @@ An element for uploading blobs using the batch upload API.
       },
 
       _updateValue: function() {
-        this.value = {
-          "upload-batch": this.batchId,
-          "upload-fileId": (this.files.length - 1).toString()
+        if (this.multiple) {
+          if (!this.value || !Array.isArray(this.value)) {
+            this.value = [];
+          }
+          for (let i = 0; i < this.files.length; i++) {
+            this.push('value', {
+              'upload-batch': this.batchId,
+              'upload-fileId': i.toString(),
+            });
+          }
+         } else {
+          this.value = {
+            'upload-batch': this.batchId,
+            'upload-fileId': (this.files.length - 1).toString(),
+          };
         }
       },
 
-      pause: function() {
-        //XXX add support for pause / resume (NXJS-33)
-        alert("Upload paused");
+      remove: function(e) {
+        if (this.multiple) {
+          this.splice('value', e.model.__data.index, 1);
+        } else {
+          this.value = null;
+          this.files = null;
+        }
       },
 
-      retry: function() {
-        alert("Upload paused");
+      _fileName: function(file) {
+        return file.name || ('upload-fileId' in file && this.files[Number(file['upload-fileId'])].name);
       },
 
-      cancel: function() {
-        alert("Upload paused");
+      _data: function(file) {
+        return file.data || ('upload-fileId' in file && URL.createObjectURL(this.files[Number(file['upload-fileId'])]));
+      },
+
+      _getValidity: function() {
+        return !this.required || this._hasValue();
+      },
+
+      _hasSingleValue: function() {
+        return !this.multiple && this._hasValue();
+      },
+
+      _hasValue() {
+        return this.multiple ? !!this.value && this.value.length > 0 : !!this.value;
       }
+
     });
   </script>
 </dom-module>
