@@ -92,6 +92,7 @@
   "exportButton.zipTreeExport": "Exportar ZIP",
   "favoritesToggleButton.tooltip.add": "Adicionar aos Favoritos",
   "favoritesToggleButton.tooltip.remove": "Remover dos favoritos",
+  "file.upload": "Upload",
   "groupManagement.addedToGroup": "foi adicionado ao grupo",
   "groupManagement.addedUserToGroup": "{0} foi adicionado ao {1}",
   "groupManagement.addEntity": "Adicionar um usuário ou um grupo",
