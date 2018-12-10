@@ -329,11 +329,17 @@ An element wrapping selectivity.js and relying on an operation for suggestions
           templates: {
             resultItem: function(options) {
               return (
-                  '<div class="selectivity-result-item' +
-                  (options.disabled ? ' disabled' : '') +
-                  '" data-item-id="' + this.escapeHTML(options.id) + '">' +
-                  this.resultFormatter(options.item)
-                  + '</div>');
+                  '<div class="selectivity-result-item' + (options.disabled ? ' disabled' : '') +
+                  '" style="padding-left: ' + (7 + (10 * options.depth)) + 'px" data-item-id="' +
+                  this.escapeHTML(options.id) + '">' + this.resultFormatter(options.item) + '</div>'
+              );
+            }.bind(this),
+
+            resultLabel: function(options) {
+              return (
+                    '<div class="selectivity-result-label" style="padding-left: ' + (7 + (10 * options.depth)) + 'px">' +
+                    this.escapeHTML(options.text) + '</div>'
+              );
             }.bind(this),
 
             singleSelectedItem: function(options) {
@@ -513,19 +519,25 @@ An element wrapping selectivity.js and relying on an operation for suggestions
       },
 
       _wrap: function(value) {
-        var fn = function(item) {
+        var fn = function(item, level) {
+          var depth = level || 0;
           var id = this.idFunction(item);
           var entry = {
             id: id,
             text: item.displayLabel || item.text || id || '',
-            item: item
+            item: item,
+            depth: depth
           };
           if (item.children) {
-            entry.children = item.children.map(fn.bind(this));
+            entry.children = item.children.map(function(child) { return fn(child, entry.depth + 1); });
           }
           return entry;
-        };
-        return Array.isArray(value) ? value.map(fn.bind(this)) : fn.call(this, value);
+        }.bind(this);
+        /*
+         * XXX: Since array methods like map and forEach takes index as second parameter
+         * we forced the function call instead of calling something like array.map(fn);
+         */
+        return Array.isArray(value) ? value.map(function(item) { return fn(item); }) : fn(value);
       },
 
       // Implements abstract Nuxeo.Select2 methods
@@ -542,7 +554,7 @@ An element wrapping selectivity.js and relying on an operation for suggestions
           if (this.tagging && query.term) {
             var exists = results.some(function(item) {
               return item.id === query.term;
-            })
+            });
             if (!exists) {
               results.push(this.newEntryFormatter(query.term));
             }
