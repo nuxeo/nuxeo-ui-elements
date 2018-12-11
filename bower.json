@@ -53,7 +53,7 @@
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
     "nuxeo-elements": "nuxeo/nuxeo-elements#maintenance-2.2.x",
     "paper-typeahead": "nuxeo/paper-typeahead#0.6",
-    "datetime-picker": "fooloomanzoo/datetime-picker#^2.5.0"
+    "vaadin-date-picker": "^3.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
