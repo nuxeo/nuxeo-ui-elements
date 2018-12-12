@@ -43,9 +43,11 @@ Example:
       }
 
       :host([required]) label::after {
-        display: inline-block;
+        display: block;
         content: '*';
-        margin-left: 4px;
+        position: absolute;
+        right: 0;
+        top: 0;
         color: var(--paper-input-container-invalid-color, red);
       }
 
