@@ -121,6 +121,15 @@ limitations under the License.
 
     _languageCode: function (){
       return ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
+    },
+
+    /**
+     * Escapes a RegExp string by replacing expression's special characters.
+     *
+     * @param {string} text the RegExp to be escaped
+     */
+    escapeRegExp: function(text) {
+      return text && text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
 
   }];
