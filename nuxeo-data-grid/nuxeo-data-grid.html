@@ -277,7 +277,7 @@ An element to display page provider results as a grid with infinite scrolling.
       },
 
       observers: [
-        'fetch(sortSelected)'
+        '_refresh(nxProvider, sortSelected)'
       ],
 
       fetch: function() {
@@ -297,6 +297,12 @@ An element to display page provider results as a grid with infinite scrolling.
 
       _onScrollTo: function(e) {
         this.scrollToIndex(e.detail.index)
+      },
+
+      _refresh: function() {
+        if (this.sortSelected && this._hasPageProvider()) {
+          this.fetch();
+        }
       }
 
     });
