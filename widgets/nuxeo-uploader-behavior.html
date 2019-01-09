@@ -118,6 +118,15 @@ limitations under the License.
     };
 
     /**
+     * Aborts pending upload of the given file.
+     *
+     * @param {Object} file the file of which upload should be aborted
+     * */
+    DefaultUploadProvider.prototype.abort = function (file) {
+      // default impl does not have ability to abort
+    };
+
+    /**
      * Returns whether the provider accepts a given file for upload or not.
      *
      * @param {Object} file the file to be checked
@@ -128,6 +137,15 @@ limitations under the License.
       const fileType = file.name.match(/\.[^.]*$/)[0];
 
       return !(this.accept && !(this.accept.indexOf(mimeType) > -1 || this.accept.indexOf(fileType) > -1));
+    };
+
+    /**
+     * Returns whether or not the provider has ability to abort pending uploads.
+     *
+     * @return {Boolean} true if the provider allows to abort pending upload, false otherwise
+     * */
+    DefaultUploadProvider.prototype.hasAbort = function () {
+      return false;
     };
 
     /**
@@ -338,8 +356,16 @@ limitations under the License.
           });
       },
 
+      abort(file) {
+        return this._instance.abort(file);
+      },
+
       cancelBatch() {
         return this._instance.cancelBatch();
+      },
+
+      hasAbort() {
+        return this._instance.hasAbort();
       },
 
       hasProgress() {
