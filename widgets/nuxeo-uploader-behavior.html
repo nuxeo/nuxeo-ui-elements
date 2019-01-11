@@ -83,6 +83,13 @@ limitations under the License.
     };
 
     /**
+     * Aborts the current batch.
+     * */
+    DefaultUploadProvider.prototype.abortBatch = function () {
+      // not supported
+    };
+
+    /**
      * Cancels the current batch.
      * */
     DefaultUploadProvider.prototype.cancelBatch = function () {
@@ -336,6 +343,10 @@ limitations under the License.
             console.log(`Batch Execute operation failed: ${error}`);
             throw error;
           });
+      },
+
+      abortBatch() {
+        return this._instance.abortBatch();
       },
 
       cancelBatch() {
