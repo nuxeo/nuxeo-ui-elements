@@ -87,7 +87,7 @@ limitations under the License.
      * */
     DefaultUploadProvider.prototype.cancelBatch = function () {
       if (this.uploader) {
-        if (this.uploader._batchId) {
+        if (this.uploader._batchId && !this.uploader.isFinished()) {
           this.uploader.cancel();
         }
         this.uploader = null;
