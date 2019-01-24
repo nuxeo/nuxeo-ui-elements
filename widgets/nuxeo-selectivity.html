@@ -74,6 +74,10 @@ An element wrapping selectivity.js and relying on an operation for suggestions
         font-size: 1.2em;
       }
 
+      .preserve-white-space {
+        white-space: pre;
+      }
+
     </style>
 
     <nuxeo-operation id="op" op="[[operation]]"></nuxeo-operation>
@@ -329,7 +333,7 @@ An element wrapping selectivity.js and relying on an operation for suggestions
           templates: {
             resultItem: function(options) {
               return (
-                  '<div class="selectivity-result-item' + (options.disabled ? ' disabled' : '') +
+                  '<div class="preserve-white-space selectivity-result-item' + (options.disabled ? ' disabled' : '') +
                   '" style="padding-left: ' + (7 + (10 * options.depth)) + 'px" data-item-id="' +
                   this.escapeHTML(options.id) + '">' + this.resultFormatter(options.item) + '</div>'
               );
@@ -337,17 +341,17 @@ An element wrapping selectivity.js and relying on an operation for suggestions
 
             resultLabel: function(options) {
               return (
-                    '<div class="selectivity-result-label" style="padding-left: ' + (7 + (10 * options.depth)) + 'px">' +
-                    this.escapeHTML(options.text) + '</div>'
+                    '<div class="preserve-white-space selectivity-result-label" ' +
+                    'style="padding-left: ' + (7 + (10 * options.depth)) + 'px">' + this.escapeHTML(options.text) + '</div>'
               );
             }.bind(this),
 
             singleSelectedItem: function(options) {
               return (
-                  '<span class="selectivity-single-selected-item" ' +
+                  '<span class="preserve-white-space selectivity-single-selected-item" ' +
                   'data-item-id="' + this.escapeHTML(options.id) + '">' +
                   (options.removable
-                      ? '<a class="selectivity-single-selected-item-remove">' +
+                      ? '<a class="preserve-white-space selectivity-single-selected-item-remove">' +
                         '<i class="selectivity-remove"></i>' +
                         '</a>'
                       : '') +
@@ -359,11 +363,11 @@ An element wrapping selectivity.js and relying on an operation for suggestions
             multipleSelectedItem: function(options) {
               var extraClass = options.highlighted ? ' highlighted' : '';
               return (
-                  '<span class="selectivity-multiple-selected-item' +
+                  '<span class="preserve-white-space selectivity-multiple-selected-item' +
                   extraClass +
                   '" data-item-id="' + this.escapeHTML(options.id) + '">' +
                   (options.removable
-                      ? '<a class="selectivity-multiple-selected-item-remove">' +
+                      ? '<a class="preserve-white-space selectivity-multiple-selected-item-remove">' +
                         '<i class="selectivity-remove"></i>' +
                         '</a>'
                       : '') +
