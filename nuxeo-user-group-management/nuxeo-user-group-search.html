@@ -98,6 +98,10 @@ Used by `nuxeo-user-management`
         text-align: center;
       }
 
+      .preserve-white-space {
+        white-space: pre;
+      }
+
       paper-card {
         @apply --nuxeo-card;
       }
@@ -136,7 +140,7 @@ Used by `nuxeo-user-management`
                 <div class="flex-4">
                   <nuxeo-group-tag group="[[item]]"></nuxeo-group-tag>
                 </div>
-                <div name="id" class="flex-2">[[item.groupname]]</div>
+                <div name="id" class="flex-2 preserve-white-space">[[item.groupname]]</div>
                 <div class="flex-4">
                   <span class="counter">[[_countUsers(item.memberUsers)]]</span>
                   <span class="counter">[[_countGroups(item.memberGroups)]]</span>
@@ -172,7 +176,7 @@ Used by `nuxeo-user-management`
                     <nuxeo-user-tag user="[[item]]"></nuxeo-user-tag>
                   </template>
                 </div>
-                <div name="id" class="flex-2">[[item.id]]</div>
+                <div name="id" class="flex-2 preserve-white-space">[[item.id]]</div>
                 <div class="flex-4">[[item.properties.email]]</div>
               </div>
             </template>

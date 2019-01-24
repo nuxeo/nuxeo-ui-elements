@@ -104,6 +104,10 @@ Example:
         text-align: center;
       }
 
+      .preserve-white-space {
+        white-space: pre;
+      }
+
       paper-card {
         @apply --nuxeo-card;
       }
@@ -141,7 +145,7 @@ Example:
                   <nuxeo-group-tag group="[[item]]"></nuxeo-group-tag>
                 </template>
               </div>
-              <div class="flex-2">[[item.uid]]</div>
+              <div class="flex-2 preserve-white-space">[[item.uid]]</div>
               <div class="table-actions"></div>
             </div>
           </template>
