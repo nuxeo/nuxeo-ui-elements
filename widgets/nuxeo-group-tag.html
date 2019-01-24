@@ -43,13 +43,17 @@ Example:
     a:hover {
       @apply --nuxeo-link-hover;
     }
+
+    .preserve-white-space {
+      white-space: pre;
+    }
   </style>
     <nuxeo-tag icon="nuxeo:group">
       <template is="dom-if" if="[[!disabled]]">
-        <a href$="[[_href(group)]]">[[_label(group)]]</a>
+        <a class="preserve-white-space" href$="[[_href(group)]]">[[_label(group)]]</a>
       </template>
       <template is="dom-if" if="[[disabled]]">
-        [[_label(group)]]
+        <span class="preserve-white-space">[[_label(group)]]</span>
       </template>
       <template is="dom-if" if="[[_isEntity(group)]]">
         <nuxeo-tooltip position="top" offset="0" animation-delay="0">[[_name(group)]]</nuxeo-tooltip>
