@@ -50,7 +50,7 @@
     "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^2.0.0",
     "iron-collapse": "PolymerElements/iron-collapse#^2.0.0",
-    "nuxeo-elements": "nuxeo/nuxeo-elements#maintenance-2.4.x",
+    "nuxeo-elements": "nuxeo/nuxeo-elements#2.4.1",
     "paper-typeahead": "nuxeo/paper-typeahead#0.6",
     "vaadin-date-picker": "^3.0.0"
   },
