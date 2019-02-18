@@ -68,7 +68,7 @@ limitations under the License.
 
     </style>
 
-    <nuxeo-operation id="op" op="[[operation]]" enrichers=[[enrichers]]></nuxeo-operation>
+    <nuxeo-operation id="op" op="[[operation]]" enrichers=[[enrichers]] headers="[[headers]]"></nuxeo-operation>
 
     <label class="label" hidden$="[[!label]]" required$="[[required]]">[[label]]</label>
 
@@ -309,6 +309,12 @@ limitations under the License.
             enrichers: {
               type: String,
               value: '',
+            },
+
+            /** The headers of the request. */
+            headers: {
+              type: Object,
+              value: null,
             },
           };
         }
