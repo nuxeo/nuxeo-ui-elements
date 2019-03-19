@@ -126,6 +126,11 @@ Example:
       properties: {
         label: String,
 
+        /*
+        * The default time of the picked-up date. Format is HH:mm:ss e.g. 12:45:23. Default is 00:00:00 (midnight).
+        */
+        defaultTime: String,
+
         errorMessage: String,
 
         /*
@@ -211,6 +216,16 @@ Example:
         if (this._inputValue !== null && !this._preventInputUpdate) {
           var date = moment(this._inputValue);
           if (date.isValid()) {
+            if (this.defaultTime) {
+              var time = moment(this.defaultTime, 'HH:mm:ss');
+              if (time.isValid()) {
+                date.add(time.hour(), 'hour');
+                date.add(time.minute(), 'minute');
+                date.add(time.second(), 'second');
+              } else {
+                throw new Error(`Invalid default time ${this.defaultTime}`);
+              }
+            }
             this.set('value', date.toJSON());
           } else {
             this.set('value', null);
