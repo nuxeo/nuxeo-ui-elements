@@ -135,19 +135,14 @@ $_documentContainer.innerHTML = `<dom-module id="nuxeo-selectivity">
 #input:not([readonly]) .selectivity-multiple-input-container {
   border-bottom: 1px solid #3a3a54;
   border-radius: 2px;
+  min-height: 2em;
 }
 
 .selectivity-multiple-input-container {
   cursor: text;
   max-height: 10em;
-  min-height: calc(2em + 4px);
   overflow: auto;
-  padding: 5px;
-}
-
-.selectivity-multiple-input-container .selectivity-placeholder {
-  height: calc(2em + 4px);
-  line-height: calc(2em + 4px);
+  padding: 5px 5px 0px 5px;
 }
 
 .selectivity-multiple-input,
@@ -156,7 +151,6 @@ input[type='text'].selectivity-multiple-input {
   border: none;
   float: left;
   font: inherit;
-  height: calc(2em + 4px);
   max-width: 100%;
   outline: 0;
   padding: 0;
@@ -208,6 +202,7 @@ input[type='text'].selectivity-multiple-input:focus {
 #input:not([readonly]) .selectivity-single-select {
   border-bottom: 1px solid #3a3a54;
   border-radius: 2px;
+  min-height: 2em;
 }
 
 #input[readonly] .selectivity-caret {
@@ -216,8 +211,7 @@ input[type='text'].selectivity-multiple-input:focus {
 
 .selectivity-single-select {
   cursor: pointer;
-  min-height: 2em;
-  padding: 5px;
+  padding: 5px 5px 0px 5px;
   position: relative;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -225,13 +219,10 @@ input[type='text'].selectivity-multiple-input:focus {
 
 .selectivity-single-select-input {
   opacity: 0;
+  display: none;
 }
 
 .selectivity-single-result-container {
-  position: absolute;
-  top: 0.8em;
-  right: 15px;
-  left: 5px;
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
@@ -240,6 +231,7 @@ input[type='text'].selectivity-multiple-input:focus {
 
 .selectivity-single-selected-item {
   color: #000;
+  margin: 2px 2px 0px 2px;
   @apply --nuxeo-tag;
 }
 
@@ -253,10 +245,6 @@ input[type='text'].selectivity-multiple-input:focus {
   .selectivity-single-select {
     background: #eee;
     border-radius: 2px;
-  }
-
-  .selectivity-single-result-container {
-    right: 5px;
   }
 
   .selectivity-caret {
