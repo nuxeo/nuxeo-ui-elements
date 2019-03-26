@@ -472,15 +472,22 @@ limitations under the License.
               type: Boolean,
               value: false,
             },
+            /**
+             * Extended Nuxeo-Data-Table-Checkox tag name
+             */
+            checkboxTagName: {
+              type: Strong,
+              value: 'NUXEO-DATA-TABLE-CHECKBOX',
+            },
           };
         }
 
-        constructor() {
+        constructor(columnTagName = 'NUXEO-DATA-TABLE-COLUMN') {
           super();
           this.handlesSorting = true;
           this._observer = Polymer.dom(this).observeNodes((info) => {
             const hasColumns = function (node) {
-              return (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'NUXEO-DATA-TABLE-COLUMN');
+              return (node.nodeType === Node.ELEMENT_NODE && node.tagName === columnTagName);
             };
 
             const hasDetails = function (node) {
@@ -671,7 +678,7 @@ limitations under the License.
             // unreliable with Shadow, document.activeElement doesn't go inside
             // the shadow root.
             return target.contains(Polymer.dom(document.activeElement).node) ||
-                target.tagName === 'NUXEO-DATA-TABLE-CHECKBOX' || target.tagName === 'A';
+                target.tagName === this.checkboxTagName || target.tagName === 'A';
           }
         }
 

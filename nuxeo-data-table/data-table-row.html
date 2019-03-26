@@ -104,6 +104,13 @@
               type: Object,
               value: { id: 0 },
             },
+            /**
+             * Extended Nuxeo-Data-Table tag name
+             */
+            dataTableTagName: {
+              type: String,
+              value: 'NUXEO-DATA-TABLE',
+            },
           };
         }
 
@@ -116,7 +123,7 @@
         connectedCallback() {
           super.connectedCallback();
           const host = Polymer.dom(this).getOwnerRoot().host;
-          if (host && host.tagName === 'NUXEO-DATA-TABLE') {
+          if (host && host.tagName === this.dataTableTagName) {
             const id = this._static.id++;
             const item = this.parentElement;
             if (!item._rowId) {
