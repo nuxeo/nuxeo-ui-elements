@@ -284,24 +284,17 @@ limitations under the License.
 
         _initSelection(element, callback) {
           if (element) {
-            if (this.multiple) {
-              if (element.length > 0) {
-                if (element.some((e) => e.title)) {
-                  return callback(element);
-                } else if (element.some((e) => typeof e === 'string' && e.length > 0)) {
-                  return this._resolveDocs(element, callback);
-                }
-              } else {
-                return callback([]);
-              }
-            } else if (element.title) {
+            const hasUnknownFormatEntries = this.multiple
+              ? element.some((e) => typeof e !== 'string' && typeof e !== 'object' && !e.title)
+              : typeof element !== 'string' && typeof element !== 'object' && !element.title;
+            const hasOnlyIdReferences = this.multiple
+              ? element.length > 0 && element.every((e) => typeof e === 'string' && e.length > 0)
+              : typeof element === 'string' && element.length > 0;
+
+            if (!hasUnknownFormatEntries && hasOnlyIdReferences) {
+              return this._resolveDocs(element, callback);
+            } else if (!hasUnknownFormatEntries && !hasOnlyIdReferences) {
               return callback(element);
-            } else if (typeof element === 'string') {
-              if (element.length > 0) {
-                return this._resolveDocs(element, callback);
-              } else {
-                return callback('');
-              }
             }
             console.log('Unable to resolve such entry. Write your own resolver');
           }
@@ -316,8 +309,8 @@ limitations under the License.
             if (this.multiple) {
               /**
                * XXX
-               * When a user does not have permissions to see a document
-               * the operation will not return that document (ELEMENTS-897)
+               *  When a user does not have permissions to see a document
+               *  the operation will not return that document. (ELEMENTS-897)
                */
               if (res.entries.length < docs.length) {
                 const reconciliatedArray = docs.map((element) => {
