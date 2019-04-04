@@ -227,6 +227,14 @@ import './nuxeo-selectivity.js';
         },
 
         /**
+         * Fixed query part for querying documents
+         */
+        query: {
+          type: String,
+          value: null,
+        },
+
+        /**
          * Function used to get the id from the choice document.
          */
         _idFunction: {
@@ -313,6 +321,7 @@ import './nuxeo-selectivity.js';
       this.$.op.params = {
         values: this.value,
         property: this.idProperty,
+        query: this.query,
       };
       this.$.op.execute().then((res) => {
         if (this.multiple) {
