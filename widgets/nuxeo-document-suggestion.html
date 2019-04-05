@@ -227,6 +227,14 @@ An element for selecting one or more documents.
         },
 
         /**
+         * Fixed query part for querying documents
+         */
+        query: {
+          type: String,
+          value: null,
+        },
+
+        /**
          * Formatter for initial selection.
          */
         initSelection: {
@@ -292,7 +300,8 @@ An element for selecting one or more documents.
       _resolveDocs: function(docs, callback) {
         this.$.op.params = {
           values: this.value,
-          property: this.idProperty
+          property: this.idProperty,
+          query: this.query
         };
         this.$.op.execute().then(function(res) {
           callback(this.multiple ? res.entries : (res.entries.length > 0 ? res.entries[0] : null));
