@@ -475,7 +475,7 @@ limitations under the License.
             /**
              * Extended Nuxeo-Data-Table-Checkox tag name
              */
-            _TagName: {
+            _checkboxTagName: {
               type: String,
               value: 'NUXEO-DATA-TABLE-CHECKBOX',
             },
@@ -678,7 +678,7 @@ limitations under the License.
             // unreliable with Shadow, document.activeElement doesn't go inside
             // the shadow root.
             return target.contains(Polymer.dom(document.activeElement).node) ||
-                target.tagName === this.checkboxTagName || target.tagName === 'A';
+                target.tagName === this._checkboxTagName || target.tagName === 'A';
           }
         }
 
