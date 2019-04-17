@@ -4,11 +4,10 @@
   CKEDITOR.config.customConfig = ''; // skip loading config.js
   CKEDITOR.config.language = (window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en';
   AlloyEditor._langResourceRequested = true; // skip loading of language file
-  const ownerDocument = (document._currentScript || document.currentScript).ownerDocument;
-  const script = ownerDocument.createElement('script');
-  script.async = true;
-  script.src = `./lang/alloy-editor/${CKEDITOR.config.language}.js`;
-  ownerDocument.head.appendChild(script);
+  const aI18Ns = document.createElement('script');
+  aI18Ns.async = true;
+  aI18Ns.src = `bower_components/nuxeo-ui-elements/widgets/alloy/lang/alloy-editor/${CKEDITOR.config.language}.js`;
+  document.head.appendChild(aI18Ns);
 </script>
 
 <script src="config.js" type="text/javascript" ></script>
