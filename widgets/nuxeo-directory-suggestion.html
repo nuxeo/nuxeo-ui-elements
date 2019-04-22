@@ -253,7 +253,7 @@ limitations under the License.
         }
 
         _selectionFormatter(entry) {
-          return entry.absoluteLabel || entry.displayLabel;
+          return this.$.s2.escapeHTML(entry.absoluteLabel || entry.displayLabel);
         }
 
         _resolveEntry(entry) {
@@ -274,7 +274,6 @@ limitations under the License.
         _idFunction(item) {
           return item.computedId || item.id || item.uid;
         }
-
       }
 
       customElements.define(DirectorySuggestion.is, DirectorySuggestion);

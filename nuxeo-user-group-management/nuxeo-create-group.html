@@ -316,13 +316,12 @@ limitations under the License.
         }
 
         _resultFormatter(item) {
-          return `${item.displayLabel} (${item.groupname || item.username})`;
+          return this.$.picker.$.s2.escapeHTML(`${item.displayLabel} (${item.groupname || item.username})`);
         }
 
         _hasErrors() {
           return this.errors !== '';
         }
-
       }
 
       customElements.define(CreateGroup.is, CreateGroup);

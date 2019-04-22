@@ -734,7 +734,7 @@ limitations under the License.
         }
 
         _resultFormatter(item) {
-          return `${item.displayLabel} (${item.groupname || item.username})`;
+          return this.$.picker.$.s2.escapeHTML(`${item.displayLabel} (${item.groupname || item.username})`);
         }
 
         _icon(entry) {
@@ -777,7 +777,6 @@ limitations under the License.
             return `group/${this.groupname}/@groups`;
           }
         }
-
       }
 
       customElements.define(GroupManagement.is, GroupManagement);

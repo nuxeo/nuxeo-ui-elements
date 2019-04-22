@@ -694,7 +694,7 @@ limitations under the License.
         }
 
         _resultFormatter(item) {
-          return `${item.displayLabel} (${item.groupname || item.username})`;
+          return this.$.picker.$.s2.escapeHTML(`${item.displayLabel} (${item.groupname || item.username})`);
         }
 
         _toast(msg) {
@@ -705,7 +705,6 @@ limitations under the License.
         _layoutHref(layout) {
           return this.resolveUrl(layout);
         }
-
       }
 
       customElements.define(UserManagement.is, UserManagement);
