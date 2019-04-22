@@ -288,13 +288,13 @@ limitations under the License.
 
         _selectionFormatter(doc) {
           if (typeof doc === 'string') {
-            return `<span>${doc}</span>`;
+            return `<span>${this.escapeHTML(doc)}</span>`;
           }
-          return `<a href="${this.urlFor('browse', doc.path)}">${doc.title}</a>`;
+          return `<a href="${this.urlFor('browse', doc.path)}">${this.escapeHTML(doc.title)}</a>`;
         }
 
         _resultFormatter(doc) {
-          return `${doc.title}<br/>${doc.path}`;
+          return `${this.escapeHTML(doc.title)}<br/>${this.escapeHTML(doc.path)}`;
         }
 
         _initSelection(element, callback) {
@@ -348,6 +348,10 @@ limitations under the License.
             return doc;
           }
           return this.idProperty === 'ecm:uuid' ? doc.uid : doc.properties[this.idProperty];
+        }
+
+        escapeHTML(markup) {
+          return this.$.s2.escapeHTML(markup);
         }
 
       }

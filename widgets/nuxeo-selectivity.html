@@ -581,6 +581,9 @@ limitations under the License.
           });
         }
 
+        /* *
+         * WARN: This method is called from a lot of parents components.
+         * */
         escapeHTML(markup) {
           const replaceMap = {
             '\\': '&#92;',
