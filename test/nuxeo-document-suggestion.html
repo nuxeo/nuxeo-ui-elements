@@ -30,6 +30,7 @@ limitations under the License.
   <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
   <link rel="import" href="../../nuxeo-elements/nuxeo-connection.html">
   <link rel="import" href="../../nuxeo-elements/nuxeo-operation.html">
+  <link rel="import" href="../../nuxeo-ui-elements/nuxeo-routing-behavior.html">
   <link rel="import" href="../widgets/nuxeo-document-suggestion.html">
 </head>
 <body>
@@ -54,20 +55,22 @@ limitations under the License.
   </test-fixture>
 
   <script>
-    // "Mock" Routing Behavior since it needs to be created
-    Nuxeo.RoutingBehavior.__router = {
-      baseUrl: '',
-      useHashbang: true,
-      browse() {
-        return '#';
-      },
-      user() {
-        return '#';
-      },
-      group() {
-        return '#';
-      },
-    };
+    window.addEventListener('WebComponentsReady', () => {
+      // "Mock" Routing Behavior since it needs to be created
+      Nuxeo.RoutingBehavior.__router = {
+        baseUrl: '',
+        useHashbang: true,
+        browse() {
+          return '#';
+        },
+        user() {
+          return '#';
+        },
+        group() {
+          return '#';
+        },
+      };
+    });
 
     // Return Selectivity Entries
     function getSuggestions(suggestionWidget, timeout = 1000) {
