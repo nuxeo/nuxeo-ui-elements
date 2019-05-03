@@ -1,4 +1,5 @@
 <link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
+<link rel="import" href="iron-data-table.html">
 
 <!-- Part of `nuxeo-data-table` -->
 <dom-module id="nuxeo-data-table-row">
@@ -116,7 +117,7 @@
         connectedCallback() {
           super.connectedCallback();
           const host = Polymer.dom(this).getOwnerRoot().host;
-          if (host && host.tagName === 'NUXEO-DATA-TABLE') {
+          if (host && (host instanceof Nuxeo.DataTable)) {
             const id = this._static.id++;
             const item = this.parentElement;
             if (!item._rowId) {

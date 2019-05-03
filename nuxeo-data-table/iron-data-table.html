@@ -480,15 +480,13 @@ limitations under the License.
           this.handlesSorting = true;
           this._observer = Polymer.dom(this).observeNodes((info) => {
             const hasColumns = function (node) {
-              return (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'NUXEO-DATA-TABLE-COLUMN');
+              return node.nodeType === Node.ELEMENT_NODE && (node instanceof Nuxeo.DataTableColumn);
             };
-
             const hasDetails = function (node) {
               return (node.nodeType === Node.ELEMENT_NODE &&
                   node.tagName === 'TEMPLATE' && node.hasAttribute('is') &&
                   node.getAttribute('is') === 'row-detail');
             };
-
             if (info.addedNodes.filter(hasColumns).length > 0 ||
                 info.removedNodes.filter(hasColumns).length > 0) {
               this.set('columns', this.$.columns.assignedNodes().filter(hasColumns));
@@ -671,7 +669,7 @@ limitations under the License.
             // unreliable with Shadow, document.activeElement doesn't go inside
             // the shadow root.
             return target.contains(Polymer.dom(document.activeElement).node) ||
-                target.tagName === 'NUXEO-DATA-TABLE-CHECKBOX' || target.tagName === 'A';
+                (target instanceof Nuxeo.DataTableCheckbox) || target.tagName === 'A';
           }
         }
 
