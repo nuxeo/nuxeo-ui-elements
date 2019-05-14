@@ -7,6 +7,7 @@
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 import '@nuxeo/nuxeo-elements/nuxeo-element.js';
+import './iron-data-table.js';
 
 {
   class DataTableRow extends Nuxeo.Element {
@@ -123,7 +124,7 @@ import '@nuxeo/nuxeo-elements/nuxeo-element.js';
     connectedCallback() {
       super.connectedCallback();
       const host = dom(this).getOwnerRoot().host;
-      if (host && host.tagName === 'NUXEO-DATA-TABLE') {
+      if (host && host instanceof Nuxeo.DataTable) {
         const id = this._static.id++;
         const item = this.parentElement;
         if (!item._rowId) {

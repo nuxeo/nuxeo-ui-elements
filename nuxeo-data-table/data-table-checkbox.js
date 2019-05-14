@@ -57,5 +57,5 @@ import '../widgets/nuxeo-checkmark.js';
   }
 
   customElements.define(DataTableCheckbox.is, DataTableCheckbox);
-  Nuxeo.DataTableChecbox = DataTableCheckbox;
+  Nuxeo.DataTableCheckbox = DataTableCheckbox;
 }
