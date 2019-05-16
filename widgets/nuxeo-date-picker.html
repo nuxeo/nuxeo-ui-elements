@@ -175,7 +175,7 @@ limitations under the License.
               type: Number,
               value() {
                 return (Nuxeo.UI && Nuxeo.UI.config && parseInt(Nuxeo.UI.config.firstDayOfWeek, 10))
-                    || moment.localeData().firstDayOfWeek() || 0
+                    || moment.localeData().firstDayOfWeek() || 0;
               },
               observer: '_firstDayOfWeekChanged',
             },
