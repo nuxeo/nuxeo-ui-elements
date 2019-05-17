@@ -103,7 +103,7 @@ Example:
     </template>
 
     <template mime-pattern="text/(?:.*-)?markdown">
-      <marked-element markdown="[[_blob.data]]">
+      <marked-element markdown="[[_blob.data]]" sanitize>
         <div class="markdown-html"></div>
       </marked-element>
     </template>
