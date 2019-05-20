@@ -256,12 +256,8 @@ Custom property | Description | Default
         this.page = 'manage-group';
       },
 
-      _hasAdministrationPermissions: function(user) {
-        return user && (user.isAdministrator || this.isMember(user, 'powerusers'));
-      },
-
       _canCreateUserGroup: function(readonly, currentUser) {
-        return !readonly && this._hasAdministrationPermissions(currentUser);
+        return !readonly && this.hasAdministrationPermissions(currentUser);
       },
 
       /**

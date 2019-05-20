@@ -157,7 +157,14 @@ limitations under the License.
       return user && user.extendedGroups && user.extendedGroups.find(function(grp) {
         return grp.name === group;
       });
-    }
+    },
+
+    /**
+     * Checks if the given user has an administrator permissions.
+    */
+    hasAdministrationPermissions: function(user) {
+      return user && (user.isAdministrator || this.isMember(user, 'powerusers'));
+    },
 
   };
 </script>
