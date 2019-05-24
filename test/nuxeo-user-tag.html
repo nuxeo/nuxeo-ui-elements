@@ -1,0 +1,132 @@
+<!--
+@license
+(C) Copyright Nuxeo Corp. (http://nuxeo.com/)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html>
+<head>
+  <title>nuxeo-user-tag</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <script>
+    // force use of polyfill: see ELEMENTS-56
+    window.fetch = null;
+  </script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../nuxeo-elements/test/test-helpers.js"></script>
+
+  <link rel="import" href="../../polymer/polymer.html">
+  <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
+  <link rel="import" href="../widgets/nuxeo-user-tag.html">
+</head>
+<body>
+  <test-fixture id="nx">
+    <template>
+      <nuxeo-connection url="/dummy"></nuxeo-connection>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="default-user-tag">
+    <template>
+      <nuxeo-user-tag id="ut" disabled></nuxeo-user-tag>
+    </template>
+  </test-fixture>
+
+  <script>
+    suite('<nuxeo-user-tag>', () => {
+
+      suite("User's Display Name", () => {
+
+        test('Should display first and last names concatenated when at least one is provided and defined', () => {
+          const tagWithFirstAndLastNames = fixture('default-user-tag');
+          tagWithFirstAndLastNames.user = {
+            'entity-type': 'user',
+            id: 'jdoe',
+            properties: {
+              firstName: 'John',
+              lastName: 'Doe',
+              email: 'jdoe@nuxeo.com',
+            },
+          };
+
+          return flush().then(() => {
+            expect(Polymer.dom(tagWithFirstAndLastNames.root).querySelector('nuxeo-tag').innerText)
+              .to.have.string('John Doe');
+          });
+        });
+
+        test('Should display first name when it is defined and last name is not', () => {
+          const tagWithFirstName = fixture('default-user-tag');
+          tagWithFirstName.user = {
+            'entity-type': 'user',
+            id: 'jdoe',
+            properties: {
+              firstName: 'John',
+              email: 'jdoe@nuxeo.com',
+            },
+          };
+
+          return flush().then(() => {
+            expect(Polymer.dom(tagWithFirstName.root).querySelector('nuxeo-tag').innerText).to.have.string('John');
+          });
+        });
+
+        test('Should display last name when it is defined and first name is not', () => {
+          const tagWithLastName = fixture('default-user-tag');
+          tagWithLastName.user = {
+            'entity-type': 'user',
+            id: 'jdoe',
+            properties: {
+              lastName: 'Doe',
+              email: 'jdoe@nuxeo.com',
+            },
+          };
+
+          return flush().then(() => {
+            expect(Polymer.dom(tagWithLastName.root).querySelector('nuxeo-tag').innerText).to.have.string('Doe');
+          });
+        });
+
+        test('Should display e-mail when no names are provided', () => {
+          const tagWithEmail = fixture('default-user-tag');
+          tagWithEmail.user = {
+            'entity-type': 'user',
+            id: 'jdoe',
+            properties: {
+              email: 'jdoe@nuxeo.com',
+            },
+          };
+
+          return flush().then(() => {
+            expect(Polymer.dom(tagWithEmail.root).querySelector('nuxeo-tag').innerText).to.have.string('jdoe@nuxeo.com');
+          });
+        });
+
+        test('Should display id when no names or e-mail are provided', () => {
+          const tagWithId = fixture('default-user-tag');
+          tagWithId.user = {
+            'entity-type': 'user',
+            id: 'jdoe',
+            properties: {},
+          };
+
+          return flush().then(() => {
+            expect(Polymer.dom(tagWithId.root).querySelector('nuxeo-tag').innerText).to.have.string('jdoe');
+          });
+        });
+
+      });
+    });
+  </script>
+</body>
