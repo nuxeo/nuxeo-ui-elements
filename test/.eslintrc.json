@@ -12,6 +12,8 @@
     "login": true,
     "waitChanged": true,
     "waitForEvent": true,
+    "waitForAttrMutation": false,
+    "waitForChildListMutation": false,
     "flush": true
   }
 }
