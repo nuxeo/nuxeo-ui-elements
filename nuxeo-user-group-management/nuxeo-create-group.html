@@ -192,9 +192,6 @@ limitations under the License.
 
             resultFormatter: {
               type: Function,
-              value() {
-                return this._resultFormatter.bind(this);
-              },
             },
 
             errors: {
@@ -313,10 +310,6 @@ limitations under the License.
             }
           }
           return true;
-        }
-
-        _resultFormatter(item) {
-          return this.$.picker.$.s2.escapeHTML(`${item.displayLabel} (${item.groupname || item.username})`);
         }
 
         _hasErrors() {

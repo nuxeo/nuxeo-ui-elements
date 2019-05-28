@@ -461,9 +461,6 @@ limitations under the License.
 
             resultFormatter: {
               type: Function,
-              value() {
-                return this._resultFormatter.bind(this);
-              },
             },
 
             showEditMembers: {
@@ -731,10 +728,6 @@ limitations under the License.
           const userInGroup = this.group.memberUsers && this.group.memberUsers.indexOf(entry.id) >= 0;
           const groupInGroup = this.group.memberGroups && this.group.memberGroups.indexOf(entry.id) >= 0;
           return !userInGroup && !groupInGroup && entry.id !== this.group.groupname;
-        }
-
-        _resultFormatter(item) {
-          return this.$.picker.$.s2.escapeHTML(`${item.displayLabel} (${item.groupname || item.username})`);
         }
 
         _icon(entry) {
