@@ -31,16 +31,23 @@ limitations under the License.
   <link rel="import" href="../widgets/nuxeo-selectivity.html">
 </head>
 <body>
-  <test-fixture id="selectivity">
+  <test-fixture id="selectivitySingle">
     <template>
-      <nuxeo-selectivity
-        placeholder="No city selected"
-        allow-clear>
+      <nuxeo-selectivity placeholder="No city selected">
+      </nuxeo-selectivity>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="selectivityMultiple">
+    <template>
+      <nuxeo-selectivity placeholder="No city selected" multiple>
       </nuxeo-selectivity>
     </template>
   </test-fixture>
 
   <script>
+    /* eslint-disable no-unused-expressions */
+    
     suite('Given I have a selectivity widget', () => {
       let selectivityWidget;
       const data = [
@@ -50,25 +57,88 @@ limitations under the License.
         'Rennes',
         'Rome',
       ];
-      setup(() => {
-        selectivityWidget = fixture('selectivity');
-        selectivityWidget.data = data;
+
+      suite('Single value', () => {
+        setup(() => {
+          selectivityWidget = fixture('selectivitySingle');
+          selectivityWidget.data = data;
+        });
+
+        test('Its value can be set programmatically multiple times', () => {
+          let i;
+          const getSelectedItem = () =>
+            Polymer.dom(selectivityWidget.root).querySelector('.selectivity-single-selected-item');
+          const resetValue = () =>
+            Polymer.dom(selectivityWidget.root).querySelector('a.selectivity-single-selected-item-remove').click();
+          for (i = 0; i < data.length; i++) {
+            selectivityWidget.value = data[i];
+            const item = getSelectedItem();
+            expect(item).not.to.be.equal(null);
+            expect(item.textContent).to.be.equal(data[i]);
+            resetValue();
+            expect(getSelectedItem()).to.be.equal(null);
+          }
+        });
       });
 
-      test('Its value can be set programmatically multiple times', () => {
-        let i;
-        const getSelectedItem = () =>
-          Polymer.dom(selectivityWidget.root).querySelector('.selectivity-single-selected-item');
-        const resetValue = () =>
-          Polymer.dom(selectivityWidget.root).querySelector('a.selectivity-single-selected-item-remove').click();
-        for (i = 0; i < data.length; i++) {
-          selectivityWidget.value = data[i];
-          const item = getSelectedItem();
-          expect(item).not.to.be.equal(null);
-          expect(item.textContent).to.be.equal(data[i]);
-          resetValue();
-          expect(getSelectedItem()).to.be.equal(null);
-        }
+      suite('Multiple value', () => {
+        setup(() => {
+          selectivityWidget = fixture('selectivityMultiple');
+          selectivityWidget.data = data;
+        });
+
+        test('Backspace higlights and then deletes a single value', async () => {
+          const getSelectedItems = () =>
+            Polymer.dom(selectivityWidget.root).querySelectorAll('.selectivity-multiple-selected-item');
+          const hitBackspace = () =>
+            MockInteractions.pressAndReleaseKeyOn(
+              Polymer.dom(selectivityWidget.root).querySelector('input.selectivity-multiple-input'),
+              8,
+            );
+
+          // set initial value with two entries
+          selectivityWidget.value = ['Berlin', 'Lisbon'];
+          await flush();
+
+          // ensure that both are present and none are highlighted, then hit backspace
+          let items = getSelectedItems();
+          expect(items.length).to.be.equal(2);
+          expect(items[0].textContent).to.be.equal('Berlin');
+          expect(items[1].textContent).to.be.equal('Lisbon');
+          expect(items[1].classList.contains('highlighted')).to.be.false;
+          Polymer.dom(selectivityWidget.root)
+            .querySelector('input.selectivity-multiple-input')
+            .focus();
+          hitBackspace();
+          await flush();
+
+          // assert that there's still two entries but the last one is highlighted, then hit backspace again
+          items = getSelectedItems();
+          expect(items.length).to.be.equal(2);
+          expect(items[0].textContent).to.be.equal('Berlin');
+          expect(items[1].textContent).to.be.equal('Lisbon');
+          if (!items[1].classList.contains('highlighted')) {
+            // we might have to wait for the attribute to be changed on slower browsers
+            await waitForAttrMutation(items[1], 'class');
+          }
+          expect(items[1].classList.contains('highlighted')).to.be.true;
+          Polymer.dom(selectivityWidget.root)
+            .querySelector('input.selectivity-multiple-input')
+            .focus();
+          hitBackspace();
+          await flush();
+
+          // check there's only one entry left
+          items = getSelectedItems();
+          if (items.length !== 1) {
+            // we might have to wait for the entries to be removed on slower browsers
+            await waitForChildListMutation(Polymer.dom(selectivityWidget.root)
+              .querySelector('.selectivity-multiple-input-container'));
+            items = getSelectedItems();
+          }
+          expect(items.length).to.be.equal(1);
+          expect(items[0].textContent).to.be.equal('Berlin');
+        });
       });
     });
   </script>
