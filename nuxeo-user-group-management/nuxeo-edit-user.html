@@ -76,9 +76,6 @@ Used by `nuxeo-user-management` and `nuxeo-create-user`
 
         resultFormatter: {
           type: Function,
-          value: function() {
-            return this._resultFormatter.bind(this);
-          }
         }
       },
 
@@ -87,10 +84,6 @@ Used by `nuxeo-user-management` and `nuxeo-create-user`
        */
       resetFields: function() {
         this.user = {};
-      },
-
-      _resultFormatter: function(item) {
-        return this.$.picker.$.s2.escapeHTML(item.displayLabel + ' (' + (item.groupname || item.username) + ')');
       },
     });
   </script>
