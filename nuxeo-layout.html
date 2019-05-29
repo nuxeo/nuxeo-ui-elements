@@ -137,12 +137,22 @@ limitations under the License.
             () => {
               const element = document.createElement(name);
 
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                  if (entry.intersectionRatio > 0) {
+                    this._applyAutoFocus(element);
+                  }
+                });
+              });
+
               if (this.$.container.hasChildNodes()) {
+                observer.unobserve(this.$.container.firstChild);
                 this.$.container.replaceChild(element, this.$.container.firstChild);
               } else {
                 this.$.container.appendChild(element);
               }
 
+              observer.observe(element);
               this._setElement(element);
               this._update();
               this.notifyResize();
@@ -168,6 +178,14 @@ limitations under the License.
           }
         }
 
+        _applyAutoFocus(element) {
+          if (element && element.root && !element.root.activeElement) {
+            const focusableElement = Array.from(element.root.children).find((el) => el.autofocus);
+            if (focusableElement) {
+              focusableElement.focus();
+            }
+          }
+        }
       }
 
       customElements.define(Layout.is, Layout);
