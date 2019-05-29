@@ -243,7 +243,7 @@ An element for selecting one or more entries from a given directory.
       },
 
       _selectionFormatter: function(entry) {
-        return entry.absoluteLabel || entry.displayLabel;
+        return this.$.s2.escapeHTML(entry.absoluteLabel || entry.displayLabel);
       },
 
       _resolveEntry: function(entry) {

@@ -570,6 +570,9 @@ An element wrapping selectivity.js and relying on an operation for suggestions
         }.bind(this));
       },
 
+      /* *
+       * WARN: This method is called from a lot of parents components.
+       * */
       escapeHTML: function(markup) {
         var replaceMap = {
           '\\': '&#92;',

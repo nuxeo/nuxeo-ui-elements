@@ -341,7 +341,7 @@ Used by `nuxeo-user-group-management`
       },
 
       _resultFormatter: function(item) {
-        return item.displayLabel + ' (' + (item.groupname || item.username) + ')';
+         this.$.picker.$.s2.escapeHTML(item.displayLabel + ' (' + (item.groupname || item.username) + ')');
       },
 
       _hasErrors: function() {

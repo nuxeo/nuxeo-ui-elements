@@ -262,11 +262,11 @@ An element for selecting one or more documents.
       },
 
       _selectionFormatter: function(doc) {
-        return '<a href="' + this.urlFor('browse', doc.path) + '">' + doc.title + '</a>';
+        return '<a href="' + this.urlFor('browse', doc.path) + '">' + this.$.s2.escapeHTML(doc.title) + '</a>';
       },
 
       _resultFormatter: function(doc) {
-        return doc.title + '<br/>' + doc.path;
+        return this.$.s2.escapeHTML(doc.title) + '<br/>' + this.$.s2.escapeHTML(doc.path);
       },
 
 
