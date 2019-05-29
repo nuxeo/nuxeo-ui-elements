@@ -43,17 +43,15 @@ Used by `nuxeo-user-management` and `nuxeo-create-user`
       <nuxeo-input label="[[i18n('editUser.email')]]" value="{{user.email}}" name="email" type="email" required></nuxeo-input>
     </div>
 
-    <template is="dom-if" if="[[new]]">
-      <nuxeo-user-suggestion id="picker"
-                             name="group"
-                             search-type="GROUP_TYPE"
-                             label="[[i18n('editUser.groups')]]"
-                             placeholder="[[i18n('editUser.searchGroups')]]"
-                             value="{{user.groups}}"
-                             multiple
-                             result-formatter="[[resultFormatter]]">
-      </nuxeo-user-suggestion>
-    </template>
+    <nuxeo-user-suggestion id="picker" hidden$="[[!new]]"
+                           name="group"
+                           search-type="GROUP_TYPE"
+                           label="[[i18n('editUser.groups')]]"
+                           placeholder="[[i18n('editUser.searchGroups')]]"
+                           value="{{user.groups}}"
+                           multiple
+                           result-formatter="[[resultFormatter]]">
+    </nuxeo-user-suggestion>
 
   </template>
 
@@ -93,7 +91,7 @@ Used by `nuxeo-user-management` and `nuxeo-create-user`
       },
 
       _resultFormatter: function(item) {
-        return item.displayLabel + ' (' + (item.groupname || item.username) + ')';
+        return this.$.picker.$.s2.escapeHTML(item.displayLabel + ' (' + (item.groupname || item.username) + ')');
       }
     });
   </script>

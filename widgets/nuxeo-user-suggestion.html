@@ -232,21 +232,22 @@ limitations under the License.
 
       _selectionFormatter: function(item) {
         if (item) {
+          var label;
           if (item['entity-type'] === 'user' && item.properties && item.properties.firstName && item.properties.lastName) {
-            return item.properties.firstName + ' ' + item.properties.lastName;
+            label = item.properties.firstName + ' ' + item.properties.lastName;
+          } else if (item['entity-type'] === 'group') {
+            label = item.grouplabel ? item.grouplabel : item.groupname;
+          } else if (item.displayLabel) {
+            label = item.displayLabel;
+          } else {
+            label = item.id ? item.id : item;
           }
-          if (item['entity-type'] === 'group') {
-            return item.grouplabel ? item.grouplabel : item.groupname;
-          }
-          if (item.displayLabel) {
-            return item.displayLabel;
-          }
-          return item.id ? item.id : item;
+          return this.$.s2.escapeHTML(label);
         }
       },
 
       _resultFormatter: function(item) {
-        return (item.displayLabel || item.title) + ((item.type && item.type === 'USER_TYPE') ? '<br>' + item.email : '');
+        return this.$.s2.escapeHTML(item.displayLabel || item.title) + ((item.type && item.type === 'USER_TYPE') ? '<br>' + this.$.s2.escapeHTML(item.email) : '');
       },
 
       _resolveEntry: function(item) {
