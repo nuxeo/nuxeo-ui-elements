@@ -30,6 +30,7 @@ limitations under the License.
 <link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../../polymer/lib/utils/async.html">
 <link rel="import" href="../../polymer/lib/utils/debounce.html">
+<link rel="import" href="../../polymer/lib/utils/render-status.html">
 <link rel="import" href="../widgets/nuxeo-dialog.html">
 
 <link rel="import" href="data-table-column.html">
@@ -197,7 +198,9 @@ limitations under the License.
               </nuxeo-data-table-cell>
             </template>
           </dom-repeat>
-          <nuxeo-data-table-cell flex="0" hidden$="[[!editable]]"></nuxeo-data-table-cell>
+          <div style$="[[_computeActionsStyle(editable, orderable)]]">
+            <nuxeo-data-table-cell></nuxeo-data-table-cell>
+          </div>
           <nuxeo-data-table-settings columns="{{columns}}" hidden$="[[!settingsEnabled]]"></nuxeo-data-table-settings>
         </nuxeo-data-table-row>
       </div>
@@ -251,6 +254,7 @@ limitations under the License.
                                        template="[[rowDetail]]"></nuxeo-data-table-row-detail>
                 </template>
               </dom-if>
+              <div style$="[[_computeActionsStyle(editable, orderable)]]">
                 <nuxeo-data-table-row-actions index="[[index]]"
                                      editable="[[editable]]"
                                      orderable="[[orderable]]"
@@ -259,6 +263,7 @@ limitations under the License.
                                      size="[[items.length]]"
                                      table="[[_this]]">
                 </nuxeo-data-table-row-actions>
+              </div>
             </nuxeo-data-table-row>
           </div>
         </template>
@@ -475,6 +480,10 @@ limitations under the License.
           };
         }
 
+        static get observers() {
+          return ['_alignHeaderRow(items.length)'];
+        }
+
         constructor() {
           super();
           this.handlesSorting = true;
@@ -482,11 +491,13 @@ limitations under the License.
             const hasColumns = function (node) {
               return node.nodeType === Node.ELEMENT_NODE && (node instanceof Nuxeo.DataTableColumn);
             };
+
             const hasDetails = function (node) {
               return (node.nodeType === Node.ELEMENT_NODE &&
                   node.tagName === 'TEMPLATE' && node.hasAttribute('is') &&
                   node.getAttribute('is') === 'row-detail');
             };
+
             if (info.addedNodes.filter(hasColumns).length > 0 ||
                 info.removedNodes.filter(hasColumns).length > 0) {
               this.set('columns', this.$.columns.assignedNodes().filter(hasColumns));
@@ -528,6 +539,27 @@ limitations under the License.
           slot.addEventListener('slotchange', () => {
             const form = this.getContentChildren('#form')[0];
             form.disabled = true;
+          });
+        }
+
+        _computeActionsStyle(editable, orderable) {
+          if (editable && orderable) {
+            return 'flex: 0 0 172px;';
+          }
+          if (editable || orderable) {
+            return 'flex: 0 0 92px;';
+          }
+          return 'display: none;';
+        }
+
+        _alignHeaderRow() {
+          Polymer.RenderStatus.afterNextRender(this, () => {
+            if (this.$.list.scrollHeight >= this.$.list.clientHeight) {
+              // add scrollbar width as padding
+              this.$.header.style.paddingRight = `${this.$.list.offsetWidth - this.$.list.clientWidth}px`;
+            } else {
+              this.$.header.style.paddingRight = '0';
+            }
           });
         }
 
