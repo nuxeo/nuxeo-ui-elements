@@ -334,10 +334,9 @@ Element displaying a table with document ACLs.
         return entity;
       },
 
-      sendEmailExternalSharing: function(e, i) {
-        var item = e.model.dataHost.dataHost.ace;
+      sendEmailExternalSharing: function(e) {
         this.$.sendNotificationEmailPermissionOp.params = {
-          id: item.id
+          id: e.model.ace.id
         };
         var self = this;
         this.$.sendNotificationEmailPermissionOp.execute().then(function() {
