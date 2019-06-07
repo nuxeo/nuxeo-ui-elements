@@ -83,7 +83,7 @@ limitations under the License.
         },
 
         /**
-         * An array containing path/filter value pairs that are used to filter the items
+         * An array with objects containing path, filter value, name and expression that are used to filter the items
          */
         filters: {
           type: Array,
@@ -406,6 +406,7 @@ limitations under the License.
               path: e.detail.filterBy,
               value: e.detail.value,
               name: e.detail.name,
+              expression: e.detail.filterExpression,
             });
           }
 
@@ -417,7 +418,10 @@ limitations under the License.
             delete this.nxProvider.params[e.detail.filterBy];
             this.fetch();
           } else if (e.detail.value.length > 0) {
-            if (e.detail.filterBy === 'title' || e.detail.filterBy === 'ecm_fulltext') {
+            if (e.detail.filterExpression) {
+              this.nxProvider.params[e.detail.filterBy] = e.detail.filterExpression.replace(/(\$term)/g, e.detail.value);
+            } else if (e.detail.filterBy === 'title' || e.detail.filterBy === 'ecm_fulltext') {
+              // Keeping the verification above for compatibility purposes (ELEMENTS-961)
               this.nxProvider.params[e.detail.filterBy] = `${e.detail.value}*`;
             } else {
               this.nxProvider.params[e.detail.filterBy] = e.detail.value;
