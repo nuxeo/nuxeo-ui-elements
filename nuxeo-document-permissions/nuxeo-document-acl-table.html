@@ -365,7 +365,7 @@ limitations under the License.
 
         sendEmailExternalSharing(e) {
           this.$.sendNotificationEmailPermissionOp.params = {
-            id: e.model.ace.id
+            id: e.model.ace.id,
           };
           this.$.sendNotificationEmailPermissionOp.execute().then(() => {
             this.dispatchEvent(new CustomEvent('notification', {
