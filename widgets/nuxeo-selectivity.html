@@ -24,6 +24,7 @@ limitations under the License.
 <link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
 <link rel="import" href="../../nuxeo-elements/nuxeo-operation.html">
 <link rel="import" href="../../polymer/lib/utils/debounce.html">
+<link rel="import" href="../nuxeo-i18n-behavior.html">
 
 <dom-module id="nuxeo-selectivity">
   <link rel="import" type="css" href="selectivity/selectivity.css">
@@ -93,8 +94,8 @@ limitations under the License.
        * @memberof Nuxeo
        * @demo demo/nuxeo-selectivity/index.html
        */
-      class SelectivityElement
-        extends Polymer.mixinBehaviors([Polymer.IronFormElementBehavior, Polymer.IronValidatableBehavior], Nuxeo.Element) {
+      class SelectivityElement extends Polymer.mixinBehaviors([
+        Nuxeo.I18nBehavior, Polymer.IronFormElementBehavior, Polymer.IronValidatableBehavior], Nuxeo.Element) {
 
         static get is() {
           return 'nuxeo-selectivity';
@@ -400,7 +401,7 @@ limitations under the License.
           } else {
             options.query = (query) => {
               if (query.term.length < this.minChars) {
-                query.error(`Please enter ${this.minChars} or more character`);
+                query.error(this.i18n('selectivity.minChars', this.minChars));
                 return;
               }
               // debounce requests
