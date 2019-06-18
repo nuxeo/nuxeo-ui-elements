@@ -525,7 +525,8 @@ limitations under the License.
         }
 
         _idFunction(item) {
-          return item.computedId || item.uid || item.id || item;
+          const id = ['computeId', 'uid', 'id'].find((key) => Object.prototype.hasOwnProperty.call(item, key));
+          return id ? item[id] : item;
         }
 
         _newEntryFormatter(term) {
