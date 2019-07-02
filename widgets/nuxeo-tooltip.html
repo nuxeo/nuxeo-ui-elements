@@ -116,7 +116,9 @@ Example:
           this._tooltip.offset = this.offset;
           this._tooltip.position = this.position;
           this._tooltip.fitToVisibleBounds = true;
-          this._tooltip.show();
+          this.async(function() {
+            this._tooltip.show();
+          }.bind(this));
         }
       },
 
