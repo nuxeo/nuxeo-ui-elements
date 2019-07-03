@@ -125,7 +125,9 @@ limitations under the License.
             this._tooltip.offset = this.offset;
             this._tooltip.position = this.position;
             this._tooltip.fitToVisibleBounds = true;
-            this._tooltip.show();
+            Polymer.Async.microTask.run(() => {
+              this._tooltip.show();
+            });
           }
         }
 
