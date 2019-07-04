@@ -266,6 +266,16 @@ limitations under the License.
 
       _forwardHostPropV2(prop, value) {
         if (this._instance) {
+          // if we have a pending update
+          const pendingUpdate = this._isPropertyPending('document') || this._isPropertyPending('user');
+          if (pendingUpdate) {
+            // let's check if instance will be removed
+            const toClear = !this.check();
+            // in which case we skip forwarding the host prop
+            if (toClear) {
+              return;
+            }
+          }
           this._instance.forwardHostProp(prop, value);
         }
       }
