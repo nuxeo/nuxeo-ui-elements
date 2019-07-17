@@ -20,6 +20,7 @@ limitations under the License.
 <link rel="import" href="../../paper-typeahead/paper-typeahead.html">
 <link rel="import" href="../../polymer/lib/elements/dom-if.html">
 <link rel="import" href="../es6-polyfills.html">
+<link rel="import" href="../nuxeo-format-behavior.html">
 
 <dom-module id="nuxeo-path-suggestion">
   <template>
@@ -100,7 +101,7 @@ limitations under the License.
        * @memberof Nuxeo
        * @demo demo/nuxeo-path-suggestion/index.html
        */
-      class PathSuggestion extends Nuxeo.Element {
+      class PathSuggestion extends Polymer.mixinBehaviors([Nuxeo.FormatBehavior], Nuxeo.Element) {
 
         static get is() {
           return 'nuxeo-path-suggestion';
@@ -220,7 +221,7 @@ limitations under the License.
         _queryChildren(parent, term) {
           this.params = {
             queryParams: `SELECT * FROM Document WHERE ecm:parentId = '${parent.uid}' ` +
-            `AND ecm:name LIKE '${term}%' AND ecm:mixinType = 'Folderish' ` +
+            `AND ecm:name LIKE '${this.escapeNxqlStringLiteral(term)}%' AND ecm:mixinType = 'Folderish' ` +
             'AND ecm:mixinType != \'HiddenInNavigation\' AND ecm:isVersion = 0 ' +
             'AND ecm:isTrashed = 0',
           };
