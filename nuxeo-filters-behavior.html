@@ -15,6 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="es6-polyfills.html">
+<link rel="import" href="nuxeo-i18n-behavior.html">
 
 <script>
   /* eslint-disable no-var, no-use-before-define */
@@ -64,17 +65,26 @@ limitations under the License.
       return false;
     },
 
-    canBeRecord(document) {
+    canSetRetention(document) {
       return document && !document.hasLegalHold &&
         this.hasPermission(document, 'MakeRecord') &&
         this.hasPermission(document, 'SetRetention') &&
         document.properties.hasOwnProperty('file:content');
     },
 
-    canManageLegalHold(document) {
+    canSetLegalHold(document) {
       return document &&
-        this.hasPermission(document, 'ManageLegalHold')
+        this.hasPermission(document, 'MakeRecord') &&
+        this.hasPermission(document, 'ManageLegalHold') &&
         document.properties.hasOwnProperty('file:content');
+    },
+
+    /**
+     * Checks if the document retention date is indeterminate.
+     */
+    isRetentionDateIndeterminate(doc) {
+      return doc && doc.retainUntil &&
+        moment(doc.retainUntil).diff('9999-01-01T00:00:00.000+00:00') === 0;
     },
 
     /**

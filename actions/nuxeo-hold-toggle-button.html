@@ -48,6 +48,7 @@ limitations under the License.
           <paper-icon-button icon="[[icon]]" noink></paper-icon-button>
           <span class="label" hidden$="[[!showLabel]]">[[_label]]</span>
         </div>
+        <!-- TODO align on ELEMENTS-997 -->
         <nuxeo-tooltip>[[tooltip]]</nuxeo-tooltip>
       </template>
     </dom-if>
@@ -130,7 +131,7 @@ limitations under the License.
         }
 
         _isAvailable(doc) {
-          return this.canManageLegalHold(doc);
+          return this.canSetLegalHold(doc);
         }
 
         _toggle() {

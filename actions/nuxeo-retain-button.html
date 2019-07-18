@@ -37,10 +37,12 @@ limitations under the License.
 <dom-module id="nuxeo-retain-button">
   <template>
     <style include="nuxeo-action-button-styles">
-      .heading {
-        @apply --layout-horizontal;
-        @apply --layout-center;
-        @apply --layout-justified;
+      /* Fix known stacking issue in iOS (NXP-24600)
+         https://github.com/PolymerElements/paper-dialog-scrollable/issues/72 */
+      paper-dialog-scrollable {
+        --paper-dialog-scrollable: {
+          -webkit-overflow-scrolling: auto;
+        };
       }
     </style>
 
@@ -54,14 +56,13 @@ limitations under the License.
           <paper-icon-button icon="[[icon]]" noink></paper-icon-button>
           <span class="label" hidden$="[[!showLabel]]">[[_label]]</span>
         </div>
+        <!-- TODO align on ELEMENTS-997 -->
         <nuxeo-tooltip>[[_label]]</nuxeo-tooltip>
       </template>
     </dom-if>
 
     <nuxeo-dialog id="dialog" with-backdrop>
-      <div class="heading">
-        <h2>[[i18n('retentionButton.dialog.heading')]]</h2>
-      </div>
+      <h2>[[i18n('retentionButton.dialog.heading')]]</h2>
       <paper-dialog-scrollable>
         <nuxeo-date-picker label="[[i18n('retentionButton.until')]]"
           value="{{until}}" required$="[[document.retainUntil]]"
@@ -70,7 +71,7 @@ limitations under the License.
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss>[[i18n('command.close')]]</paper-button>
-        <paper-button primary on-tap="_retain" disabled$="[[!_isValid(document, until)]]">[[i18n('retentionButton.retain')]]</paper-button>
+        <paper-button class="primary" on-tap="_retain" disabled$="[[!_isValid(document, until)]]">[[i18n('retentionButton.retain')]]</paper-button>
       </div>
     </nuxeo-dialog>
 
@@ -128,7 +129,7 @@ limitations under the License.
         }
 
         _isAvailable(document) {
-          return this.canBeRecord(document);
+          return this.canSetRetention(document);
         }
 
         _computeLabel() {
