@@ -163,6 +163,20 @@ limitations under the License.
       return text.replace(/-/g, ' ');
     },
 
+    /**
+     * Returns the label for the given permission
+     */
+    formatPermission(permission) {
+      if (!permission) {
+        return;
+      }
+
+      const loweredKey = permission.substring(0, 1).toLowerCase() + permission.substring(1);
+      const key = `label.security.permission.${loweredKey}`;
+      const p = this.i18n(key);
+      return p === key ? permission : p;
+    },
+
     _languageCode() {
       return ((window.nuxeo.I18n.language) ? window.nuxeo.I18n.language.split('-')[0] : 'en');
     },
