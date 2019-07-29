@@ -21,6 +21,7 @@ limitations under the License.
 <link rel="import" href="../../polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
+<link rel="import" href="../nuxeo-format-behavior.html">
 <link rel="import" href="nuxeo-popup-confirm.html">
 <link rel="import" href="nuxeo-popup-permission.html">
 
@@ -106,7 +107,7 @@ limitations under the License.
               <div class$="acl-table-row [[ace.status]]">
                 <div class="flex-2"><span class$="[[entityClass(ace.username)]]" title="[[entityTooltip(ace.username)]]">[[entityDisplay(ace.username)]]</span>
                 </div>
-                <div class="flex-2"><span class="label">[[i18n(ace.permission)]]</span></div>
+                <div class="flex-2"><span class="label">[[formatPermission(ace.permission, i18n)]]</span></div>
                 <div class="flex-2"><span>{{formatTimeFrame(ace)}}</span></div>
                 <div class="flex-2"><span class$="[[entityClass(ace.creator)]]" title="[[entityTooltip(ace.creator)]]">[[entityDisplay(ace.creator)]]</span>
                 </div>
@@ -137,7 +138,7 @@ limitations under the License.
                               <div class="flex-2"><span class$="[[entityClass(ace.username)]]"
                                                         title="[[entityTooltip(ace.username)]]">[[entityDisplay(ace.username)]]</span>
                               </div>
-                              <div class="flex-2"><span class="label">[[i18n(ace.permission)]]</span></div>
+                              <div class="flex-2"><span class="label">[[formatPermission(ace.permission, i18n)]]</span></div>
                               <div class="flex-2"><span>{{formatTimeFrame(ace)}}</span></div>
                               <div class="flex-2"><span class$="[[entityClass(ace.creator)]]"
                                                         title="[[entityTooltip(ace.creator)]]">[[entityDisplay(ace.creator)]]</span>
@@ -173,7 +174,7 @@ limitations under the License.
        * @appliesMixin Nuxeo.I18nBehavior
        * @memberof Nuxeo
        */
-      class DocumentACLTable extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior], Nuxeo.Element) {
+      class DocumentACLTable extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior, Nuxeo.FormatBehavior], Nuxeo.Element) {
 
         static get is() {
           return 'nuxeo-document-acl-table';
