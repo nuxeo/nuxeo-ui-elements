@@ -64,7 +64,7 @@ limitations under the License.
     <nuxeo-dialog id="dialog" with-backdrop>
       <h2>[[i18n('retentionButton.dialog.heading')]]</h2>
       <paper-dialog-scrollable>
-        <nuxeo-date-picker label="[[i18n('retentionButton.until')]]"
+        <nuxeo-date-picker id="picker" label="[[i18n('retentionButton.until')]]"
           value="{{until}}" required$="[[document.retainUntil]]"
           min="[[_computeMinDate(document)]]">
         </nuxeo-date-picker>
@@ -154,10 +154,8 @@ limitations under the License.
         _computeMinDate() {
           this.set('until', undefined);
           if (this.document.retainUntil) {
-            // We cannot shorten a retention period, only extend it
-            const dayAfer = moment(this.document.retainUntil).add(1, 'days');
-            this.set('until', dayAfer);
-            return this.formatDate(dayAfer,'YYYY-MM-DD');
+            this.set('until',this.document.retainUntil);
+            return this.formatDate(this.document.retainUntil,'YYYY-MM-DD');
           } else {
             // Min date is tomorrow
             const tomorrow = moment().add(1, 'days');
