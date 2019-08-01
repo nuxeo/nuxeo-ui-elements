@@ -136,14 +136,14 @@ limitations under the License.
 
         _toggle() {
           if (!this.hold) {
-            this.$.opHold.execute().then((doc) => {
+            this.$.opHold.execute().then(() => {
               this.dispatchEvent(new CustomEvent('document-updated', {
                 composed: true,
                 bubbles: true,
               }));
             });
           } else {
-            this.$.opUnhold.execute().then((doc) => {
+            this.$.opUnhold.execute().then(() => {
               this.dispatchEvent(new CustomEvent('document-updated', {
                 composed: true,
                 bubbles: true,

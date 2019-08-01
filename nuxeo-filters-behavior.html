@@ -69,14 +69,14 @@ limitations under the License.
       return document && !document.hasLegalHold &&
         this.hasPermission(document, 'MakeRecord') &&
         this.hasPermission(document, 'SetRetention') &&
-        document.properties.hasOwnProperty('file:content');
+        Object.prototype.hasOwnProperty.call(document.properties, 'file:content');
     },
 
     canSetLegalHold(document) {
       return document &&
         this.hasPermission(document, 'MakeRecord') &&
         this.hasPermission(document, 'ManageLegalHold') &&
-        document.properties.hasOwnProperty('file:content');
+        Object.prototype.hasOwnProperty.call(document.properties, 'file:content');
     },
 
     /**
