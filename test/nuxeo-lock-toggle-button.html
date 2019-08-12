@@ -25,6 +25,7 @@ limitations under the License.
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
   <script src="../../nuxeo-elements/test/test-helpers.js"></script>
+  <script src="../../moment/moment.js"></script>
 
   <link rel="import" href="../../polymer/polymer.html">
   <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
@@ -63,17 +64,322 @@ limitations under the License.
     </template>
   </test-fixture>
 
+  <test-fixture id="empty">
+    <template>
+      <nuxeo-lock-toggle-button></nuxeo-lock-toggle-button>
+    </template>
+  </test-fixture>
+
   <script>
     /* eslint-disable no-unused-expressions */
 
     suite('<nuxeo-lock-toggle-button>', () => {
+      let button;
       let server;
+
+      const lockedDocument = {
+        'entity-type': 'document',
+        uid: '1',
+        contextParameters: {
+          permissions: ['Write'],
+        },
+        facets: [],
+        lockCreated: '2016-02-19T12:47:40.501+01:00',
+        lockOwner: 'Administrator',
+        type: 'File',
+      };
+
       setup(() => {
         server = sinon.fakeServer.create();
         server.autoRespond = true;
+        button = fixture('empty');
         // login
         const nx = fixture('nx');
         return login(server, nx);
+      });
+
+      suite('Button Visibility', () => {
+        test('Should not be visible when document is null', async () => {
+          button.document = null;
+          await flush();
+          expect(Polymer.dom(button.root).querySelector('.action')).to.be.null;
+        });
+
+        test('Should not be visible when document is a version', async () => {
+          button.document = {
+            isVersion: true,
+          };
+          await flush();
+          expect(Polymer.dom(button.root).querySelector('.action')).to.be.null;
+        });
+
+        test('Should not be visible when document is immutable', async () => {
+          const doc = Object.assign({}, lockedDocument);
+          doc.facets = ['Immutable'];
+          button.document = doc;
+          await flush();
+          expect(Polymer.dom(button.root).querySelector('.action')).to.be.null;
+        });
+
+        test("Should not be visible when document type is 'Root'", async () => {
+          const doc = Object.assign({}, lockedDocument);
+          doc.type = 'Root';
+          button.document = doc;
+          await flush();
+          expect(Polymer.dom(button.root).querySelector('.action')).to.be.null;
+        });
+
+        test('Should be visible otherwise', async () => {
+          button.document = lockedDocument;
+          await flush();
+
+          const actionDiv = Polymer.dom(button.root).querySelector('.action');
+          expect(actionDiv).to.not.be.null;
+          expect(actionDiv.querySelector('.label')).to.not.be.null;
+          expect(actionDiv.querySelector('paper-icon-button')).to.not.be.null;
+        });
+
+        test('Should have corresponding information when visible and locked', async () => {
+          button.document = lockedDocument;
+          await flush();
+
+          const actionDiv = Polymer.dom(button.root).querySelector('.action');
+          expect(actionDiv).to.not.be.null;
+
+          const label = actionDiv.querySelector('.label').textContent.trim();
+          expect(label).to.equal('lockToggleButton.tooltip.unlock');
+
+          const icon = actionDiv.querySelector('paper-icon-button');
+          expect(icon).to.not.be.null;
+          expect(icon.icon).to.equal('nuxeo:lock');
+        });
+
+        test('Should have corresponding information when visible and unlocked', async () => {
+          const doc = Object.assign({}, lockedDocument);
+          doc.lockCreated = null;
+          doc.lockOwner = null;
+          button.document = doc;
+          await flush();
+
+          const actionDiv = Polymer.dom(button.root).querySelector('.action');
+          expect(actionDiv).to.not.be.null;
+
+          const label = actionDiv.querySelector('.label').textContent.trim();
+          expect(label).to.equal('lockToggleButton.tooltip.lock');
+
+          const icon = actionDiv.querySelector('paper-icon-button');
+          expect(icon).to.not.be.null;
+          expect(icon.icon).to.equal('nuxeo:unlock');
+        });
+      });
+
+      suite('Server Responds with Exceptions', () => {
+        setup(async () => {
+          sinon.spy(button.$.opUnlock, 'execute');
+          sinon.spy(button.$.opLock, 'execute');
+        });
+
+        test('Should trigger notify event when trying to unlock document and permissions error is received', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Unlock', [
+            403,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify({
+              'entity-type': 'exception',
+              message: 'FORBIDDEN',
+              status: 403,
+            }),
+          ]);
+
+          button.document = lockedDocument;
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.calledOnce).to.be.true;
+          expect(button.$.opLock.execute.notCalled).to.true;
+
+          const event = await waitForEvent(button, 'notify');
+          expect(event.detail).to.exist.and.to.have.key('message');
+          expect(event.detail.message).to.equal('lockToggleButton.unlock.error.noPermissions');
+        });
+
+        test('Should trigger notify event when trying to unlock document and conflict error is received', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Unlock', [
+            409,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify({
+              'entity-type': 'exception',
+              message: 'CONFLICT',
+              status: 409,
+            }),
+          ]);
+
+          button.document = lockedDocument;
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.calledOnce).to.be.true;
+          expect(button.$.opLock.execute.notCalled).to.be.true;
+
+          const event = await waitForEvent(button, 'notify');
+          expect(event.detail).to.exist.and.to.have.key('message');
+          expect(event.detail.message).to.equal('lockToggleButton.unlock.error.lockedByAnotherUser');
+        });
+
+        test('Should trigger notify event when trying to unlock document and unexpected error is received', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Unlock', [
+            500,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify({
+              'entity-type': 'exception',
+              message: 'Internal Server Error',
+              status: 500,
+            }),
+          ]);
+
+          button.document = lockedDocument;
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.calledOnce).to.be.true;
+          expect(button.$.opLock.execute.notCalled).to.be.true;
+
+          const event = await waitForEvent(button, 'notify');
+          expect(event.detail).to.exist.and.to.have.key('message');
+          expect(event.detail.message).to.equal('lockToggleButton.unlock.error.unexpectedError');
+        });
+
+        test('Should trigger notify event when trying to lock document and permissions error is received', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Lock', [
+            403,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify({
+              'entity-type': 'exception',
+              message: 'FORBIDDEN',
+              status: 403,
+            }),
+          ]);
+
+          const doc = Object.assign({}, lockedDocument);
+          doc.lockCreated = null;
+          doc.lockOwner = null;
+          button.document = doc;
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.notCalled).to.be.true;
+          expect(button.$.opLock.execute.calledOnce).to.be.true;
+
+          const event = await waitForEvent(button, 'notify');
+          expect(event.detail).to.exist.and.to.have.key('message');
+          expect(event.detail.message).to.equal('lockToggleButton.lock.error.noPermissions');
+        });
+
+        test('Should trigger notify event when trying to lock document and conflict error is received', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Lock', [
+            409,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify({
+              'entity-type': 'exception',
+              message: 'CONFLICT',
+              status: 409,
+            }),
+          ]);
+
+          const doc = Object.assign({}, lockedDocument);
+          doc.lockCreated = null;
+          doc.lockOwner = null;
+          button.document = doc;
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.notCalled).to.be.true;
+          expect(button.$.opLock.execute.calledOnce).to.be.true;
+
+          const event = await waitForEvent(button, 'notify');
+          expect(event.detail).to.exist.and.to.have.key('message');
+          expect(event.detail.message).to.equal('lockToggleButton.lock.error.alreadyLocked');
+        });
+
+        test('Should trigger notify event when trying to lock document and unexpected error is received', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Lock', [
+            500,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify({
+              'entity-type': 'exception',
+              message: 'Internal Server Error',
+              status: 500,
+            }),
+          ]);
+
+          const doc = Object.assign({}, lockedDocument);
+          doc.lockCreated = null;
+          doc.lockOwner = null;
+          button.document = doc;
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.notCalled).to.be.true;
+          expect(button.$.opLock.execute.calledOnce).to.be.true;
+
+          const event = await waitForEvent(button, 'notify');
+          expect(event.detail).to.exist.and.to.have.key('message');
+          expect(event.detail.message).to.equal('lockToggleButton.lock.error.unexpectedError');
+        });
+      });
+
+      suite('Server Responds Success', () => {
+        setup(async () => {
+          sinon.spy(button.$.opUnlock, 'execute');
+          sinon.spy(button.$.opLock, 'execute');
+        });
+
+        test('Should unlock the document', async () => {
+          const doc = Object.assign({}, lockedDocument);
+          doc.lockCreated = null;
+          doc.lockOwner = null;
+
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Unlock', [
+            200,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify(doc),
+          ]);
+
+          button.document = lockedDocument;
+          // Unlock the document by toggling
+          MockInteractions.tap(button);
+
+          expect(button.$.opUnlock.execute.calledOnce).to.be.true;
+          expect(button.$.opLock.execute.notCalled).to.be.true;
+
+          const event = await waitForEvent(button, 'document-unlocked');
+          expect(event.detail).to.exist.and.to.have.key('doc');
+          expect(event.detail.doc.uid).to.equal(lockedDocument.uid);
+          expect(event.detail.doc.lockCreated).to.be.null;
+          expect(event.detail.doc.lockOwner).to.be.null;
+
+          // Simulate document update
+          button.document = event.detail.doc;
+          expect(button.locked).to.be.false;
+          expect(button.icon).to.equal('nuxeo:unlock');
+          expect(button.tooltip).to.equal('lockToggleButton.tooltip.lock');
+        });
+
+        test('Should lock the document', async () => {
+          server.respondWith('POST', '/dummy/api/v1/automation/Document.Lock', [
+            200,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify(lockedDocument),
+          ]);
+
+          const doc = Object.assign({}, lockedDocument);
+          doc.lockCreated = null;
+          doc.lockOwner = null;
+          button.document = doc;
+          // Lock the document by toggling
+          MockInteractions.tap(button);
+          expect(button.$.opUnlock.execute.notCalled).to.be.true;
+          expect(button.$.opLock.execute.calledOnce).to.be.true;
+
+          const event = await waitForEvent(button, 'document-locked');
+          expect(event.detail).to.exist.and.to.have.key('doc');
+          expect(event.detail.doc.uid).to.equal(lockedDocument.uid);
+          expect(event.detail.doc.lockCreated).to.equal('2016-02-19T12:47:40.501+01:00');
+          expect(event.detail.doc.lockOwner).to.equal('Administrator');
+
+          // Simulate document update
+          button.document = event.detail.doc;
+          expect(button.locked).to.be.true;
+          expect(button.icon).to.equal('nuxeo:lock');
+          expect(button.tooltip).to.equal('lockToggleButton.tooltip.lockedBy');
+        });
       });
 
       suite('when a document is locked', () => {
