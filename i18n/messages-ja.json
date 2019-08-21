@@ -135,6 +135,8 @@
   "label.group": "グループ",
   "label.loading": "ロード中",
   "label.no": "なし",
+  "label.noResults": "No results.",
+  "label.noResultsWhenFiltered": "No results with these search criteria.",
   "label.yes": "あり",
   "label.ui.state.accepted": "承諾済み",
   "label.ui.state.approved": "承諾済み",

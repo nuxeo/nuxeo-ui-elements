@@ -135,6 +135,8 @@
   "label.group": "Grupo",
   "label.loading": "Cargando",
   "label.no": "No",
+  "label.noResults": "No results.",
+  "label.noResultsWhenFiltered": "No results with these search criteria.",
   "label.yes": "Si",
   "label.ui.state.accepted": "Aceptado",
   "label.ui.state.approved": "Aprobado",
