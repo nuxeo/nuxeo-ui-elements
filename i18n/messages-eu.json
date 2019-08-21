@@ -135,6 +135,8 @@
   "label.group": "Taldea",
   "label.loading": "Kargatzen",
   "label.no": "Ez",
+  "label.noResults": "No results.",
+  "label.noResultsWhenFiltered": "No results with these search criteria.",
   "label.yes": "Bai",
   "label.ui.state.accepted": "Onartuta",
   "label.ui.state.approved": "Onetsita",
