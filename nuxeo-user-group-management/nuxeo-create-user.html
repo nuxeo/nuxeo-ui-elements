@@ -49,10 +49,6 @@ Used by `nuxeo-user-group-management`
         @apply --layout-flex;
       }
 
-      .backButton {
-        color: var(--nuxeo-button-primary, #00adff);
-      }
-
       .header > iron-icon {
         padding: 8px;
       }
@@ -101,7 +97,6 @@ Used by `nuxeo-user-group-management`
     <nuxeo-operation id="invite" op="User.Invite"></nuxeo-operation>
 
     <div class="header horizontal layout center">
-      <paper-icon-button class="backButton" icon="icons:arrow-back" on-tap="_goHome"></paper-icon-button>
       <h3><iron-icon icon="nuxeo:user"></iron-icon>[[i18n('createUser.heading')]]</h3>
     </div>
 
