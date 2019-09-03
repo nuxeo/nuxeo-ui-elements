@@ -15,6 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="es6-polyfills.html">
+<link rel="import" href="nuxeo-i18n-behavior.html">
 
 <script>
   /* eslint-disable no-var, no-use-before-define */
@@ -64,6 +65,28 @@ limitations under the License.
       return false;
     },
 
+    canSetRetention(document) {
+      return document && !document.hasLegalHold &&
+        this.hasPermission(document, 'MakeRecord') &&
+        this.hasPermission(document, 'SetRetention') &&
+        Object.prototype.hasOwnProperty.call(document.properties, 'file:content');
+    },
+
+    canSetLegalHold(document) {
+      return document &&
+        this.hasPermission(document, 'MakeRecord') &&
+        this.hasPermission(document, 'ManageLegalHold') &&
+        Object.prototype.hasOwnProperty.call(document.properties, 'file:content');
+    },
+
+    /**
+     * Checks if the document retention date is indeterminate.
+     */
+    isRetentionDateIndeterminate(doc) {
+      return doc && doc.retainUntil &&
+        moment(doc.retainUntil).diff('9999-01-01T00:00:00.000+00:00') === 0;
+    },
+
     /**
      * Checks if the document is a version.
      */
@@ -76,6 +99,20 @@ limitations under the License.
      */
     isImmutable(doc) {
       return this.hasFacet(doc, 'Immutable');
+    },
+
+    /**
+     * Checks if the document is under retention or legal hold.
+     */
+    isUnderRetentionOrLegalHold(doc) {
+      return doc && doc.isUnderRetentionOrLegalHold;
+    },
+
+    /**
+     * Checks if the document is record.
+     */
+    isRecord(doc) {
+      return doc && doc.isRecord;
     },
 
     /**
