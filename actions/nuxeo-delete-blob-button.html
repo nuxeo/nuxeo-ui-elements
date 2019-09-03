@@ -118,7 +118,9 @@ limitations under the License.
 
         _isAvailable(doc) {
           return doc && this.hasPermission(doc, 'Write') && !this.isImmutable(doc) &&
-              !this.hasType(doc, 'Root') && !this.isTrashed(doc);
+              !this.hasType(doc, 'Root') && !this.isTrashed(doc) &&
+              !(doc.isRecord && this.xpath !== 'file:content') &&
+              !(this.isUnderRetentionOrLegalHold(doc) && this.xpath === 'file:content');
         }
 
         _computeLabel() {
