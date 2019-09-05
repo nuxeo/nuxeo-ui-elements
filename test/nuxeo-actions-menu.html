@@ -122,7 +122,7 @@ limitations under the License.
   </template>
 </test-fixture>
 
-<test-fixture id="contribution">
+<test-fixture id="testButtonContribution">
   <template>
     <dom-module id="nuxeo-test-button">
       <template>
@@ -150,6 +150,47 @@ limitations under the License.
         }
       </script>
     </dom-module>
+  </template>
+</test-fixture>
+
+<test-fixture id="customSlottedMenuElementContribution">
+  <template>
+    <dom-module id="my-custom-slotted-menu-element">
+      <template>
+        <div style="max-width: 160px;">
+          <nuxeo-actions-menu>
+            <slot>
+              <nuxeo-slot slot="SLOT"></nuxeo-slot>
+            </slot>
+          </nuxeo-actions-menu>
+        </div>
+      </template>
+      <script>
+        {
+          class CustomSlottedMenuElement extends Nuxeo.Element {
+            static get is() { return 'my-custom-slotted-menu-element'; }
+            static get properties() {
+              return {
+                icon: String,
+                showLabel: {
+                  type: Boolean,
+                  value: false,
+                },
+              };
+            }
+          }
+          customElements.define(CustomSlottedMenuElement.is, CustomSlottedMenuElement);
+        }
+      </script>
+    </dom-module>
+  </template>
+</test-fixture>
+
+<test-fixture id="customSlottedMenuElementWithNuxeoSlot">
+  <template>
+    <my-custom-slotted-menu-element>
+      <nuxeo-slot name="SLOT"></nuxeo-slot>
+    </my-custom-slotted-menu-element>
   </template>
 </test-fixture>
 
@@ -252,7 +293,7 @@ limitations under the License.
         .then(() => {
           fixture('menuSlottedContent2');
           return flush().then(() => {
-            fixture('contribution');
+            fixture('testButtonContribution');
             return customElements.whenDefined('nuxeo-test-button');
           });
         })
@@ -263,26 +304,47 @@ limitations under the License.
         });
     });
 
-    function menuActions(div) {
-      return div.querySelector('nuxeo-actions-menu').querySelectorAll(':not([slot="dropdown"]):not(nuxeo-slot)');
+    suite('compatibility with nuxeo-slots and native HTML slots', () => {
+      test('menu with nuxeo-slot in a native slot', async () => {
+        // nuxeo-slot is the only element right now that works in a native slot inside the actions menu,
+        // since it has dedicated logics to reallocate its children
+        await fixture('customSlottedMenuElementContribution');
+        await fixture('menuSlottedContent1');
+        const customEl = fixture('customSlottedMenuElementWithNuxeoSlot');
+        await flush();
+        expect(menuActions(customEl).length).to.be.equal(3);
+        expect(dropdownActions(customEl).length).to.be.equal(2);
+        expect(dropdownButton(customEl).hidden).to.be.false;
+      });
+    });
+
+    function actionsMenu(el) {
+      return (el.shadowRoot || el).querySelector('nuxeo-actions-menu');
     }
 
-    function dropdownActions(div) {
-      return div.querySelector('nuxeo-actions-menu').querySelectorAll('[slot="dropdown"]:not(nuxeo-slot)');
+    function menuActions(el) {
+      // We're relying on getContentChildren because a query by `:not([slot="dropdown"]):not(nuxeo-slot)` is too
+      // generic when using a slot with a nuxeo-slot inside, thus causing some elements to be returned twice. This
+      // could be fixed with `:scope > :not([slot="dropdown"]):not(nuxeo-slot)`, but `:scope` is not supported on Edge.
+      return actionsMenu(el).getContentChildren().filter((i) => i.tagName !== 'NUXEO-SLOT');
     }
 
-    function dropdownButton(div) {
-      return div.querySelector('nuxeo-actions-menu').$.dropdownButton;
+    function dropdownActions(el) {
+      return actionsMenu(el).getContentChildren('slot[name="dropdown"]').filter((i) => i.tagName !== 'NUXEO-SLOT');
     }
 
-    function removeAction(div) {
-      const menu = div.querySelector('nuxeo-actions-menu');
+    function dropdownButton(el) {
+      return actionsMenu(el).$.dropdownButton;
+    }
+
+    function removeAction(el) {
+      const menu = actionsMenu(el);
       const lastChild = menu.lastElementChild;
       menu.removeChild(lastChild);
     }
 
-    function addAction(div) {
-      const menu = div.querySelector('nuxeo-actions-menu');
+    function addAction(el) {
+      const menu = actionsMenu(el);
       const action = document.createElement('nuxeo-preview-button');
       action.document = '{ "entity-type": "document", "facets": [] }';
       menu.appendChild(action);
