@@ -65,6 +65,37 @@ limitations under the License.
   </nuxeo-filter>
 </div>
 
+<div id="schemaFilter">
+  <!-- single -->
+  <nuxeo-filter document='{"schemas":["files"]}' schema="files">
+    <template>
+      <div class="ok"></div>
+    </template>
+  </nuxeo-filter>
+  <nuxeo-filter document='{"schemas":["files"]}' schema="dublincore">
+    <template>
+      <div class="notok"></div>
+    </template>
+  </nuxeo-filter>
+
+  <!-- multiple -->
+  <nuxeo-filter document='{"schemas":["files"]}' schema="files, dublincore">
+    <template>
+      <div class="ok"></div>
+    </template>
+  </nuxeo-filter>
+  <nuxeo-filter document='{"schemas":["common"]}' schema="dublincore,common,files">
+    <template>
+      <div class="ok"></div>
+    </template>
+  </nuxeo-filter>
+  <nuxeo-filter document='{"schemas":[]}' schema="file,common">
+    <template>
+      <div class="notok"></div>
+    </template>
+  </nuxeo-filter>
+</div>
+
 <div id="typeFilter">
   <nuxeo-filter document='{"type":"Folder"}' type="Folder">
     <template>
@@ -320,6 +351,12 @@ limitations under the License.
     test('facet filter', () => {
       expect(stamped(facetFilter, '.ok').length).to.be.equal(3);
       expect(stamped(facetFilter, 'notok')).to.be.empty;
+    });
+
+    /* global schemaFilter */
+    test('schema filter', () => {
+      expect(stamped(schemaFilter, '.ok').length).to.be.equal(3);
+      expect(stamped(schemaFilter, 'notok')).to.be.empty;
     });
 
     /* global typeFilter */
