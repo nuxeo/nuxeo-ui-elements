@@ -3696,7 +3696,7 @@ function doFetch(ajax, queryOptions) {
             }
         })
         .catch(function(error) {
-            var formatError = ajax.formatError || Locale.ajaxError;
+            var formatError = ajax.formatError || Selectivity.Locale.ajaxError;
             queryOptions.error(formatError(term, error), { escape: false });
         });
 }
@@ -3712,7 +3712,7 @@ Selectivity.OptionListeners.unshift(function(selectivity, options) {
         options.query = function(queryOptions) {
             var numCharsNeeded = ajax.minimumInputLength - queryOptions.term.length;
             if (numCharsNeeded > 0) {
-                queryOptions.error(Locale.needMoreCharacters(numCharsNeeded));
+                queryOptions.error(Selectivity.Locale.needMoreCharacters(numCharsNeeded));
                 return;
             }
 
@@ -6066,7 +6066,7 @@ Selectivity.Templates = {
      * replaced with actual results.
      */
     loading: function() {
-        return '<div class="selectivity-loading">' + Locale.loading + '</div>';
+        return '<div class="selectivity-loading">' + Selectivity.Locale.loading + '</div>';
     },
 
     /**
@@ -6076,7 +6076,7 @@ Selectivity.Templates = {
      * clicked, will load more results.
      */
     loadMore: function() {
-        return '<div class="selectivity-load-more">' + Locale.loadMore + '</div>';
+        return '<div class="selectivity-load-more">' + Selectivity.Locale.loadMore + '</div>';
     },
 
     /**
@@ -6148,7 +6148,7 @@ Selectivity.Templates = {
     noResults: function(options) {
         return (
             '<div class="selectivity-error">' +
-            (options.term ? Locale.noResultsForTerm(options.term) : Locale.noResults) +
+            (options.term ? Selectivity.Locale.noResultsForTerm(options.term) : Selectivity.Locale.noResults) +
             '</div>'
         );
     },
