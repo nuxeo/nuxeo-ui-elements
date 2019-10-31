@@ -195,6 +195,15 @@ limitations under the License.
     return container.querySelectorAll(':not(nuxeo-slot)');
   }
 
+  // asserts that all slot contributions are inserted before <nuxeo-slot>
+  function _assertPosition(elem) {
+    const children = Array.from(elem.children);
+    const slotIdx = children.indexOf(elem.querySelector('NUXEO-SLOT'));
+    Array.from(_content(elem))
+      .map((el) => children.indexOf(el))
+      .forEach((contentIdx) => expect(contentIdx).to.be.below(slotIdx));
+  }
+
   suite('<nuxeo-slot>', () => {
     [{ legacySlotName: false }, { legacySlotName: true }].forEach((conf) => {
       suite(conf.legacySlotName ? '"slot" attribute as nuxeo-slot name (legacy)' : '', () => {
@@ -221,12 +230,14 @@ limitations under the License.
           document.getElementById('slot1Content1').create();
 
           return flush().then(() => {
+            _assertPosition(slot1);
             expect(_content(slot1).length).to.be.equal(1);
             expect(_content(slot2)).to.be.empty;
 
             document.getElementById('slot1Content2').create();
             return flush();
           }).then(() => {
+            _assertPosition(slot1);
             expect(_content(slot1).length).to.be.equal(2);
             expect(_content(slot2)).to.be.empty;
 
@@ -234,6 +245,7 @@ limitations under the License.
             return flush();
           }).then(() => {
             expect(_content(slot1).length).to.be.equal(2);
+            _assertPosition(slot2);
             expect(_content(slot2).length).to.be.equal(1);
 
             const content1 = _content(slot1);
@@ -259,6 +271,7 @@ limitations under the License.
 
             return flush();
           }).then(() => {
+            _assertPosition(slot1);
             const content = _content(slot1);
             expect(content.length).to.be.equal(2);
             // check content 1 was moved to first
@@ -290,6 +303,7 @@ limitations under the License.
             fixture('reenabledSlotContent');
             return flush();
           }).then(() => {
+            _assertPosition(slot1);
             const content = _content(slot1);
             expect(content.length).to.be.equal(1);
             expect(content[0].textContent).to.be.equal('Disabled content');
@@ -310,6 +324,7 @@ limitations under the License.
             fixture('slot1Content1Override');
             return flush();
           }).then(() => {
+            _assertPosition(slot1);
             content = _content(slot1);
             expect(content.length).to.be.equal(2);
             // check content 1 was moved to last
@@ -323,6 +338,7 @@ limitations under the License.
           fixture('slot1Content1Priority');
 
           return flush().then(() => {
+            _assertPosition(slot1);
             const content = _content(slot1);
             expect(content.length).to.be.equal(1);
             expect(content[0].textContent).to.be.equal('Content 1 override');
@@ -371,6 +387,7 @@ limitations under the License.
         // let's contribute content to the nuxeo-slot
         fixture('slot3Content');
         await flush();
+        _assertPosition(customEl);
         let [content] = _content(nxSlot.parentElement);
         expect(content.parentElement).to.be.equal(nxSlot.parentElement);
         expect(content.assignedSlot).to.be.equal(nxSlot.assignedSlot);
@@ -378,6 +395,7 @@ limitations under the License.
         // switch slots and check if the content is correctly updated
         nxSlot.slot = 'body';
         await flush();
+        _assertPosition(customEl);
         [content] = _content(nxSlot.parentElement);
         expect(nxSlot.parentElement).to.be.equal(customEl);
         expect(nxSlot.assignedSlot).to.not.be.null;
@@ -387,6 +405,7 @@ limitations under the License.
 
         nxSlot.slot = '';
         await flush();
+        _assertPosition(customEl);
         [content] = _content(nxSlot.parentElement);
         expect(nxSlot.parentElement).to.be.equal(customEl);
         expect(nxSlot.assignedSlot).to.not.be.null;
