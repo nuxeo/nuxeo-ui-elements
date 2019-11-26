@@ -40,10 +40,7 @@ limitations under the License.
     'nuxeo-uploader-behavior.html',
     'nuxeo-user-suggestion.html'
   ];
-  var suites = [];
-  tests.forEach(function (test) { suites.push(test + '?dom=shadow'); });
-  tests.forEach(function (test) { suites.push(test + '?wc-shadydom=true&wc-ce=true'); });
-  WCT.loadSuites(suites);
+  WCT.loadSuites(tests);
 </script>
 </body>
 </html>
