@@ -43,10 +43,7 @@ limitations under the License.
     'nuxeo-user-suggestion.html',
     'nuxeo-user-tag.html',
   ];
-  const suites = [];
-  tests.forEach((test) => { suites.push(`${test}?dom=shadow`); });
-  tests.forEach((test) => { suites.push(`${test}?wc-shadydom=true&wc-ce=true`); });
-  WCT.loadSuites(suites);
+  WCT.loadSuites(tests);
 </script>
 </body>
 </html>
