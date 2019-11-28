@@ -358,6 +358,18 @@ limitations under the License.
             expect(content[0].textContent).to.be.equal('test2');
           });
         });
+
+        test('slot content with unfinished DOM distribution', async () => {
+          const slotContent = fixture('emptySlotContent');
+          await flush();
+          expect(_content(slot1)).to.be.empty;
+          const text = 'I was loaded late.';
+          slotContent.innerHTML = `<template><span>${text}</span></template>`;
+          const mutation = await waitForChildListMutation(slot1);
+          expect(mutation.addedNodes.length).to.be.equal(1);
+          expect(mutation.addedNodes[0].textContent).to.be.equal(text);
+          expect(_content(slot1).length).to.be.equal(1);
+        });
       });
     });
 
