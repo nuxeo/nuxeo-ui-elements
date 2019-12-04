@@ -454,10 +454,11 @@ limitations under the License.
         }
 
         disconnectedCallback() {
-          super.disconnectedCallback();
           this.$.input.removeEventListener('selectivity-change', this._updateSelectionHandler);
           this._updateSelectionHandler = null;
+          this._selectivity.destroy();
           this._selectivity = null;
+          super.disconnectedCallback();
         }
 
         _getValidity() {

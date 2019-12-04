@@ -2593,6 +2593,11 @@ assign(EventListener.prototype, {
      * given event and class are discarded.
      */
     off: function(eventName, selector, callback) {
+        if (!this.events) {
+            // this means that destruction might be in progress
+            return;
+        }
+
         if (!isString(selector)) {
             callback = selector;
             selector = '';
