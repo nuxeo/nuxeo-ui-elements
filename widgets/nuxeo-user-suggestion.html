@@ -265,7 +265,8 @@ limitations under the License.
 
         _resultFormatter(item) {
           if (item.type && (item.type === 'USER_TYPE' || item.type === 'GROUP_TYPE')) {
-            return `<nuxeo-user-group-formatter entity='${JSON.stringify(item)}'></nuxeo-user-group-formatter>`;
+            const escapedEntity = this.$.s2.escapeHTML(JSON.stringify(item));
+            return `<nuxeo-user-group-formatter entity='${escapedEntity}'></nuxeo-user-group-formatter>`;
           }
           // fallback, if entities are not available
           return this.$.s2.escapeHTML(item.displayLabel || item.title);
