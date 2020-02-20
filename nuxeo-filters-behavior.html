@@ -66,6 +66,7 @@ limitations under the License.
 
     canSetRetention(document) {
       return document && !document.hasLegalHold &&
+        !this.isVersion(document) &&
         this.hasPermission(document, 'MakeRecord') &&
         this.hasPermission(document, 'SetRetention') &&
         Object.prototype.hasOwnProperty.call(document.properties, 'file:content');
@@ -73,6 +74,7 @@ limitations under the License.
 
     canSetLegalHold(document) {
       return document &&
+        !this.isVersion(document) &&
         this.hasPermission(document, 'MakeRecord') &&
         this.hasPermission(document, 'ManageLegalHold') &&
         Object.prototype.hasOwnProperty.call(document.properties, 'file:content');
@@ -213,6 +215,7 @@ limitations under the License.
      */
     isPublishable(doc) {
       return doc && !this.isProxy(doc)
+          && !this.isRecord(doc)
           && !this.isTrashed(doc)
           && this.hasFacet(doc, 'Publishable')
           && this.hasPermission(doc, 'Write');
