@@ -31,9 +31,7 @@ function DefaultUploadProvider(connection, accept, batchAppend) {
 
 DefaultUploadProvider.prototype._ensureBatch = function () {
   if (!this.batchAppend || !this.uploader) {
-    return this.connection.batchUpload().then((uploader) => {
-      this.uploader = uploader;
-    });
+    return this._newBatch();
   } else {
     return Promise.resolve();
   }
@@ -62,6 +60,9 @@ DefaultUploadProvider.prototype.upload = function (files, callback) {
           callback({ type: 'uploadStarted', file });
         }
         this.uploader.upload(blob).then((result) => {
+          if (!this.batchId) {
+            callback({ type: 'batchStart', batchId: result.batch._batchId });
+          }
           callback({ type: 'uploadCompleted', fileIdx: result.blob.fileIdx });
         }).catch((error) => {
           callback({ type: 'uploadInterrupted', file, error });
@@ -306,6 +307,9 @@ export const UploaderBehavior = {
         case 'uploadCompleted':
           this._uploadFinished(event.fileIdx);
           break;
+        case 'batchStart':
+          this._batchStart(event.batchId);
+          break;
         case 'batchFinished':
           this._batchFinished(event.batchId);
           break;
@@ -366,6 +370,12 @@ export const UploaderBehavior = {
     Object.keys(values).forEach((k) => {
       this.set(['files', index, k].join('.'), values[k]);
     });
+  },
+
+  _batchStart(batchId) {
+    this.batchId = batchId;
+    this._instance.batchId = batchId;
+    this.fire('batchStart', { batchId });
   },
 
   _batchFinished(batchId) {
