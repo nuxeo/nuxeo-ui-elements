@@ -34,13 +34,6 @@
         {
           "browserName": "ipad",
           "platform": "iOS 11.3"
-        },
-        {
-          "browserName": "chrome",
-          "platform": "android",
-          "version": "7.1",
-          "deviceName": "Android GoogleAPI Emulator",
-          "deviceType": "tablet"
         }
       ]
     }
