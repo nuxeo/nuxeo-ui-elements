@@ -14,6 +14,7 @@
     "waitForEvent": true,
     "waitForAttrMutation": false,
     "waitForChildListMutation": false,
-    "flush": true
+    "flush": true,
+    "isElementVisible": true
   }
 }
