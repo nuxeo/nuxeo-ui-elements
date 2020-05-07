@@ -39,7 +39,7 @@
     "paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0",
     "paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
     "paper-tooltip": "PolymerElements/paper-tooltip#^2.0.0",
-    "moment": "2.10.6",
+    "moment": "~2.25.2",
     "d3": "3.5.17",
     "randomcolor": "0.4.1",
     "select2": "3.5.2",
