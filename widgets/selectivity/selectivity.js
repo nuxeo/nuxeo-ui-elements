@@ -6105,7 +6105,7 @@ Selectivity.Templates = {
             '<div class="selectivity-multiple-input-container">' +
             (options.enabled ? enabledTemplate : disabledTemplate) +
             '<div class="selectivity-clearfix"></div>' +
-            '<i class="fa fa-sort-desc selectivity-caret"></i>' +
+            '<i class="selectivity-caret"></i>' +
             '</div>'
         );
     },
@@ -6225,7 +6225,7 @@ Selectivity.Templates = {
             '<div class="selectivity-single-select">' +
             '<input type="text" class="selectivity-single-select-input"' + (options.required ? ' required' : '') + '>' +
             '<div class="selectivity-single-result-container"></div>' +
-            '<i class="fa fa-sort-desc selectivity-caret"></i>' +
+            '<i class="selectivity-caret"></i>' +
             '</div>'
         );
     },
