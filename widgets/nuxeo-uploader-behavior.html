@@ -77,7 +77,7 @@ limitations under the License.
           this.uploader.done().then((result) => {
             callback({ type: 'batchFinished', batchId: result.batch._batchId });
           }).catch((error) => {
-            callback({ type: 'batchFailed', error });
+            callback({ type: 'batchFailed', error, batchId: this.uploader._batchId });
           });
         });
       }
@@ -342,7 +342,7 @@ limitations under the License.
               this._uploadInterrupted(event.file, event.error);
               break;
             case 'batchFailed':
-              this._batchFailed(event.error);
+              this._batchFailed(event.error, event.batchId);
               break;
             default:
               // do nothing
@@ -417,13 +417,13 @@ limitations under the License.
         this.fire('batchFinished', { batchId });
       },
 
-      _batchFailed(error) {
+      _batchFailed(error, batchId) {
         this.uploading = false;
         this.files.forEach((file, index) => this._updateFile(index, {
           error: !file.complete && error,
           index,
         }));
-        this.fire('batchFailed', { error });
+        this.fire('batchFailed', { error, batchId });
       },
 
       _uploadStarted(file) {
