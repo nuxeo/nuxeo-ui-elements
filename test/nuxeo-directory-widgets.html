@@ -43,125 +43,235 @@ limitations under the License.
 
   <test-fixture id="checkbox">
     <template>
-        <nuxeo-directory-checkbox>
-        </nuxeo-directory-checkbox>
+      <nuxeo-directory-checkbox>
+      </nuxeo-directory-checkbox>
     </template>
   </test-fixture>
 
   <test-fixture id="radioGroup">
     <template>
-        <nuxeo-directory-radio-group>
-        </nuxeo-directory-radio-group>
+      <nuxeo-directory-radio-group>
+      </nuxeo-directory-radio-group>
     </template>
   </test-fixture>
 
   <test-fixture id="suggestion">
     <template>
-        <nuxeo-directory-suggestion>
-        </nuxeo-directory-suggestion>
+      <nuxeo-directory-suggestion min-chars="0">
+      </nuxeo-directory-suggestion>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="suggestion-multiple">
+    <template>
+      <nuxeo-directory-suggestion min-chars="0" multiple>
+      </nuxeo-directory-suggestion>
     </template>
   </test-fixture>
 
   <script>
+    const getSuggestedValue = (s2, timeout) => {
+      timeout = timeout || 2000;
+      const start = Date.now();
+      const waitForSuggestion = function (resolve, reject) {
+        const result = Polymer.dom(s2.root).querySelector('.selectivity-result-item.highlight');
+        if (result) {
+          resolve(result.textContent);
+        } else if (timeout && Date.now() - start >= timeout) {
+          reject(new Error('timeout'));
+        } else {
+          setTimeout(waitForSuggestion.bind(this, resolve, reject), 30);
+        }
+      };
+      return new Promise(waitForSuggestion);
+    };
+
+    const assertSelectedValue = (widget, input, value) => {
+      const s2 = Polymer.dom(widget.root).querySelector('#s2');
+      const el = Polymer.dom(s2.root).querySelector('#input');
+      MockInteractions.tap(el);
+      Polymer.dom(s2.root)
+        .querySelector(widget.multiple ? '.selectivity-multiple-input' : '.selectivity-search-input').value = input;
+      return flush().then(() => getSuggestedValue(s2)).then((val) => {
+        expect(val).to.be.equal(value);
+      });
+    };
+
     suite('Given I have a non-balanced hierarchical vocabulary', () => {
       let server;
       let suggestionWidget;
       setup(() => {
         server = sinon.fakeServer.create();
         server.autoRespond = true;
-        const response = [
-          {
-            absoluteLabel: 'Brittany',
-            computedId: 'breizh',
-            directoryName: 'l10ncoverage',
-            displayLabel: 'Brittany',
-            'entity-type': 'directoryEntry',
-            id: 'breizh',
-            label_en: 'Brittany',
-            label_fr: 'Bretagne',
-            obsolete: 0,
-            ordering: 10000000,
-            parent: '',
-            properties: {
+      });
+
+      suite('When I have a single-valued suggestion widget', () => {
+        setup(() => {
+          const response = [
+            {
+              absoluteLabel: 'Brittany',
+              computedId: 'breizh',
+              directoryName: 'l10ncoverage',
+              displayLabel: 'Brittany',
+              'entity-type': 'directoryEntry',
               id: 'breizh',
               label_en: 'Brittany',
               label_fr: 'Bretagne',
               obsolete: 0,
               ordering: 10000000,
               parent: '',
-            },
-          },
-          {
-            children: [
-              {
-                absoluteLabel: 'South-america/Brazil',
-                computedId: 'south-america/Brazil',
-                directoryName: 'l10ncoverage',
-                displayLabel: 'Brazil',
-                'entity-type': 'directoryEntry',
-                id: 'Brazil',
-                label_en: 'Brazil',
-                label_fr: 'Br\u00e9sil',
+              properties: {
+                id: 'breizh',
+                label_en: 'Brittany',
+                label_fr: 'Bretagne',
                 obsolete: 0,
                 ordering: 10000000,
-                parent: 'south-america',
-                properties: {
+                parent: '',
+              },
+            },
+            {
+              children: [
+                {
+                  absoluteLabel: 'South-america/Brazil',
+                  computedId: 'south-america/Brazil',
+                  directoryName: 'l10ncoverage',
+                  displayLabel: 'Brazil',
+                  'entity-type': 'directoryEntry',
                   id: 'Brazil',
                   label_en: 'Brazil',
                   label_fr: 'Br\u00e9sil',
                   obsolete: 0,
                   ordering: 10000000,
                   parent: 'south-america',
+                  properties: {
+                    id: 'Brazil',
+                    label_en: 'Brazil',
+                    label_fr: 'Br\u00e9sil',
+                    obsolete: 0,
+                    ordering: 10000000,
+                    parent: 'south-america',
+                  },
                 },
-              },
+              ],
+              displayLabel: 'South-america',
+            },
+          ];
+          server.respondWith(
+            'POST',
+            '/dummy/api/v1/automation/Directory.SuggestEntries',
+            [
+              200,
+              { 'Content-Type': 'application/json' },
+              JSON.stringify(response),
             ],
-            displayLabel: 'South-america',
-          },
-        ];
-        server.respondWith(
-          'POST',
-          '/dummy/api/v1/automation/Directory.SuggestEntries',
-          [
-            200,
-            { 'Content-Type': 'application/json' },
-            JSON.stringify(response),
-          ],
-        );
-        // login
-        const nx = fixture('nx');
-        return login(server, nx);
-      });
-
-      suite('When I have a suggestion widget', () => {
-        setup(() => {
-          suggestionWidget = fixture('suggestion');
-          suggestionWidget.directoryName = 'l10coverage';
-          suggestionWidget.minChars = 0;
+          );
+          // login
+          const nx = fixture('nx');
+          return login(server, nx);
         });
 
-        test('Then it works', () => {
-          const s2 = Polymer.dom(suggestionWidget.root).querySelector('#s2');
-          const input = Polymer.dom(s2.root).querySelector('#input');
-          MockInteractions.tap(input);
-          Polymer.dom(s2.root).querySelector('.selectivity-search-input').value = 'Brittany';
-          const getSuggestedValue = function (timeout) {
-            timeout = timeout || 2000;
-            const start = Date.now();
-            const waitForSuggestion = function (resolve, reject) {
-              const result = Polymer.dom(s2.root).querySelector('.selectivity-result-item.highlight');
-              if (result) {
-                resolve(result.textContent);
-              } else if (timeout && (Date.now() - start) >= timeout) {
-                reject(new Error('timeout'));
-              } else {
-                setTimeout(waitForSuggestion.bind(this, resolve, reject), 30);
-              }
-            };
-            return new Promise(waitForSuggestion);
-          };
-          return flush().then(getSuggestedValue).then((val) => {
-            expect(val).to.be.equal('Brittany');
-          });
+        test('Then I can select an entry', () => {
+          suggestionWidget = fixture('suggestion');
+          suggestionWidget.directoryName = 'l10coverage';
+          return assertSelectedValue(suggestionWidget, 'Brittany', 'Brittany');
+        });
+      });
+
+      suite('When I have a multi-valued suggestion widget', () => {
+        const response = [
+          {
+            displayLabel: 'Art',
+            children: [
+              {
+                parent: 'art',
+                ordering: 10000000,
+                obsolete: 0,
+                id: 'architecture',
+                displayLabel: 'Architecture',
+                label_en: 'Architecture',
+                label_fr: 'Architecture',
+                directoryName: 'l10nsubjects',
+                properties: {
+                  parent: 'art',
+                  ordering: 10000000,
+                  obsolete: 0,
+                  id: 'architecture',
+                  label_en: 'Architecture',
+                  label_fr: 'Architecture',
+                },
+                'entity-type': 'directoryEntry',
+                computedId: 'art/architecture',
+                absoluteLabel: 'Art/Architecture',
+              },
+              {
+                parent: 'art',
+                ordering: 10000000,
+                obsolete: 0,
+                id: 'art history',
+                displayLabel: 'Art history',
+                label_en: 'Art history',
+                label_fr: "Histoire de l'art",
+                directoryName: 'l10nsubjects',
+                properties: {
+                  parent: 'art',
+                  ordering: 10000000,
+                  obsolete: 0,
+                  id: 'art history',
+                  label_en: 'Art history',
+                  label_fr: "Histoire de l'art",
+                },
+                'entity-type': 'directoryEntry',
+                computedId: 'art/art history',
+                absoluteLabel: 'Art/Art history',
+              },
+            ],
+          },
+        ];
+        setup(() => {
+          server.respondWith(
+            'POST',
+            '/dummy/api/v1/automation/Directory.SuggestEntries',
+            [
+              200,
+              { 'Content-Type': 'application/json' },
+              JSON.stringify(response),
+            ],
+          );
+          // login
+          const nx = fixture('nx');
+          return login(server, nx);
+        });
+
+        test('Then I can select an entry', () => {
+          suggestionWidget = fixture('suggestion-multiple');
+          suggestionWidget.directoryName = 'l10nsubjects';
+
+          // this is how you get data from Directory.SuggestEntries
+          suggestionWidget.value = [response[0].children[0]];
+          return assertSelectedValue(suggestionWidget, 'ar', 'Art history');
+        });
+
+        test("Then I can select a second entry if the first doesn't have a computedId", () => {
+          suggestionWidget = fixture('suggestion-multiple');
+          suggestionWidget.directoryName = 'l10nsubjects';
+
+          // this is how you get data from a document, without the computedId
+          suggestionWidget.value = [
+            {
+              id: 'architecture',
+              directoryName: 'l10nsubjects',
+              properties: {
+                parent: 'art',
+                ordering: 10000000,
+                obsolete: 0,
+                id: 'architecture',
+                label_en: 'Architecture',
+                label_fr: 'Architecture',
+              },
+              'entity-type': 'directoryEntry',
+            },
+          ];
+          return assertSelectedValue(suggestionWidget, 'ar', 'Art history');
         });
       });
     });
