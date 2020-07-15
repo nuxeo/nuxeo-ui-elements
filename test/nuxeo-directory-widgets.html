@@ -251,6 +251,37 @@ limitations under the License.
           return assertSelectedValue(suggestionWidget, 'ar', 'Art history');
         });
 
+        test('Then I can select and re-select an entry', async () => {
+          suggestionWidget = fixture('suggestion-multiple');
+          suggestionWidget.directoryName = 'l10nsubjects';
+          await assertSelectedValue(suggestionWidget, 'ar', 'Architecture');
+
+          // click on the result
+          const s2 = Polymer.dom(suggestionWidget.root).querySelector('#s2');
+          const results = s2.shadowRoot.querySelectorAll('.selectivity-result-item');
+          expect(results.length).to.equal(2);
+          MockInteractions.tap(results[0]);
+
+          // assert it the label is propery presented
+          let selectedValues = s2.shadowRoot.querySelectorAll('.selectivity-multiple-selected-item');
+          expect(selectedValues.length).to.equal(1);
+          expect(selectedValues[0].innerText).to.equal('Art/Architecture');
+
+          // reset selection
+          const val = suggestionWidget.value;
+          suggestionWidget.value = [];
+          await flush();
+          selectedValues = s2.shadowRoot.querySelectorAll('.selectivity-multiple-selected-item');
+          expect(selectedValues.length).to.equal(0);
+
+          // re-set the value programatically and check that the label is properly displayed (tests entry caching)
+          suggestionWidget.value = val;
+          await flush();
+          selectedValues = s2.shadowRoot.querySelectorAll('.selectivity-multiple-selected-item');
+          expect(selectedValues.length).to.equal(1);
+          expect(selectedValues[0].innerText).to.equal('Art/Architecture');
+        });
+
         test("Then I can select a second entry if the first doesn't have a computedId", () => {
           suggestionWidget = fixture('suggestion-multiple');
           suggestionWidget.directoryName = 'l10nsubjects';
