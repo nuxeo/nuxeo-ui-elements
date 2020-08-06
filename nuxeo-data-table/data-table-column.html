@@ -80,6 +80,14 @@
             },
 
             /**
+             * If `true`, the column cannot be hidden from the settings dialog.
+             */
+            alwaysVisible: {
+              type: Boolean,
+              value: false,
+            },
+
+            /**
              * Display order of the column in relation with the other columns.
              */
             order: {
@@ -133,6 +141,7 @@
             '_flexChanged(table, flex)',
             '_headerTemplateChanged(table, headerTemplate)',
             '_hiddenChanged(table, hidden)',
+            '_alwaysVisibleChanged(table, alwaysVisible)',
             '_nameChanged(table, name)',
             '_orderChanged(table, order)',
             '_sortByChanged(table, sortBy)',
@@ -181,6 +190,10 @@
 
         _hiddenChanged(table, hidden) {
           this._notifyTable(table, 'hidden', hidden);
+        }
+
+        __alwaysVisibleChanged(table, alwaysVisible) {
+          this._notifyTable(table, 'alwaysVisible', alwaysVisible);
         }
 
         _orderChanged(table, order) {
