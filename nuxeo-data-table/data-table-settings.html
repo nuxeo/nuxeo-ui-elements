@@ -66,7 +66,7 @@
                 <label></label>
               </div>
               <table>
-                <dom-repeat items="[[columns]]" as="column">
+                <dom-repeat items="[[columns]]" as="column" filter="canChangeVisibility">
                   <template>
                     <tr>
                       <td>
@@ -142,6 +142,9 @@
           if (this.columns.every((column) => column.hidden)) {
             this._resetSettings();
           }
+        }
+        canChangeVisibility(column) {
+          return !column.alwaysVisible;
         }
 
       }
