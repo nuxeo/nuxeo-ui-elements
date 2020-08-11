@@ -581,6 +581,12 @@ limitations under the License.
 
         // Implements abstract Nuxeo.Select2 methods
         _query(query) {
+          if (!this.operation) {
+            query.callback({
+              results: [],
+            });
+            return;
+          }
           const params = this.params || {};
           params.searchTerm = query.term;
           this.$.op.params = params;
