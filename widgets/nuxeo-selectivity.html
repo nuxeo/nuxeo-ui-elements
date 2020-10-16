@@ -31,12 +31,14 @@ limitations under the License.
 
   <template>
     <style>
+      /* We need to hide overflow-x explicitly here in order to have auto overflow on Y axis */
       :host {
         display: block;
         position: relative;
         padding-bottom: 8px;
         height: 100%;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
       }
 
       :host([hidden]) {
