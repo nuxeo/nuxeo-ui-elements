@@ -19,8 +19,11 @@ limitations under the License.
 <link rel="import" href="../nuxeo-elements/nuxeo-element.html">
 <link rel="import" href="../polymer/lib/utils/debounce.html">
 <link rel="import" href="nuxeo-filters-behavior.html">
+<script src="js-interpreter/acorn.js"></script>
+<script src="js-interpreter/interpreter.js"></script>
 <script>
   /* eslint-disable no-new-func,no-restricted-syntax,guard-for-in */
+  /* global Interpreter */
 
   {
     /**
@@ -177,12 +180,43 @@ limitations under the License.
       }
 
       _evaluate(document, user, expression) {
+        let res = false;
+
         try {
-          const fn = new Function(['document', 'user'], `return ${expression};`);
-          return fn.apply(this, [document, user]);
+          if (
+            Nuxeo.UI &&
+            Nuxeo.UI.config &&
+            Nuxeo.UI.config.expressions &&
+            String(Nuxeo.UI.config.expressions.eval) === 'false'
+          ) {
+            const js = new Interpreter(expression, (interpreter, scope) => {
+              // set scope
+              interpreter.setProperty(scope, 'this', interpreter.nativeToPseudo(Nuxeo.FiltersBehavior));
+              Object.entries({ document, user }).forEach(([k, obj]) => {
+                const v = {};
+                // filter out private properties
+                Object.getOwnPropertyNames(obj)
+                  .filter((p) => !p.startsWith('_'))
+                  .forEach((p) => {
+                    v[p] = obj[p];
+                  });
+                interpreter.setProperty(scope, k, interpreter.nativeToPseudo(v));
+              });
+              // XXX: 'this' in the scope of native functions is the interpreter instance
+              Object.assign(interpreter, Nuxeo.FiltersBehavior);
+            });
+            js.run();
+            res = js.value;
+          } else {
+            const fn = new Function(['document', 'user'], `return ${expression};`);
+            res = fn.apply(this, [document, user]);
+          }
+          return res;
         } catch (err) {
-          return false;
+          console.error(`${err} in <nuxeo-filter> expression "${expression}"`);
         }
+
+        return res;
       }
 
       // Evaluate the filter
