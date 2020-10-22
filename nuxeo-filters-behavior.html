@@ -65,7 +65,9 @@ limitations under the License.
     },
 
     canSetRetention(document) {
-      return document && !document.hasLegalHold &&
+      return document &&
+        !this.hasRunningWorkflows(document) &&
+        !document.hasLegalHold &&
         !this.isVersion(document) &&
         this.hasPermission(document, 'MakeRecord') &&
         this.hasPermission(document, 'SetRetention') &&
@@ -236,6 +238,28 @@ limitations under the License.
       return !this.isProxy(doc)
         && !doc.isVersion
         && this.hasPermission(doc, 'Write');
+    },
+
+    /**
+     * Checks if the given document has running workflows
+     */
+    hasRunningWorkflows(document) {
+      if (!document || !document.contextParameters) {
+        return false;
+      }
+      const workflows = document.contextParameters.runningWorkflows;
+      return workflows && workflows.length > 0;
+    },
+
+    /**
+     * Checks if the given document has runnable workflows
+     */
+    hasRunnableWorkflows(document) {
+      if (!document || !document.contextParameters) {
+        return false;
+      }
+      const processes = document.contextParameters.runnableWorkflows;
+      return processes && processes.length > 0;
     },
 
   };
