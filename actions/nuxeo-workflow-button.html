@@ -26,6 +26,7 @@ limitations under the License.
 <link rel="import" href="../../polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../nuxeo-i18n-behavior.html">
+<link rel="import" href="../nuxeo-filters-behavior.html">
 <link rel="import" href="../nuxeo-icons.html">
 <link rel="import" href="../widgets/nuxeo-dialog.html">
 <link rel="import" href="../widgets/nuxeo-select.html">
@@ -83,7 +84,7 @@ limitations under the License.
        * @memberof Nuxeo
        * @demo demo/nuxeo-workflow-button/index.html
        */
-      class WorkflowButton extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior], Nuxeo.Element) {
+      class WorkflowButton extends Polymer.mixinBehaviors([Nuxeo.FiltersBehavior, Nuxeo.I18nBehavior], Nuxeo.Element) {
 
         static get is() {
           return 'nuxeo-workflow-button';
@@ -137,13 +138,10 @@ limitations under the License.
         }
 
         _isAvailable(document) {
-          if (!document) {
+          if (!document || this.isRecord(document)) {
             return false;
           }
-          this.processes = document.contextParameters.runnableWorkflows;
-          this.workflows = document.contextParameters.runningWorkflows;
-          this.hasWorkflowRunning = this.workflows && this.workflows.length > 0;
-          return document && !this.hasWorkflowRunning && this.processes && this.processes.length > 0;
+          return this.hasRunnableWorkflows(document) && !this.hasRunningWorkflows(document);
         }
 
         _computeLabel() {
