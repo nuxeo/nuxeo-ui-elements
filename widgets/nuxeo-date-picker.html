@@ -230,10 +230,7 @@ limitations under the License.
         }
 
         _getValidity() {
-          if (!this.required) {
-            return true;
-          }
-          return !!this.value;
+          return this.$.date.validate() && (this.required ? !!this.value : true);
         }
 
         _valueChanged() {
