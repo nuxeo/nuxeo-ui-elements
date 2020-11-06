@@ -200,16 +200,16 @@ limitations under the License.
 
         // https://jira.nuxeo.com/browse/ELEMENTS-370
         _download(response) {
-          var contentDisposition = response.headers.get('Content-Disposition');
+          const contentDisposition = response.headers.get('Content-Disposition');
           if (!contentDisposition) {
             throw new Error('missing Content-Disposition header');
           }
 
-          var filenameMatches = contentDisposition
+          const filenameMatches = contentDisposition
             .match(/filename[^;=\n]*=([^;\n]*''([^;\n]*)|[^;\n]*)/)
             .filter((match) => !!match);
-          var filename = decodeURI(filenameMatches[filenameMatches.length - 1]);
-          var a = document.createElement('a');
+          const filename = decodeURI(filenameMatches[filenameMatches.length - 1]);
+          const a = document.createElement('a');
           a.style = 'display: none';
           a.download = filename;
           a.href = response.url;
