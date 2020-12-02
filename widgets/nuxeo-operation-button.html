@@ -183,7 +183,7 @@ limitations under the License.
             }));
 
             if (this.download) {
-              this._download(response);
+              return this._download(response);
             }
           })
             .catch((error) => {
@@ -200,22 +200,29 @@ limitations under the License.
 
         // https://jira.nuxeo.com/browse/ELEMENTS-370
         _download(response) {
-          var contentDisposition = response.headers.get('Content-Disposition');
-          if (!contentDisposition) {
-            throw new Error('missing Content-Disposition header');
+          const contentDisposition = response.headers.get('Content-Disposition');
+          if (contentDisposition) {
+            const filenameMatches = contentDisposition
+              .match(/filename[^;=\n]*=([^;\n]*''([^;\n]*)|[^;\n]*)/).filter((match) => !!match);
+            const filename = decodeURI(filenameMatches[filenameMatches.length - 1]);
+            return response.blob().then((blob) => {
+              if (navigator.msSaveBlob) {
+                // handle IE11 and Edge
+                navigator.msSaveBlob(blob, filename);
+              } else {
+                const a = document.createElement('a');
+                a.style = 'display: none';
+                a.download = filename;
+                a.href = URL.createObjectURL(blob);
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+              }
+            });
+          } else {
+            return Promise.reject(new Error('missing Content-Disposition header'));
           }
-
-          var filenameMatches = contentDisposition
-            .match(/filename[^;=\n]*=([^;\n]*''([^;\n]*)|[^;\n]*)/)
-            .filter((match) => !!match);
-          var filename = decodeURI(filenameMatches[filenameMatches.length - 1]);
-          var a = document.createElement('a');
-          a.style = 'display: none';
-          a.download = filename;
-          a.href = response.url;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
         }
 
         _computeTooltip(tooltip, label) {
