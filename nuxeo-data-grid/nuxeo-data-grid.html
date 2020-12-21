@@ -18,6 +18,7 @@ limitations under the License.
 <link rel="import" href="../../iron-list/iron-list.html">
 <link rel="import" href="../../iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../../iron-scroll-threshold/iron-scroll-threshold.html">
+<link rel="import" href="../../iron-resizable-behavior/iron-resizable-behavior.html">
 <link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
 <link rel="import" href="../../polymer/lib/elements/dom-if.html">
 <link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
@@ -210,6 +211,26 @@ limitations under the License.
               value: false,
             },
           };
+        }
+
+        static get observers() {
+          return ['_fetchMissingItems(loading)'];
+        }
+
+        ready() {
+          super.ready();
+          this.addEventListener('iron-resize', this._fetchMissingItems);
+        }
+
+        // WEBUI-159: Check if there are more items in viewport than the ones set by the provider and load them.
+        _fetchMissingItems() {
+          if (!this.loading && this.$.list.lastVisibleIndex && this._pageSize) {
+            Polymer.Async.idlePeriod.run(() => {
+              if (this.$.list.lastVisibleIndex > this._pageSize) {
+                this._fetchRange(this._pageSize, this.$.list.lastVisibleIndex);
+              }
+            });
+          }
         }
 
         _removeFilter(e) {
