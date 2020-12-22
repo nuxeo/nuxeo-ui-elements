@@ -19,6 +19,8 @@ limitations under the License.
 <link rel="import" href="../../nuxeo-elements/nuxeo-page-provider.html">
 <link rel="import" href="../../paper-typeahead/paper-typeahead.html">
 <link rel="import" href="../../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../es6-polyfills.html">
 <link rel="import" href="../nuxeo-format-behavior.html">
 
@@ -99,9 +101,13 @@ limitations under the License.
        * `--nuxeo-path-suggestion-result` | Mixin applied to the result items | `{}`
        *
        * @memberof Nuxeo
+       * @appliesMixin Nuxeo.FormatBehavior
+       * @appliesMixin Polymer.IronFormElementBehavior
+       * @appliesMixin Polymer.IronValidatableBehavior
        * @demo demo/nuxeo-path-suggestion/index.html
        */
-      class PathSuggestion extends Polymer.mixinBehaviors([Nuxeo.FormatBehavior], Nuxeo.Element) {
+      class PathSuggestion extends Polymer.mixinBehaviors([Nuxeo.FormatBehavior, Polymer.IronFormElementBehavior,
+        Polymer.IronValidatableBehavior], Nuxeo.Element) {
 
         static get is() {
           return 'nuxeo-path-suggestion';
@@ -158,6 +164,24 @@ limitations under the License.
               reflectToAttribute: true,
             },
           };
+        }
+
+        ready() {
+          super.ready();
+          const validateFn = this._validate.bind(this);
+          const validator = {
+            validatorName: `${PathSuggestion.is}-validator`,
+            validatorType: 'validator',
+            validate: validateFn,
+          };
+
+          /* eslint-disable no-new */
+          new Polymer.IronMeta({
+            type: validator.validatorType,
+            key: validator.validatorName,
+            value: validator,
+          });
+          this.$.typeahead.validator = validator.validatorName;
         }
 
         displayResults() {
@@ -234,6 +258,19 @@ limitations under the License.
           }
         }
 
+        _validate() {
+          const valid =
+            (this.value && this.value === '/') ||
+            (this.parent ? this.value.replace(/(.+)\/$/, '$1') === this.parent.path : false) ||
+            (this.children ? this.children.some((child) => this.value.replace(/(.+)\/$/, '$1') === child.path) : false);
+          return valid;
+        }
+
+        /* Override method from Polymer.IronValidatableBehavior. */
+        _getValidity() {
+          // XXX - paper-typeahead doesn't implement the IronValidatableBehavior, so there is no validate() method.
+          return this._validate();
+        }
       }
 
       customElements.define(PathSuggestion.is, PathSuggestion);
