@@ -11,8 +11,12 @@
     "Guillaume Renard <grenard@nuxeo.com>"
   ],
   "license": "Apache 2.0",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "private": true,
   "scripts": {
+    "postinstall": "check-engine || true",
     "coveralls": "cat coverage/lcov.info | coveralls",
     "eslint": "eslint . --ext html",
     "polylint": "polymer lint",
@@ -21,6 +25,7 @@
     "docs": "polymer analyze > analysis.json && polymer serve"
   },
   "devDependencies": {
+    "check-engine": "1.8.1",
     "coveralls": "^3.0.2",
     "eslint": "^4.14.0",
     "eslint-config-airbnb-base": "^12.1.0",
