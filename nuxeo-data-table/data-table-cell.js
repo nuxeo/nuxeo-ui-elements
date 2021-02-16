@@ -24,6 +24,7 @@ import './data-table-templatizer-behavior.js';
         align-items: center;
         overflow: hidden;
         transition: flex-basis 200ms, flex-grow 200ms;
+        @apply --nuxeo-data-table-cell;
       }
 
       :host([header]) {
