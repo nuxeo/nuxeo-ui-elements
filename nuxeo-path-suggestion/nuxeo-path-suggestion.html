@@ -79,7 +79,7 @@ limitations under the License.
                      value="{{value}}"
                      data="[[data]]"
                      allowed-pattern="[[allowedPattern]]"
-                     auto-validate="[[autoValidate]]"
+                     invalid="[[invalid]]"
                      on-focus="_onFocus"
                      disabled$="[[disabled]]"
                      no-label-float></paper-typeahead>
@@ -166,24 +166,6 @@ limitations under the License.
           };
         }
 
-        ready() {
-          super.ready();
-          const validateFn = this._validate.bind(this);
-          const validator = {
-            validatorName: `${PathSuggestion.is}-validator`,
-            validatorType: 'validator',
-            validate: validateFn,
-          };
-
-          /* eslint-disable no-new */
-          new Polymer.IronMeta({
-            type: validator.validatorType,
-            key: validator.validatorName,
-            value: validator,
-          });
-          this.$.typeahead.validator = validator.validatorName;
-        }
-
         displayResults() {
           this.$.typeahead.tryDisplayResults();
         }
@@ -220,6 +202,9 @@ limitations under the License.
                   this.children = [];
                 }
               });
+            }
+            if (this.autoValidate) {
+              this.validate();
             }
           }
         }
@@ -258,18 +243,14 @@ limitations under the License.
           }
         }
 
-        _validate() {
+        /* Override method from Polymer.IronValidatableBehavior. */
+        _getValidity() {
+          // XXX - paper-typeahead doesn't implement the IronValidatableBehavior, so there is no validate() method.
           const valid =
             (this.value && this.value === '/') ||
             (this.parent ? this.value.replace(/(.+)\/$/, '$1') === this.parent.path : false) ||
             (this.children ? this.children.some((child) => this.value.replace(/(.+)\/$/, '$1') === child.path) : false);
           return valid;
-        }
-
-        /* Override method from Polymer.IronValidatableBehavior. */
-        _getValidity() {
-          // XXX - paper-typeahead doesn't implement the IronValidatableBehavior, so there is no validate() method.
-          return this._validate();
         }
       }
 
