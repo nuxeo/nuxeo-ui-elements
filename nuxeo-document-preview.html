@@ -253,13 +253,11 @@ limitations under the License.
             this.xpath === 'file:content'
           ) {
             return this.document.properties['vid:transcodedVideos']
-              .filter(
-                (conversion) =>
-                  conversion &&
-                  conversion.content &&
-                  conversion.content.data &&
-                  conversion.content['mime-type'].match(/^video.*/),
-              )
+              .filter((conversion) =>
+                conversion &&
+                conversion.content &&
+                conversion.content.data &&
+                conversion.content['mime-type'].match(/^video.*/))
               .map((conversion) => {
                 return {
                   data: conversion.content.data,
