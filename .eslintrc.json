@@ -49,6 +49,7 @@
     "d3": false,
     "AlloyEditor": false,
     "CKEDITOR": false,
+    "Quill": false,
     "Selectivity": false,
     "saulis": false
   }

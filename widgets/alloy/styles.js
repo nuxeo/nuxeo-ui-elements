@@ -15,7 +15,7 @@
 //
 // For more information refer to: http://docs.ckeditor.com/#!/guide/dev_styles-section-style-rules
 
-CKEDITOR.stylesSet.add( 'default', [
+if (window.CKEDITOR) CKEDITOR.stylesSet.add( 'default', [
 	/* Block styles */
 
 	// These styles are already available in the "Format" drop-down list ("format" plugin),
