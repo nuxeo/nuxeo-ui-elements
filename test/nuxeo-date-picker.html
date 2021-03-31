@@ -21,7 +21,7 @@ limitations under the License.
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
   <script src="../../nuxeo-elements/test/test-helpers.js"></script>
-  <script src="../../moment/moment.js"></script>
+  <script src="../../moment/min/moment-with-locales.js"></script>
 
   <link rel="import" href="../../polymer/polymer.html">
   <link rel="import" href="../widgets/nuxeo-date-picker.html">
@@ -65,6 +65,10 @@ limitations under the License.
     return element.root.querySelector('#date');
   }
 
+  function getInputDisplay(element) {
+    return element.root.querySelector('#date').root.querySelector('#input');
+  }
+
   function testValue(element, value, isUTC) {
     element.value = value;
     expect(element.value).to.be.equal(value);
@@ -73,6 +77,16 @@ limitations under the License.
     expect(inputValue).to.be.equal(val);
     // ELEMENTS-599: assertion temporarily disabled owing to third party picker issues
     // expect(element._pickerValue).to.be.equal(local);
+  }
+
+  function testValueWithLocale(element, value, locale, isUTC) {
+    element.value = value;
+    expect(element.value).to.be.equal(value);
+    const inputValue = getInputDisplay(element).value;
+    let val = isUTC ? moment.utc(value) : moment(value).local();
+    // use the i18n functions we set in nuxeo-date-picker, since the displayed date is not the value
+    val = getInput(element).i18n.formatDate(getInput(element).i18n.parseDate(val));
+    expect(inputValue).to.be.equal(val);
   }
 
   function testInput(element, input, isUTC) {
@@ -86,12 +100,16 @@ limitations under the License.
 
   suiteMSsafe('<nuxeo-date-picker>', () => {
     let element;
+    let currentLocale;
 
     [{ timezone: undefined }, { timezone: 'Etc/UTC' }].forEach((conf) => {
       suite(!conf.timezone ? 'with no timezone' : `with ${conf.timezone} timezone`, () => {
         setup(() => {
+          currentLocale = moment.locale();
           element = fixture(`picker${conf.timezone ? `-${conf.timezone}` : ''}`);
         });
+
+        teardown(() => moment.locale(currentLocale));
 
         test('the value can be changed', () => {
           expect(element.value).to.be.null;
@@ -128,6 +146,13 @@ limitations under the License.
           expect(localEltValue.hour()).to.be.equal(14);
           expect(localEltValue.minute()).to.be.equal(35);
           expect(localEltValue.second()).to.be.equal(19);
+        });
+
+        test('the input changes with locale', () => {
+          // using the arabic locale
+          moment.locale('ar');
+          expect(element.value).to.be.null;
+          testValueWithLocale(element, '2003-06-13T00:00:00.000Z', 'ar', conf.timezone);
         });
       });
     });
