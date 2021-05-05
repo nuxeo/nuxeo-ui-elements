@@ -40,7 +40,7 @@ limitations under the License.
 
         <nuxeo-connection url="http://localhost:8080/nuxeo"></nuxeo-connection>
 
-        <nuxeo-document auto id="doc" headers='{"fetch.document": "lock,properties"}' doc-path="[[docpath]]" response="{{document}}"></nuxeo-document>
+        <nuxeo-document auto id="doc" headers='{"fetch-document": "lock,properties"}' doc-path="[[docpath]]" response="{{document}}"></nuxeo-document>
 
         <nuxeo-demo-section heading="Custom operation button" size="small">
           <nuxeo-path-suggestion label="Path of the document" value="{{docpath}}"></nuxeo-path-suggestion>
