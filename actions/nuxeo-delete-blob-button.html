@@ -120,7 +120,8 @@ limitations under the License.
           return doc && this.hasPermission(doc, 'Write') && !this.isImmutable(doc) &&
               !this.hasType(doc, 'Root') && !this.isTrashed(doc) &&
               !(doc.isRecord && this.xpath !== 'file:content') &&
-              !(this.isUnderRetentionOrLegalHold(doc) && this.xpath === 'file:content');
+              !(this.isUnderRetentionOrLegalHold(doc) && this.xpath === 'file:content') &&
+              !this.hasFacet(document, 'ColdStorage');
         }
 
         _computeLabel() {
