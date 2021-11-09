@@ -95,6 +95,10 @@ limitations under the License.
         color: var(--paper-input-container-invalid-color, red);
       }
 
+      :host([settings-enabled]) ::slotted(nuxeo-data-table-row:not([header])) {
+        padding-inline-end: 1.5em;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -447,6 +451,7 @@ limitations under the License.
             settingsEnabled: {
               type: Boolean,
               value: false,
+              reflectToAttribute: true,
             },
             /**
              * If enabled, it allows to select multiple documents and apply an action on them,
