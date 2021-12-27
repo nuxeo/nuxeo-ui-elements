@@ -2,7 +2,7 @@
 
 The PDF.js viewer is built from the [PDF.js](https://github.com/mozilla/pdf.js/) GitHub repository and integrated into the current directory.
 
-The current version is built from the [v2.6.347](https://github.com/mozilla/pdf.js/releases/tag/v2.6.347) tag.
+The current version is built from the [v2.6.347](https://github.com/mozilla/pdf.js/releases/tag/v2.6.347) tag (ES5 compatible).
 
 ## How to Update
 
@@ -54,13 +54,13 @@ Install all dependencies for PDF.js:
 
     $ npm install
 
-Build the generic viewer:
+Build the generic legacy es5 viewer to support older browsers:
 
-    $ gulp generic
+    $ gulp generic-es5
 
 [Minify](https://github.com/mozilla/pdf.js/wiki/Frequently-Asked-Questions#minified) the JS files:
 
-    $ gulp minified
+    $ gulp minified-es5
 
 Clean the viewer directory:
 
@@ -68,7 +68,7 @@ Clean the viewer directory:
 
 Copy the generic viewer:
 
-    $ rsync -av build/minified/ /path/to/repo/nuxeo-ui-elements/viewers/pdfjs/ --exclude=\*.{map,pdf}
+    $ rsync -av build/minified-es5/ /path/to/repo/nuxeo-ui-elements/viewers/pdfjs/ --exclude=\*.{map,pdf}
 
 Commit your changes:
 
