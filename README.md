@@ -1,5 +1,7 @@
 [![Build Status](https://qa.nuxeo.org/jenkins/buildStatus/icon?job=nuxeo-ui-elements-master)](https://qa.nuxeo.org/jenkins/job/nuxeo-ui-elements-master/)
 
+Patched v2.12.313 verion
+
 # About nuxeo-ui-elements
 
 **Nuxeo UI Elements** is an ongoing work to develop a set of UI elements for building Polymer applications with Nuxeo.
