@@ -24,6 +24,10 @@
       :host([hidden]) {
         display: none;
       }
+
+      ::slotted(*) {
+        min-width: 0;
+      }
     </style>
     <slot></slot>
   </template>
