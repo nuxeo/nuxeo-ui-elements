@@ -204,7 +204,7 @@ limitations under the License.
 
     <nuxeo-connection user="{{_currentUser}}"></nuxeo-connection>
 
-    <nuxeo-resource id="request" path="user/[[username]]" enrichers="userprofile" enrichers-entity="user">
+    <nuxeo-resource id="request" path="user/[[username]]" enrichers="userprofile" enrichers-entity="user" headers="[[_computeHeaders()]]">
     </nuxeo-resource>
 
     <nuxeo-resource id="editRequest" path="user/[[username]]"></nuxeo-resource>
@@ -517,6 +517,18 @@ limitations under the License.
               this.selectedGroup = null;
             });
           }
+        }
+
+        _computeHeaders() {
+          const headers = {};
+
+          const fetch = Nuxeo.UI && Nuxeo.UI.config && Nuxeo.UI.config.user &&
+            Nuxeo.UI.config.user.management && Nuxeo.UI.config.user.management.fetch || {};
+          // generate fetch headers
+          Object.keys(fetch).forEach((f) => {
+            headers[`fetch-${f}`] = fetch[f].join(',');
+          });
+          return headers;
         }
 
         _isAdministrator(user) {
