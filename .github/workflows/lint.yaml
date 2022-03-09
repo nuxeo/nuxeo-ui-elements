@@ -7,12 +7,28 @@ on:
   pull_request:
     branches:
       - maintenance-2.4.x
+  workflow_call:
+    inputs:
+      branch:
+        description: 'The branch to lint'
+        default: maintenance-2.4.x
+        type: string
+        required: false
+    secrets:
+      NPM_PACKAGES_TOKEN:
+        description: 'NPM_PACKAGES_TOKEN'
+        required: true
+
+env:
+  BRANCH_NAME: ${{ github.head_ref || inputs.branch || 'maintenance-2.4.x' }}
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.BRANCH_NAME }}
 
       - uses: actions/setup-node@v1
         with:

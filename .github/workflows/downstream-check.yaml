@@ -1,0 +1,43 @@
+name: Downstream check
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'The name of the branch to build.'
+        default: 'maintenance-2.4.x'
+        required: true
+      caller_id:
+        description: 'run identifier'
+        default: 'maintenance-2.4.x'
+        type: string
+        required: false
+
+jobs:
+  id:
+    name: Remote Caller ID ${{ github.event.inputs.caller_id }}
+    runs-on: ubuntu-latest
+    outputs:
+      branch_name: ${{ steps.pick_branch_name.outputs.branch }}
+    steps:
+      - name: Determine branch name to use
+        id: pick_branch_name
+        run: |
+          echo ::set-output name=branch::${{ github.event.inputs.branch_name || 'maintenance-2.4.x' }}
+
+  lint:
+    needs: id
+    uses: nuxeo/nuxeo-ui-elements/.github/workflows/lint.yaml@ELEMENTS-1473-downstream-check
+    secrets:
+      NPM_PACKAGES_TOKEN: ${{ secrets.NPM_PACKAGES_TOKEN }}
+    with:
+      branch: ${{ needs.id.outputs.branch_name }}
+
+  unit-test:
+    needs: id
+    uses: nuxeo/nuxeo-ui-elements/.github/workflows/test.yaml@ELEMENTS-1473-downstream-check
+    secrets:
+      NPM_PACKAGES_TOKEN: ${{ secrets.NPM_PACKAGES_TOKEN }}
+      SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+    with:
+      branch: ${{ needs.id.outputs.branch_name }}
