@@ -1,0 +1,24 @@
+name: Downstream check
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'The name of the branch to build.'
+        default: 'maintenance-2.4.x'
+        required: true
+
+env:
+  BRANCH_NAME: ${{ inputs.branch || 'maintenance-2.4.x' }}
+
+jobs:
+  lint:
+    uses: nuxeo/nuxeo-elements/.github/workflows/lint.yaml@pr-checks-2.4.x
+    secrets:
+      NPM_PACKAGES_TOKEN: ${{ secrets.NPM_PACKAGES_TOKEN }}
+
+  test:
+    uses: nuxeo/nuxeo-elements/.github/workflows/test.yaml@pr-checks-2.4.x
+    secrets:
+      NPM_PACKAGES_TOKEN: ${{ secrets.NPM_PACKAGES_TOKEN }}
+      SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
