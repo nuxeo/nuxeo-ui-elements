@@ -14,6 +14,11 @@ on:
         default: maintenance-2.4.x
         type: string
         required: false
+      is_downstream:
+        description: 'Specifices the source of the task'
+        default: false
+        type: boolean
+        required: false
     secrets:
       NPM_PACKAGES_TOKEN:
         description: 'NPM_PACKAGES_TOKEN'
@@ -32,6 +37,15 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.BRANCH_NAME }}
+        
+      - name: Checkout the Nuxeo Elements repository
+        if: ${{ inputs.is_downstream == true }}
+        uses: actions/checkout@v2
+        with:
+          repository: nuxeo/nuxeo-elements
+          path: nuxeo-elements
+          fetch-depth: 1
+          ref: ${{ env.BRANCH_NAME }}
 
       - uses: actions/setup-node@v1
         with:
@@ -47,6 +61,12 @@ jobs:
         run: |
           bower install
           npm install
+
+      - name: Link Nuxeo elements
+        if: ${{ inputs.is_downstream == true }}
+        run: |
+          rm -rf bower_components/nuxeo-elements
+          rsync -av --exclude='node_modules' --exclude='.git' --exclude='bower_components' ./nuxeo-elements bower_components
 
       - name: Test
         env:
