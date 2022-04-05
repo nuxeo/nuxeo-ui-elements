@@ -23,8 +23,11 @@ jobs:
     steps:
       - name: Determine branch name to use
         id: pick_branch_name
-        run: |
-          echo ::set-output name=branch::${{ github.event.inputs.branch_name || 'maintenance-2.4.x' }}
+        uses: nuxeo/ui-team-gh-actions/get-branch@ca09d5c52a62e297502d3572c36d813be927982a
+        with:
+          repository: nuxeo/nuxeo-ui-elements
+          branch: ${{ github.event.inputs.branch_name }}
+          default-branch: 'maintenance-2.4.x'
 
   lint:
     needs: id
