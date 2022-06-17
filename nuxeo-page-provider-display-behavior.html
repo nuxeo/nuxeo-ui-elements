@@ -85,7 +85,9 @@ limitations under the License.
         filters: {
           type: Array,
           notify: true,
-          value: [],
+          value() {
+            return [];
+          },
         },
 
         /**
