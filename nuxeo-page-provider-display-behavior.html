@@ -184,6 +184,11 @@ limitations under the License.
         },
 
         _lastSelectedIndex: Number,
+
+        _id: {
+          type: Number,
+          value: 0,
+        },
       },
 
       observers: [
@@ -528,8 +533,20 @@ limitations under the License.
           if (pageSize) {
             this.nxProvider.pageSize = pageSize;
           }
+
+          // we already have an inflight request, so this a new one
+          if (this.loading) {
+            this._id += 1;
+          }
+          const id = this._id;
+
           this.nxProvider.offset = 0;
           return this.nxProvider.fetch(options).then((response) => {
+            // Other request took place while waiting for execution, so we'll ignore this one
+            if (id !== this._id) {
+              return Promise.resolve();
+            }
+
             if (page === 1) {
               this.reset();
             }
@@ -579,6 +596,12 @@ limitations under the License.
             }
           }
 
+          // we already have an inflight request, so this a new one
+          if (this.loading) {
+            this._id += 1;
+          }
+          const id = this._id;
+
           // update items array based on first and last visible indexes
           this.nxProvider.offset = firstIndex;
           this.nxProvider.page = 1;
@@ -587,7 +610,8 @@ limitations under the License.
             skipAggregates: firstIndex !== 0,
           };
           return this.nxProvider.fetch(options).then((response) => {
-            if (!response) {
+            // Other request took place while waiting for execution, so we'll ignore this one
+            if (!response || id !== this._id) {
               return;
             }
 
