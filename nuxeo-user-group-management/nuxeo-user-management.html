@@ -15,26 +15,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import" href="../../iron-form/iron-form.html">
-<link rel="import" href="../../iron-icon/iron-icon.html">
-<link rel="import" href="../../nuxeo-elements/nuxeo-connection.html">
-<link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
-<link rel="import" href="../../nuxeo-elements/nuxeo-resource.html">
-<link rel="import" href="../../paper-button/paper-button.html">
-<link rel="import" href="../../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../paper-toast/paper-toast.html">
-<link rel="import" href="../../polymer/lib/elements/dom-if.html">
-<link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
-<link rel="import" href="../nuxeo-filters-behavior.html">
-<link rel="import" href="../nuxeo-i18n-behavior.html">
-<link rel="import" href="../nuxeo-layout.html">
-<link rel="import" href="../widgets/nuxeo-card.html">
-<link rel="import" href="../widgets/nuxeo-dialog.html">
-<link rel="import" href="../widgets/nuxeo-group-tag.html">
-<link rel="import" href="../widgets/nuxeo-input.html">
-<link rel="import" href="../widgets/nuxeo-user-suggestion.html">
-<link rel="import" href="nuxeo-edit-password.html">
-<link rel="import" href="nuxeo-user-group-permissions-table.html">
+<link rel="import" href="../../iron-form/iron-form.html" />
+<link rel="import" href="../../iron-icon/iron-icon.html" />
+<link rel="import" href="../../nuxeo-elements/nuxeo-connection.html" />
+<link rel="import" href="../../nuxeo-elements/nuxeo-element.html" />
+<link rel="import" href="../../nuxeo-elements/nuxeo-resource.html" />
+<link rel="import" href="../../paper-button/paper-button.html" />
+<link rel="import" href="../../paper-icon-button/paper-icon-button.html" />
+<link rel="import" href="../../paper-toast/paper-toast.html" />
+<link rel="import" href="../../polymer/lib/elements/dom-if.html" />
+<link rel="import" href="../../polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../nuxeo-filters-behavior.html" />
+<link rel="import" href="../nuxeo-i18n-behavior.html" />
+<link rel="import" href="../nuxeo-layout.html" />
+<link rel="import" href="../widgets/nuxeo-card.html" />
+<link rel="import" href="../widgets/nuxeo-dialog.html" />
+<link rel="import" href="../widgets/nuxeo-group-tag.html" />
+<link rel="import" href="../widgets/nuxeo-input.html" />
+<link rel="import" href="../widgets/nuxeo-user-suggestion.html" />
+<link rel="import" href="nuxeo-edit-password.html" />
+<link rel="import" href="nuxeo-user-group-permissions-table.html" />
 
 <dom-module id="nuxeo-user-management">
   <template>
@@ -82,7 +82,7 @@ limitations under the License.
 
       paper-button iron-icon {
         width: 1.3rem;
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
 
       .activity-entry:nth-of-type(1) {
@@ -96,7 +96,7 @@ limitations under the License.
       .remove {
         color: red;
         cursor: pointer;
-        font-size: .8rem;
+        font-size: 0.8rem;
         margin-left: 10px;
         text-decoration: underline;
       }
@@ -114,7 +114,7 @@ limitations under the License.
         min-height: 48px;
         padding: 0 0 0 12px;
         border-bottom: 2px solid var(--nuxeo-border, #eee);
-        box-shadow: 0 -1px 0 rgba(0,0,0,0.2) inset;
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
       }
 
       .table-row {
@@ -139,7 +139,7 @@ limitations under the License.
       }
 
       .table-headers > div {
-        background-color: var(--nuxeo-table-header-background,#f8f9fb);
+        background-color: var(--nuxeo-table-header-background, #f8f9fb);
         font-weight: bold;
       }
 
@@ -177,7 +177,7 @@ limitations under the License.
       .header .heading {
         font-size: 1rem;
         font-weight: 700;
-        letter-spacing: .04em;
+        letter-spacing: 0.04em;
         text-transform: uppercase;
       }
 
@@ -199,12 +199,17 @@ limitations under the License.
         font-weight: inherit;
         color: #fff !important;
       }
-
     </style>
 
     <nuxeo-connection user="{{_currentUser}}"></nuxeo-connection>
 
-    <nuxeo-resource id="request" path="user/[[username]]" enrichers="userprofile" enrichers-entity="user" headers="[[_computeHeaders()]]">
+    <nuxeo-resource
+      id="request"
+      path="user/[[username]]"
+      enrichers="userprofile"
+      enrichers-entity="user"
+      headers="[[_computeHeaders()]]"
+    >
     </nuxeo-resource>
 
     <nuxeo-resource id="editRequest" path="user/[[username]]"></nuxeo-resource>
@@ -220,12 +225,17 @@ limitations under the License.
         </div>
 
         <div class="actions">
-
           <!-- delete -->
           <dom-if if="[[_canDelete(readonly, _currentUser, user)]]">
             <template>
-              <paper-button noink id="deleteUserButton" class="horizontal layout center" on-click="_toggleDeleteUser">
-                <iron-icon noink icon="nuxeo:delete"></iron-icon> [[i18n('command.delete')]]
+              <paper-button
+                noink
+                id="deleteUserButton"
+                class="horizontal layout center"
+                on-click="_toggleDeleteUser"
+              >
+                <iron-icon noink icon="nuxeo:delete"></iron-icon>
+                [[i18n('command.delete')]]
               </paper-button>
             </template>
           </dom-if>
@@ -233,8 +243,14 @@ limitations under the License.
           <!-- change password -->
           <dom-if if="[[_canEdit(readonly, _currentUser, user)]]">
             <template>
-              <paper-button noink id="changePasswordButton" class="primary horizontal layout center" on-click="_toggleChangePassword">
-                <iron-icon icon="nuxeo:lock"></iron-icon> [[i18n('command.change.password')]]
+              <paper-button
+                noink
+                id="changePasswordButton"
+                class="primary horizontal layout center"
+                on-click="_toggleChangePassword"
+              >
+                <iron-icon icon="nuxeo:lock"></iron-icon>
+                [[i18n('command.change.password')]]
               </paper-button>
             </template>
           </dom-if>
@@ -242,18 +258,22 @@ limitations under the License.
           <!-- edit -->
           <dom-if if="[[_canEdit(readonly, _currentUser, user)]]">
             <template>
-              <paper-button noink id="editUserButton" class="primary horizontal layout center" on-click="_toggleEditUser">
-                <iron-icon icon="nuxeo:edit"></iron-icon> [[i18n('userManagement.editUser.button')]]
+              <paper-button
+                noink
+                id="editUserButton"
+                class="primary horizontal layout center"
+                on-click="_toggleEditUser"
+              >
+                <iron-icon icon="nuxeo:edit"></iron-icon>
+                [[i18n('userManagement.editUser.button')]]
               </paper-button>
             </template>
           </dom-if>
-
         </div>
       </div>
 
       <!-- user -->
       <nuxeo-view-user user="[[user]]"></nuxeo-view-user>
-
     </nuxeo-card>
 
     <!-- groups -->
@@ -264,19 +284,28 @@ limitations under the License.
         </h3>
         <dom-if if="[[_canEdit(readonly, _currentUser, user)]]">
           <template>
-            <paper-button noink id="addGroup" class="flex-end" on-click="_toggleEditGroups">
-              <iron-icon icon="nuxeo:add"></iron-icon> [[i18n('userManagement.addToGroup.button')]]
+            <paper-button
+              noink
+              id="addGroup"
+              class="flex-end"
+              on-click="_toggleEditGroups"
+            >
+              <iron-icon icon="nuxeo:add"></iron-icon>
+              [[i18n('userManagement.addToGroup.button')]]
             </paper-button>
           </template>
         </dom-if>
       </div>
       <div class="layout vertical" hidden$="[[!showEditGroups]]">
-        <nuxeo-user-suggestion id="picker" class="flex"
-                               search-type="GROUP_TYPE"
-                               placeholder="[[i18n('userManagement.search.groups')]]"
-                               selected-item="{{selectedGroup}}"
-                               result-formatter="[[resultFormatter]]"
-                               query-results-filter="[[resultsFilter]]">
+        <nuxeo-user-suggestion
+          id="picker"
+          class="flex"
+          search-type="GROUP_TYPE"
+          placeholder="[[i18n('userManagement.search.groups')]]"
+          selected-item="{{selectedGroup}}"
+          result-formatter="[[resultFormatter]]"
+          query-results-filter="[[resultsFilter]]"
+        >
         </nuxeo-user-suggestion>
         <div id="errors" hidden$="[[!errors]]">[[errors]]</div>
         <dom-repeat items="[[activity]]">
@@ -284,7 +313,9 @@ limitations under the License.
             <div class="activity-entry">
               [[i18n('userManagement.memberOf.group', user.id)]]
               <nuxeo-group-tag group="[[item]]"></nuxeo-group-tag>
-              <span class="remove" on-click="_toggleDialog">[[i18n('userManagement.group.remove')]]</span>
+              <span class="remove" on-click="_toggleDialog"
+                >[[i18n('userManagement.group.remove')]]</span
+              >
             </div>
           </template>
         </dom-repeat>
@@ -295,7 +326,7 @@ limitations under the License.
           <div class="flex-4">[[i18n('userManagement.identifier')]]</div>
           <div class="table-actions">&nbsp;</div>
         </div>
-        <dom-if if=[[!empty]]>
+        <dom-if if="[[!empty]]">
           <template>
             <dom-repeat items="[[groups]]">
               <template>
@@ -307,9 +338,11 @@ limitations under the License.
                   <div class="table-actions">
                     <dom-if if="[[_canEdit(readonly, _currentUser, user)]]">
                       <template>
-                        <paper-icon-button icon="nuxeo:remove"
-                                           title="[[i18n('userManagement.removeFrom.group', item.label)]]"
-                                           on-click="_toggleDialog">
+                        <paper-icon-button
+                          icon="nuxeo:remove"
+                          title="[[i18n('userManagement.removeFrom.group', item.label)]]"
+                          on-click="_toggleDialog"
+                        >
                         </paper-icon-button>
                       </template>
                     </dom-if>
@@ -319,7 +352,7 @@ limitations under the License.
             </dom-repeat>
           </template>
         </dom-if>
-        <dom-if if=[[empty]]>
+        <dom-if if="[[empty]]">
           <template>
             <div class="table-row">
               <div>[[i18n('userManagement.noSearchResults')]]</div>
@@ -331,27 +364,40 @@ limitations under the License.
 
     <!-- local permissions -->
     <nuxeo-card heading="[[i18n('userManagement.localPermissions.heading')]]">
-      <nuxeo-user-group-permissions-table entity="[[username]]" readonly="[[readonly]]">
+      <nuxeo-user-group-permissions-table
+        entity="[[username]]"
+        readonly="[[readonly]]"
+      >
       </nuxeo-user-group-permissions-table>
     </nuxeo-card>
 
     <!-- group permissions -->
     <dom-repeat items="[[groups]]">
       <template>
-        <nuxeo-card heading="[[i18n('userManagement.entityPermissions', item.name)]]">
-          <nuxeo-user-group-permissions-table entity="[[item.name]]" readonly="[[readonly]]">
+        <nuxeo-card
+          heading="[[i18n('userManagement.entityPermissions', item.name)]]"
+        >
+          <nuxeo-user-group-permissions-table
+            entity="[[item.name]]"
+            readonly="[[readonly]]"
+          >
           </nuxeo-user-group-permissions-table>
         </nuxeo-card>
       </template>
     </dom-repeat>
 
     <nuxeo-dialog id="dialog" with-backdrop>
-      <h2>[[i18n('userManagement.removeUserFromGroup.confirm', user.id, _removedGroup.name)]]</h2>
+      <h2>
+        [[i18n('userManagement.removeUserFromGroup.confirm', user.id,
+        _removedGroup.name)]]
+      </h2>
       <div class="buttons horizontal end-justified layout">
         <div class="flex start-justified">
           <paper-button noink dialog-dismiss>[[i18n('label.no')]]</paper-button>
         </div>
-        <paper-button noink dialog-confirm on-click="_remove" class="primary">[[i18n('label.yes')]]</paper-button>
+        <paper-button noink dialog-confirm on-click="_remove" class="primary"
+          >[[i18n('label.yes')]]</paper-button
+        >
       </div>
     </nuxeo-dialog>
 
@@ -361,7 +407,9 @@ limitations under the License.
         <div class="flex start-justified">
           <paper-button noink dialog-dismiss>[[i18n('label.no')]]</paper-button>
         </div>
-        <paper-button noink class="primary" on-click="_deleteUser">[[i18n('label.yes')]]</paper-button>
+        <paper-button noink class="primary" on-click="_deleteUser"
+          >[[i18n('label.yes')]]</paper-button
+        >
       </div>
     </nuxeo-dialog>
 
@@ -369,12 +417,17 @@ limitations under the License.
       <h2>[[i18n('command.change.password')]]</h2>
       <iron-form id="changePasswordForm">
         <form class="vertical layout">
-          <nuxeo-edit-password required id="passwordEditor"></nuxeo-edit-password>
+          <nuxeo-edit-password
+            required
+            id="passwordEditor"
+          ></nuxeo-edit-password>
         </form>
       </iron-form>
       <div class="buttons horizontal end-justified layout">
         <div class="flex start-justified">
-          <paper-button noink dialog-dismiss>[[i18n('command.cancel')]]</paper-button>
+          <paper-button noink dialog-dismiss
+            >[[i18n('command.cancel')]]</paper-button
+          >
         </div>
         <paper-button noink class="primary" on-click="_submitChangePassword">
           [[i18n('command.save.changes')]]
@@ -384,16 +437,25 @@ limitations under the License.
 
     <nuxeo-dialog id="editUserDialog" with-backdrop>
       <h2>[[i18n('userManagement.editUser.heading')]]</h2>
-      <iron-form  id="editUserForm">
+      <iron-form id="editUserForm">
         <form class="vertical layout">
-          <nuxeo-input label="[[i18n('userManagement.username')]]" value="[[user.properties.username]]"
-                       readonly required></nuxeo-input>
-          <nuxeo-layout id="layout" href="[[_layoutHref('nuxeo-edit-user.html')]]"></nuxeo-layout>
+          <nuxeo-input
+            label="[[i18n('userManagement.username')]]"
+            value="[[user.properties.username]]"
+            readonly
+            required
+          ></nuxeo-input>
+          <nuxeo-layout
+            id="layout"
+            href="[[_layoutHref('nuxeo-edit-user.html')]]"
+          ></nuxeo-layout>
         </form>
       </iron-form>
       <div class="buttons horizontal end-justified layout">
         <div class="flex start-justified">
-          <paper-button noink dialog-dismiss>[[i18n('command.cancel')]]</paper-button>
+          <paper-button noink dialog-dismiss
+            >[[i18n('command.cancel')]]</paper-button
+          >
         </div>
         <paper-button noink class="primary" on-click="_submitEditUser">
           [[i18n('command.save.changes')]]
@@ -416,29 +478,31 @@ limitations under the License.
        * @appliesMixin Nuxeo.FiltersBehavior
        * @memberof Nuxeo
        */
-      class UserManagement extends Polymer.mixinBehaviors([Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior], Nuxeo.Element) {
-
+      class UserManagement extends Polymer.mixinBehaviors(
+        [Nuxeo.I18nBehavior, Nuxeo.FiltersBehavior],
+        Nuxeo.Element
+      ) {
         static get is() {
-          return 'nuxeo-user-management';
+          return "nuxeo-user-management";
         }
 
         static get properties() {
           return {
             username: {
               type: String,
-              observer: '_fetch',
+              observer: "_fetch",
             },
 
             user: Object,
 
             groups: {
               type: Object,
-              computed: '_computeGroups(user)',
+              computed: "_computeGroups(user)",
             },
 
             selectedGroup: {
               type: Object,
-              observer: '_groupSelected',
+              observer: "_groupSelected",
             },
 
             activity: {
@@ -484,9 +548,7 @@ limitations under the License.
         }
 
         static get observers() {
-          return [
-            '_userRemovedFromGroup(groups.splices)',
-          ];
+          return ["_userRemovedFromGroup(groups.splices)"];
         }
 
         /**
@@ -497,14 +559,20 @@ limitations under the License.
 
         ready() {
           super.ready();
-          this.$.editUserForm.addEventListener('iron-form-presubmit', (event) => {
-            event.preventDefault();
-            this._saveUser();
-          });
-          this.$.changePasswordForm.addEventListener('iron-form-presubmit', (event) => {
-            event.preventDefault();
-            this._savePassword();
-          });
+          this.$.editUserForm.addEventListener(
+            "iron-form-presubmit",
+            (event) => {
+              event.preventDefault();
+              this._saveUser();
+            }
+          );
+          this.$.changePasswordForm.addEventListener(
+            "iron-form-presubmit",
+            (event) => {
+              event.preventDefault();
+              this._savePassword();
+            }
+          );
         }
 
         _fetch() {
@@ -522,11 +590,16 @@ limitations under the License.
         _computeHeaders() {
           const headers = {};
 
-          const fetch = Nuxeo.UI && Nuxeo.UI.config && Nuxeo.UI.config.user &&
-            Nuxeo.UI.config.user.management && Nuxeo.UI.config.user.management.fetch || {};
+          const fetch =
+            (Nuxeo.UI &&
+              Nuxeo.UI.config &&
+              Nuxeo.UI.config.user &&
+              Nuxeo.UI.config.user.management &&
+              Nuxeo.UI.config.user.management.fetch) ||
+            {};
           // generate fetch headers
           Object.keys(fetch).forEach((f) => {
-            headers[`fetch-${f}`] = fetch[f].join(',');
+            headers[`fetch-${f}`] = fetch[f].join(",");
           });
           return headers;
         }
@@ -536,18 +609,38 @@ limitations under the License.
         }
 
         _hasAdministrationPermissions(currentUser) {
-          return currentUser && (currentUser.isAdministrator ||
-              (this.isMember(currentUser, 'powerusers') && !this.user.isAdministrator));
+          return (
+            currentUser &&
+            (currentUser.isAdministrator ||
+              (this.isMember(currentUser, "powerusers") &&
+                !this.user.isAdministrator))
+          );
         }
 
         _canEdit(readonly, currentUser, user) {
-          return !readonly && this.user && currentUser && (this._hasAdministrationPermissions(currentUser) ||
-              this._isSameUsername(currentUser.properties.username, user.properties.username));
+          return (
+            !readonly &&
+            this.user &&
+            currentUser &&
+            (this._hasAdministrationPermissions(currentUser) ||
+              this._isSameUsername(
+                currentUser.properties.username,
+                user.properties.username
+              ))
+          );
         }
 
         _canDelete(readonly, currentUser, user) {
-          return !readonly && this.user && currentUser && this._hasAdministrationPermissions(currentUser) &&
-              !this._isSameUsername(currentUser.properties.username, user.properties.username);
+          return (
+            !readonly &&
+            this.user &&
+            currentUser &&
+            this._hasAdministrationPermissions(currentUser) &&
+            !this._isSameUsername(
+              currentUser.properties.username,
+              user.properties.username
+            )
+          );
         }
 
         _isSameUsername(username1, username2) {
@@ -556,14 +649,21 @@ limitations under the License.
 
         _computeGroups() {
           if (this.user) {
-            return this.user.extendedGroups.filter((group) => this.user.properties.groups.indexOf(group.name) > -1);
+            return this.user.extendedGroups.filter(
+              (group) => this.user.properties.groups.indexOf(group.name) > -1
+            );
           }
         }
 
         _groupSelected() {
           if (this.selectedGroup) {
-            if (!this._isAdministrator(this._currentUser) && this.selectedGroup.groupname === 'administrators') {
-              this.errors = this.i18n('userManagement.errorAdministratorsGroup');
+            if (
+              !this._isAdministrator(this._currentUser) &&
+              this.selectedGroup.groupname === "administrators"
+            ) {
+              this.errors = this.i18n(
+                "userManagement.errorAdministratorsGroup"
+              );
               this.selectedGroup = null;
               return;
             }
@@ -571,11 +671,17 @@ limitations under the License.
               name: this.selectedGroup.groupname,
               label: this.selectedGroup.grouplabel,
             };
-            this.push('activity', group);
+            this.push("activity", group);
             this.$.request.path = `user/${this.user.id}/group/${group.name}`;
             this.$.request.post().then((response) => {
               this.user = response;
-              this._toast(this.i18n('userManagement.addedUserToGroup', this.user.id, group.name));
+              this._toast(
+                this.i18n(
+                  "userManagement.addedUserToGroup",
+                  this.user.id,
+                  group.name
+                )
+              );
             });
           }
           this.selectedGroup = null;
@@ -587,7 +693,13 @@ limitations under the License.
           return this.$.request.remove().then(() => {
             this._removeRecent(group.name);
             this._removeFromGroup(group.name);
-            this._toast(this.i18n('userManagement.removedUserFromGroup', this.user.id, group.name));
+            this._toast(
+              this.i18n(
+                "userManagement.removedUserFromGroup",
+                this.user.id,
+                group.name
+              )
+            );
           });
         }
 
@@ -595,7 +707,7 @@ limitations under the License.
           // remove from 'recent', if it exists
           for (let i = 0; i < this.activity.length; i++) {
             if (this.activity[i].name === group) {
-              this.splice('activity', i, 1);
+              this.splice("activity", i, 1);
               return;
             }
           }
@@ -608,7 +720,7 @@ limitations under the License.
           this.user.properties.groups.splice(idx, 1);
           for (let i = 0; i < this.groups.length; i++) {
             if (this.groups[i].name === group) {
-              this.splice('groups', i, 1);
+              this.splice("groups", i, 1);
               return;
             }
           }
@@ -620,6 +732,8 @@ limitations under the License.
 
         _toggleEditGroups() {
           this.showEditGroups = !this.showEditGroups;
+          this.selectedGroup = null;
+          this.$.picker.value = "";
         }
 
         _toggleDialog(e) {
@@ -640,18 +754,24 @@ limitations under the License.
 
         _savePassword() {
           this.$.editRequest.data = JSON.parse(JSON.stringify(this.user));
-          this.$.editRequest.data.properties.password = this.$.passwordEditor.password;
-          this.$.editRequest.put().then((response) => {
-            this.user = response;
-            this._toast(this.i18n('userManagement.password.changed'));
-            this.$.changePasswordDialog.toggle();
-          }).catch(() => {
-            this._toast(this.i18n('userProfile.password.error'));
-          });
+          this.$.editRequest.data.properties.password =
+            this.$.passwordEditor.password;
+          this.$.editRequest
+            .put()
+            .then((response) => {
+              this.user = response;
+              this._toast(this.i18n("userManagement.password.changed"));
+              this.$.changePasswordDialog.toggle();
+            })
+            .catch(() => {
+              this._toast(this.i18n("userProfile.password.error"));
+            });
         }
 
         _toggleEditUser() {
-          this.$.layout.model = { user: JSON.parse(JSON.stringify(this.user.properties)) };
+          this.$.layout.model = {
+            user: JSON.parse(JSON.stringify(this.user.properties)),
+          };
           this.$.editUserDialog.toggle();
         }
 
@@ -666,7 +786,7 @@ limitations under the License.
           this.$.editRequest.data = editedUser;
           this.$.editRequest.put().then((response) => {
             this.user = response;
-            this._toast(this.i18n('userManagement.user.updated'));
+            this._toast(this.i18n("userManagement.user.updated"));
           });
         }
 
@@ -677,20 +797,24 @@ limitations under the License.
         _deleteUser() {
           this.$.deleteUserDialog.toggle();
           this.$.editRequest.remove().then(() => {
-            this.dispatchEvent(new CustomEvent('nuxeo-user-deleted', {
-              composed: true,
-              bubbles: true,
-              detail: this.user,
-            }));
+            this.dispatchEvent(
+              new CustomEvent("nuxeo-user-deleted", {
+                composed: true,
+                bubbles: true,
+                detail: this.user,
+              })
+            );
             this._goHome();
           });
         }
 
         _goHome() {
-          this.dispatchEvent(new CustomEvent('goHome', {
-            composed: true,
-            bubbles: true,
-          }));
+          this.dispatchEvent(
+            new CustomEvent("goHome", {
+              composed: true,
+              bubbles: true,
+            })
+          );
         }
 
         _resultsFilter(entry) {
