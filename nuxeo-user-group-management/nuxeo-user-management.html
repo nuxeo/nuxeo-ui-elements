@@ -620,6 +620,8 @@ limitations under the License.
 
         _toggleEditGroups() {
           this.showEditGroups = !this.showEditGroups;
+          this.selectedGroup = null;
+          this.$.picker.value = '';
         }
 
         _toggleDialog(e) {
