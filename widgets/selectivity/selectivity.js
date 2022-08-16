@@ -3372,9 +3372,9 @@ var callSuper = Selectivity.inherits(MultipleInput, Selectivity, {
     _updateInputWidth: function() {
         var inputContent =
             this.input.value || (!this._data.length && this.options.placeholder) || '';
-        const placeholderLength= typeof this.options.placeholder!== 'undefined' && this.options.placeholder.length;
-        if (this.enabled && !this._data.length && inputContent.length<=placeholderLength) {
-            this.input.setAttribute('size',placeholderLength);
+        const placeholderLength = typeof this.options.placeholder !== 'undefined' && this.options.placeholder.length;
+        if (this.enabled && !this._data.length && inputContent.length <= placeholderLength) {
+            this.input.setAttribute('size', placeholderLength);
         } else {
             this.input.setAttribute('size', inputContent.length + 2);
         }
