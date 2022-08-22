@@ -34,6 +34,8 @@ limitations under the License.
   <template>
     <style include="nuxeo-action-button-styles"></style>
 
+    <nuxeo-document id="doc" doc-id="[[parentDoc.uid]]" enrichers="permissions" auto response="{{_enrichedParent}}"></nuxeo-document>
+
     <nuxeo-operation id="deleteOp" op="Document.Delete" input="[[document.uid]]" sync-indexing></nuxeo-operation>
 
     <nuxeo-operation id="trashOp" op="Document.Trash" input="[[document.uid]]" sync-indexing></nuxeo-operation>
@@ -80,6 +82,10 @@ limitations under the License.
              */
             document: Object,
 
+            parentDoc: {
+              type: Object
+            },
+
             /**
              * Icon to use (iconset_name:icon_name).
              */
@@ -114,7 +120,8 @@ limitations under the License.
 
         _isAvailable(doc) {
           return doc && !this.isVersion(doc) &&
-            this.hasPermission(doc, 'Remove') && (!this.isTrashed(doc) || this.hard);
+            this.hasPermission(doc, 'Remove') && this.hasPermission(this._enrichedParent, 'RemoveChildren') && 
+            (!this.isTrashed(doc) || this.hard);
         }
 
         _computeIcon(hard) {
