@@ -129,6 +129,10 @@ limitations under the License.
         padding: 1.5em .7em;
         text-align: center;
       }
+
+      .title {
+        word-break: break-all;
+      }
     </style>
 
     <nuxeo-operation id="permissions" op="Repository.Query" enrichers="acls"></nuxeo-operation>
@@ -157,7 +161,7 @@ limitations under the License.
           <dom-repeat items="[[documents]]" as="document">
             <template>
               <div class="table-row">
-                <div class="flex-3">
+                <div class="flex-3 title">
                   <div>[[document.title]]</div>
                   <div class="ace-permission-path">[[document.path]]</div>
                 </div>
