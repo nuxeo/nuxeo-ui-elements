@@ -4,42 +4,46 @@
   from HTML and may be out of place here. Review them and
   then delete this comment!
 */
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import '@nuxeo/nuxeo-elements/nuxeo-element.js';
-import { microTask } from '@polymer/polymer/lib/utils/async.js';
-import './data-table-templatizer-behavior.js';
+import { html } from "@polymer/polymer/lib/utils/html-tag.js";
+import { mixinBehaviors } from "@polymer/polymer/lib/legacy/class.js";
+import "@nuxeo/nuxeo-elements/nuxeo-element.js";
+import { microTask } from "@polymer/polymer/lib/utils/async.js";
+import "./data-table-templatizer-behavior.js";
 
 {
   // eslint-disable-next-line no-undef
-  class DataTableCell extends mixinBehaviors([saulis.DataTableTemplatizerBehavior], Nuxeo.Element) {
+  class DataTableCell extends mixinBehaviors(
+    [saulis.DataTableTemplatizerBehavior],
+    Nuxeo.Element
+  ) {
     static get template() {
       return html`
-    <style>
-      :host {
-        flex: 1 0 100px;
-        padding: 0 24px;
-        min-height: 48px;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        transition: flex-basis 200ms, flex-grow 200ms;
-      }
+        <style>
+          :host {
+            flex: 1 0 100px;
+            padding: 0 24px;
+            min-height: 48px;
+            min-width: 174px,
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            transition: flex-basis 200ms, flex-grow 200ms;
+          }
 
-      :host([header]) {
-        height: 56px;
-      }
+          :host([header]) {
+            height: 56px;
+          }
 
-      :host([hidden]) {
-        display: none;
-      }
-    </style>
-    <slot></slot>
-`;
+          :host([hidden]) {
+            display: none;
+          }
+        </style>
+        <slot></slot>
+      `;
     }
 
     static get is() {
-      return 'nuxeo-data-table-cell';
+      return "nuxeo-data-table-cell";
     }
 
     static get properties() {
@@ -56,7 +60,7 @@ import './data-table-templatizer-behavior.js';
         beforeBind: {
           type: Object,
           value() {
-            return function (data, cell) { }; // eslint-disable-line no-unused-vars
+            return function (data, cell) {}; // eslint-disable-line no-unused-vars
           },
         },
       };
@@ -64,20 +68,20 @@ import './data-table-templatizer-behavior.js';
 
     static get observers() {
       return [
-        '_beforeBind(beforeBind, column.*, index, item.*, expanded, selected)',
-        '_beforeBindHeader(beforeBind, column.*)',
-        '_alignRightChanged(alignRight)',
-        '_columnChanged(_instance, column)',
-        '_columnPathChanged(_instance, column.*)',
-        '_flexChanged(flex)',
-        '_hiddenChanged(hidden)',
-        '_orderChanged(order)',
-        '_widthChanged(width)',
+        "_beforeBind(beforeBind, column.*, index, item.*, expanded, selected)",
+        "_beforeBindHeader(beforeBind, column.*)",
+        "_alignRightChanged(alignRight)",
+        "_columnChanged(_instance, column)",
+        "_columnPathChanged(_instance, column.*)",
+        "_flexChanged(flex)",
+        "_hiddenChanged(hidden)",
+        "_orderChanged(order)",
+        "_widthChanged(width)",
       ];
     }
 
     _alignRightChanged(alignRight) {
-      this.style.flexDirection = alignRight ? 'row-reverse' : 'row';
+      this.style.flexDirection = alignRight ? "row-reverse" : "row";
     }
 
     _beforeBind(beforeBind, column, index, item, expanded, selected) {
@@ -104,7 +108,7 @@ import './data-table-templatizer-behavior.js';
     }
 
     _hiddenChanged(hidden) {
-      this.toggleAttribute('hidden', hidden);
+      this.toggleAttribute("hidden", hidden);
     }
 
     _orderChanged(order) {
