@@ -20,6 +20,7 @@ import './data-table-templatizer-behavior.js';
         flex: 1 0 100px;
         padding: 0 24px;
         min-height: 48px;
+        min-width: 174px;
         display: flex;
         align-items: center;
         overflow: hidden;
