@@ -53,6 +53,7 @@ IronOverlayManager._overlayWithBackdrop = function () {
     <style include="paper-dialog-shared-styles">
       :host {
         @apply --nuxeo-dialog;
+        visibility: visible;
       }
 
       :host > ::slotted(h2),
