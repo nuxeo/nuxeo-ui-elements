@@ -15,13 +15,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<link rel="import" href="../../iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../../nuxeo-elements/nuxeo-element.html">
-<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../../paper-item/paper-item.html">
-<link rel="import" href="../../polymer/lib/elements/dom-if.html">
-<link rel="import" href="../../polymer/lib/elements/dom-repeat.html">
-<link rel="import" href="../../paper-listbox/paper-listbox.html">
+<link
+  rel="import"
+  href="../../iron-validatable-behavior/iron-validatable-behavior.html"
+/>
+<link rel="import" href="../../nuxeo-elements/nuxeo-element.html" />
+<link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html" />
+<link rel="import" href="../../paper-item/paper-item.html" />
+<link rel="import" href="../../polymer/lib/elements/dom-if.html" />
+<link rel="import" href="../../polymer/lib/elements/dom-repeat.html" />
+<link rel="import" href="../../paper-listbox/paper-listbox.html" />
 
 <dom-module id="nuxeo-select">
   <template>
@@ -31,7 +34,7 @@ limitations under the License.
         position: relative;
         --paper-input-container-underline: {
           border-bottom: 1px solid var(--paper-input-container-input-color) !important;
-        };
+        }
       }
 
       :host([hidden]) {
@@ -40,8 +43,8 @@ limitations under the License.
 
       :host([required]) label::after {
         display: inline-block;
-        content: '*';
-        margin-left: 4px; 
+        content: "*";
+        margin-left: 4px;
         color: var(--paper-input-container-invalid-color, red);
       }
 
@@ -49,11 +52,11 @@ limitations under the License.
         padding: 0;
         --paper-listbox-selected-item: {
           font-weight: normal;
-        };
+        }
         --paper-listbox-focused-item: {
           font-weight: normal;
           color: var(--paper-input-container-input-color);
-        };
+        }
         --paper-listbox-focused-item-after: {
           font-weight: normal;
           color: var(--nuxeo-box, white);
@@ -82,33 +85,44 @@ limitations under the License.
         color: var(--paper-input-container-input-color);
       }
 
-      ::slotted(paper-item:hover), ::slotted(paper-item[pressed]) {
+      ::slotted(paper-item:hover),
+      ::slotted(paper-item[pressed]) {
         background: var(--paper-input-container-focus-color);
         color: var(--nuxeo-text-color, white) !important;
+      }
+      :host-context(#actionsDropdown)
+        #paperDropdownMenu
+        paper-listbox#paperMenu {
+        max-height: 80vh;
       }
     </style>
 
     <label>[[label]]</label>
 
-    <paper-dropdown-menu id="paperDropdownMenu"
-                         placeholder="[[placeholder]]"
-                         error-message="[[errorMessage]]"
-                         no-label-float
-                         noink
-                         no-animations
-                         restore-focus-on-close="false"
-                         horizontal-align="[[horizontalAlign]]"
-                         vertical-align="[[verticalAlign]]"
-                         dynamic-align="[[dynamicAlign]]"
-                         on-paper-dropdown-open="_resize"
-                         readonly$="[[readonly]]"
-                         disabled$="[[disabled]]"
-                         required$="[[required]]"
-                         validator$="[[validator]]"
-                         invalid$="[[invalid]]">
-
-      <paper-listbox id="paperMenu" slot="dropdown-content"
-                  attr-for-selected="[[_computeAttrForSelected(attrForSelected, options)]]" selected="{{selected}}">
+    <paper-dropdown-menu
+      id="paperDropdownMenu"
+      placeholder="[[placeholder]]"
+      error-message="[[errorMessage]]"
+      no-label-float
+      noink
+      no-animations
+      restore-focus-on-close="false"
+      horizontal-align="[[horizontalAlign]]"
+      vertical-align="[[verticalAlign]]"
+      dynamic-align="[[dynamicAlign]]"
+      on-paper-dropdown-open="_resize"
+      readonly$="[[readonly]]"
+      disabled$="[[disabled]]"
+      required$="[[required]]"
+      validator$="[[validator]]"
+      invalid$="[[invalid]]"
+    >
+      <paper-listbox
+        id="paperMenu"
+        slot="dropdown-content"
+        attr-for-selected="[[_computeAttrForSelected(attrForSelected, options)]]"
+        selected="{{selected}}"
+      >
         <dom-if if="[[options]]">
           <template>
             <dom-repeat items="[[options]]" as="item">
@@ -121,7 +135,6 @@ limitations under the License.
         <slot></slot>
       </paper-listbox>
     </paper-dropdown-menu>
-
   </template>
 
   <script>
@@ -138,11 +151,12 @@ limitations under the License.
        * @memberof Nuxeo
        * @demo demo/nuxeo-select/index.html
        */
-      class Select extends
-        Polymer.mixinBehaviors([Polymer.IronResizableBehavior, Polymer.IronValidatableBehavior], Nuxeo.Element) {
-
+      class Select extends Polymer.mixinBehaviors(
+        [Polymer.IronResizableBehavior, Polymer.IronValidatableBehavior],
+        Nuxeo.Element
+      ) {
         static get is() {
-          return 'nuxeo-select';
+          return "nuxeo-select";
         }
 
         static get properties() {
@@ -160,7 +174,7 @@ limitations under the License.
              */
             placeholder: {
               type: String,
-              value: ' ',
+              value: " ",
             },
 
             /**
@@ -200,7 +214,7 @@ limitations under the License.
              */
             horizontalAlign: {
               type: String,
-              value: 'left',
+              value: "left",
             },
 
             /**
@@ -209,7 +223,7 @@ limitations under the License.
              */
             verticalAlign: {
               type: String,
-              value: 'top',
+              value: "top",
             },
 
             /**
@@ -250,7 +264,7 @@ limitations under the License.
 
         ready() {
           super.ready();
-          this.addEventListener('iron-resize', this._resize);
+          this.addEventListener("iron-resize", this._resize);
         }
 
         close() {
@@ -263,30 +277,31 @@ limitations under the License.
           button.verticalOffset = -8;
           const width = this.getBoundingClientRect().width;
           if (width > 0) {
-            this.$.paperDropdownMenu.style.width = this.$.paperMenu.style.width = `${width}px`;
+            this.$.paperDropdownMenu.style.width =
+              this.$.paperMenu.style.width = `${width}px`;
           }
         }
 
         _id(item) {
-          if (!this.selected) { // select first item as default selection
-            this.selected = (item && item.id) ? item.id : item;
+          if (!this.selected) {
+            // select first item as default selection
+            this.selected = item && item.id ? item.id : item;
           }
-          return (item && item.id) ? item.id : item;
+          return item && item.id ? item.id : item;
         }
 
         _label(item) {
-          return (item && item.label) ? item.label : item;
+          return item && item.label ? item.label : item;
         }
 
         _computeAttrForSelected(attrForSelected, options) {
-          return options ? 'option' : attrForSelected;
+          return options ? "option" : attrForSelected;
         }
 
         /* Override method from Polymer.IronValidatableBehavior. */
         _getValidity() {
           return this.$.paperDropdownMenu._getValidity();
         }
-
       }
 
       customElements.define(Select.is, Select);
