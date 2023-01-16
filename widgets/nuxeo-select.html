@@ -86,6 +86,10 @@ limitations under the License.
         background: var(--paper-input-container-focus-color);
         color: var(--nuxeo-text-color, white) !important;
       }
+
+      :host-context(#actionsDropdown) #paperDropdownMenu paper-listbox#paperMenu {
+            max-height: 80vh;
+      }
     </style>
 
     <label>[[label]]</label>
