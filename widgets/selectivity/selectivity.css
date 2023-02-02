@@ -216,7 +216,7 @@ input[type='text'].selectivity-multiple-input:focus {
 
 .selectivity-caret {
   position: absolute;
-  top: 1.05em;
+  top: 1.9em;
   right: 5px;
 }
 
