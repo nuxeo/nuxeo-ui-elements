@@ -3549,7 +3549,7 @@ var callSuper = Selectivity.inherits(SingleInput, Selectivity, {
      */
     validateValue: function(value) {
        // console.log(value)
-        if (value === null || Selectivity.isValidId(value)) {
+        if (value == null || Selectivity.isValidId(value)) {
             return value;
         } else {
             throw new Error('Value for SingleSelectivity instance should be a valid ID or null');
