@@ -195,6 +195,7 @@
   "selectivity.minChars": "Please enter {0} or more characters",
   "selectivity.noResults": "No results found",
   "selectivity.noResultsForTerm": "No results for {0}",
+  "selectivity.tagExists": "Tag already exists",
   "shareButton.dialog.close": "Close",
   "shareButton.dialog.heading": "Share the Document",
   "shareButton.operation.copied": "Link Copied",
