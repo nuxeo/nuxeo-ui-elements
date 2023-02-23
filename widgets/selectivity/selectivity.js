@@ -2334,9 +2334,12 @@ assign(SelectivityDropdown.prototype, {
         }
 
         var filteredResults = this.selectivity.filterResults(results);
+        var value = this.selectivity.getValue();
         var resultsHtml = this.renderItems(filteredResults);
         if (options.hasMore) {
             resultsHtml += this.selectivity.template('loadMore');
+        } else if (value && Array.isArray(value) && value.includes(options.term)) {
+            resultsHtml = this.selectivity.template('tagExists');
         } else if (!resultsHtml && !options.add) {
             resultsHtml = this.selectivity.template('noResults', { term: options.term });
         }
@@ -2345,8 +2348,6 @@ assign(SelectivityDropdown.prototype, {
         this.results = options.add ? this.results.concat(results) : results;
 
         this.hasMore = options.hasMore;
-
-        var value = this.selectivity.getValue();
         if (value && !Array.isArray(value)) {
             var item = Selectivity.findNestedById(results, value);
             if (item) {
@@ -3620,6 +3621,7 @@ module.exports = Selectivity.Locale = {
     loading: 'Loading...',
     loadMore: 'Load more...',
     noResults: 'No results found',
+    tagExists: 'Tag already exists',
 
     ajaxError: function(term) {
         if (term) {
@@ -6162,6 +6164,18 @@ Selectivity.Templates = {
             '</div>'
         );
     },
+
+    /**
+     * Renders a message that tag entered already added
+     *
+     */
+
+     tagExists() {
+        return (
+          '<div class="selectivity-error" aria-live="polite">' + 
+          Selectivity.Locale.tagExists + '</div>'
+        );
+      },
 
     /**
      * Renders a container for item children.
