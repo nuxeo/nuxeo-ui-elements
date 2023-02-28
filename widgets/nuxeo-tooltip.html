@@ -82,6 +82,7 @@ limitations under the License.
           // reference is used in addEventListener and removeEventListener (and prevent potential memory leaks)
           this._showListener = this.show.bind(this);
           this._hideListener = this.hide.bind(this);
+          this._keyListener = this.keydown.bind(this);
         }
 
         connectedCallback() {
@@ -93,6 +94,7 @@ limitations under the License.
             this._target.addEventListener('mouseleave', this._hideListener);
             this._target.addEventListener('blur', this._hideListener);
             this._target.addEventListener('tap', this._hideListener);
+            window.addEventListener('keydown', this._keyListener);
           }
         }
 
@@ -104,6 +106,7 @@ limitations under the License.
             this._target.removeEventListener('mouseleave', this._hideListener);
             this._target.removeEventListener('blur', this._hideListener);
             this._target.removeEventListener('tap', this._hideListener);
+            window.addEventListener('keydown', this._keyListener);
           }
           this._target = null;
         }
@@ -132,10 +135,15 @@ limitations under the License.
         }
 
         hide() {
-          if (this._tooltip) {
-            document.body.removeChild(this._tooltip);
-            this._tooltip = null;
+          const paperToolTip = document.getElementsByTagName('paper-tooltip');
+          if (paperToolTip[0]) {
+            document.body.removeChild(paperToolTip[0]);
           }
+          this._tooltip = null;
+        }
+
+        keydown() {
+          this.hide();
         }
 
         /**
