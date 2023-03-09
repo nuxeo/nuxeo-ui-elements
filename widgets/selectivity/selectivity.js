@@ -2327,7 +2327,7 @@
          *                term - The search term for which the results are displayed.
          */
         showResults: function(results, options) {
-            const searchText = options && options.term && options.term.trim();
+            var searchText = options && options.term && options.term.trim();
             if (options.add) {
                 removeElement(this.$('.selectivity-loading'));
             } else if (searchText && searchText !== '') {
@@ -2347,7 +2347,7 @@
             }
             if (resultsHtml) {
                 this.resultsContainer.innerHTML += resultsHtml;
-              }
+            }
     
             this.results = options.add ? this.results.concat(results) : results;
     
@@ -6446,4 +6446,3 @@
     
     },{}]},{},[75])(75)
     });
-    
