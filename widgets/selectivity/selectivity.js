@@ -2326,24 +2326,28 @@ assign(SelectivityDropdown.prototype, {
      *                          function.
      *                term - The search term for which the results are displayed.
      */
-    showResults: function(results, options) {
+     showResults: function(results, options) {
+        var searchText = options && options.term && options.term.trim();
         if (options.add) {
             removeElement(this.$('.selectivity-loading'));
-        } else {
+        } else if (searchText && searchText !== '') {
             this.resultsContainer.innerHTML = '';
         }
 
         var filteredResults = this.selectivity.filterResults(results);
         var value = this.selectivity.getValue();
-        var resultsHtml = this.renderItems(filteredResults);
+        var isFilteredResultNotEmpty = filteredResults.some((item) => item.text.trim() !== '');
+        var resultsHtml = isFilteredResultNotEmpty ? this.renderItems(filteredResults) : '';
         if (options.hasMore) {
             resultsHtml += this.selectivity.template('loadMore');
         } else if (value && Array.isArray(value) && value.includes(options.term)) {
             resultsHtml = this.selectivity.template('tagExists');
-        } else if (!resultsHtml && !options.add) {
+        } else if (!resultsHtml && !options.add && searchText) {
             resultsHtml = this.selectivity.template('noResults', { term: options.term });
         }
-        this.resultsContainer.innerHTML += resultsHtml;
+        if (resultsHtml) {
+            this.resultsContainer.innerHTML += resultsHtml;
+        }
 
         this.results = options.add ? this.results.concat(results) : results;
 
