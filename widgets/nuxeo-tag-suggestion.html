@@ -273,6 +273,7 @@ limitations under the License.
         }
 
         _observeDocument() {
+          const arr = [];
           if (this.document) {
             if (this.document.contextParameters && this.document.contextParameters.tags) {
               this.value = this.document.contextParameters.tags;
@@ -282,7 +283,6 @@ limitations under the License.
                   "Make sure you use the 'tags' enricher to fetch the document");
             }
           } else {
-            var arr = [];
             this.value = arr;
           }
         }
