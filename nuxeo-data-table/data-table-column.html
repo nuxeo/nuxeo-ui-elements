@@ -130,6 +130,17 @@
               type: Object,
               readOnly: true,
             },
+
+            /**
+             * Controls how cells content is displayed when larger than their column. Applies to this column only.
+             * Authorized values are auto (display an horizontal scrollbar inside the cells when necessary, recommended
+             * for multivalued properties) or hidden (hide overflowing content, recommended for finer control over display).
+             * Defaults to hidden.
+             */
+            overflow: {
+              type: String,
+              value: 'hidden',
+            },
           };
         }
 
@@ -139,6 +150,7 @@
             '_filterValueChanged(table, filterValue, filterBy, filterExpression)',
             '_filterByChanged(table, filterBy)',
             '_flexChanged(table, flex)',
+            '_overflowChanged(table, overflow)',
             '_headerTemplateChanged(table, headerTemplate)',
             '_hiddenChanged(table, hidden)',
             '_alwaysVisibleChanged(table, alwaysVisible)',
@@ -182,6 +194,10 @@
 
         _flexChanged(table, flex) {
           this._notifyTable(table, 'flex', flex);
+        }
+
+        _overflowChanged(table, overflow) {
+          this._notifyTable(table, 'overflow', overflow);
         }
 
         _headerTemplateChanged(table, headerTemplate) {
