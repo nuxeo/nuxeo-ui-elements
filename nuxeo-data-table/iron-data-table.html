@@ -197,6 +197,7 @@ limitations under the License.
                                order="[[column.order]]"
                                table="[[_this]]"
                                template="[[column.headerTemplate]]"
+                               overflow="[[column.overflow]]"
                                width="[[column.width]]">
                 <nuxeo-data-table-column-sort sort-order="[[sortOrder]]" path="[[column.sortBy]]" on-sort-direction-changed="_sort" hidden$="[[!column.sortBy]]"></nuxeo-data-table-column-sort>
               </nuxeo-data-table-cell>
@@ -244,6 +245,7 @@ limitations under the License.
                                  order="[[column.order]]"
                                  selected="[[_isSelected(item, selectedItems, selectedItems.*)]]"
                                  width="[[column.width]]"
+                                 overflow="[[column.overflow]]"
                                  before-bind="[[beforeCellBind]]"></nuxeo-data-table-cell>
                 </template>
               </dom-repeat>
