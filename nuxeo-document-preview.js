@@ -252,7 +252,7 @@ import './viewers/nuxeo-video-viewer.js';
     }
 
     _computeVideoSources() {
-      if (this.document && this.document.properties && this.document.properties['vid:transcodedVideos']
+      if (this.document && this.document.properties && this.document.properties['vid:transcodedVideos']?.length > 0
           && this.xpath === 'file:content') {
         const conversions = [];
         this.document.properties['vid:transcodedVideos'].forEach((conversion) => {
