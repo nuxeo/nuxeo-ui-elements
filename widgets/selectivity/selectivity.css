@@ -31,6 +31,7 @@
   z-index: 9999;
   word-break: break-all;
   background: var(--nuxeo-dropdown-list-background, #fff);
+  position: sticky;
 }
 
 .selectivity-search-input-container {
